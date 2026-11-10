@@ -292,33 +292,40 @@ tailwind.config = {
       </div>
     </div>
 
-    <!-- Right: Hero Visual -->
+    <!-- Right: Hero Video -->
     <div class="lg:col-span-5 relative flex items-center justify-center" data-animate>
       <div class="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-neon-magenta/15 via-transparent to-stage-gold/10 blur-xl -z-10"></div>
-      <div class="relative w-full max-w-md rounded-2xl overflow-hidden border border-border-subtle bg-surface-elevated shadow-2xl tilt-card group">
-        <div class="aspect-[3/4] img-placeholder">
-          <span class="material-symbols-outlined">image</span>
+      <div class="relative w-full max-w-md rounded-2xl overflow-hidden border border-border-glow bg-surface-elevated shadow-2xl tilt-card group" style="box-shadow: 0 8px 40px -8px rgba(250,37,126,0.3);">
+        <div class="aspect-[9/16] relative overflow-hidden">
+          <iframe
+            id="heroVideo"
+            src="https://www.youtube.com/embed/HMk7x9cX_eU?start=3&end=98&autoplay=1&mute=1&loop=1&playlist=HMk7x9cX_eU&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1"
+            title="MAR Entertainment Group Showreel"
+            class="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            style="width: 300%; height: 100%; left: -100%; position: absolute; top: 0;"
+            allow="autoplay; encrypted-media"
+            frameborder="0"
+            loading="eager"
+          ></iframe>
+          <!-- Gradient overlays for cinematic feel -->
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-black via-transparent to-surface-black/30 pointer-events-none z-10"></div>
+          <div class="absolute inset-0 bg-gradient-to-r from-surface-black/20 via-transparent to-surface-black/20 pointer-events-none z-10"></div>
         </div>
         <!-- VIP Badge -->
-        <div class="absolute top-4 right-4 px-3.5 py-1.5 rounded-full bg-surface-black/80 backdrop-blur-md border border-border-subtle flex items-center gap-2">
+        <div class="absolute top-4 right-4 px-3.5 py-1.5 rounded-full bg-surface-black/80 backdrop-blur-md border border-border-subtle flex items-center gap-2 z-20">
           <span class="w-2 h-2 rounded-full bg-stage-gold"></span>
           <span class="text-[11px] font-display font-bold text-text-primary uppercase tracking-wider">Punta Cana VIP</span>
         </div>
         <!-- Bottom overlay -->
-        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-surface-black via-surface-black/80 to-transparent">
+        <div class="absolute bottom-0 left-0 right-0 p-6 z-20">
           <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]">Puesta en Escena</p>
           <p class="font-display font-bold text-xl text-text-primary mt-1">Dirección de Arte Total</p>
         </div>
-      </div>
-      <!-- Floating mini card -->
-      <div class="hidden sm:flex absolute -bottom-6 -left-8 p-3 rounded-2xl bg-surface-elevated/95 backdrop-blur-lg border border-border-glow shadow-2xl items-center gap-3 z-20 tilt-card">
-        <div class="w-12 h-12 rounded-xl img-placeholder">
-          <span class="material-symbols-outlined text-[24px]">image</span>
-        </div>
-        <div>
-          <p class="text-[11px] font-display font-bold text-text-primary uppercase">Sunset Sessions</p>
-          <p class="text-[11px] text-neon-magenta">Live DJ &amp; Golden Hour</p>
-        </div>
+        <!-- Mute toggle -->
+        <button class="absolute top-4 left-4 w-9 h-9 rounded-full bg-surface-black/70 backdrop-blur-md border border-border-subtle flex items-center justify-center text-text-primary hover:text-neon-magenta hover:border-neon-magenta/40 transition-all z-20" id="muteToggle" title="Activar sonido">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="muteIcon"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="unmuteIcon" class="hidden"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </button>
       </div>
     </div>
   </div>
@@ -1339,6 +1346,57 @@ ScrollTrigger.create({
     lastScroll = scroll;
   }
 });
+
+// ===== HERO VIDEO: Loop between 3s and 1:38, mute toggle =====
+let heroPlayer;
+function onYouTubeIframeAPIReady() {
+  heroPlayer = new YT.Player('heroVideo', {
+    events: {
+      onReady: (e) => {
+        e.target.seekTo(3);
+        e.target.playVideo();
+        // Check every 500ms if past 98s, loop back to 3s
+        setInterval(() => {
+          if (heroPlayer && heroPlayer.getCurrentTime && heroPlayer.getCurrentTime() >= 98) {
+            heroPlayer.seekTo(3);
+          }
+        }, 500);
+      },
+      onStateChange: (e) => {
+        // If video ends, restart from 3s
+        if (e.data === YT.PlayerState.ENDED) {
+          heroPlayer.seekTo(3);
+          heroPlayer.playVideo();
+        }
+      }
+    }
+  });
+}
+// Load YT API
+const ytScript = document.createElement('script');
+ytScript.src = 'https://www.youtube.com/iframe_api';
+document.head.appendChild(ytScript);
+
+// Mute toggle
+const muteToggle = document.getElementById('muteToggle');
+const muteIcon = document.getElementById('muteIcon');
+const unmuteIcon = document.getElementById('unmuteIcon');
+let isMuted = true;
+if (muteToggle) {
+  muteToggle.addEventListener('click', () => {
+    if (!heroPlayer) return;
+    isMuted = !isMuted;
+    if (isMuted) {
+      heroPlayer.mute();
+      muteIcon.classList.remove('hidden');
+      unmuteIcon.classList.add('hidden');
+    } else {
+      heroPlayer.unMute();
+      muteIcon.classList.add('hidden');
+      unmuteIcon.classList.remove('hidden');
+    }
+  });
+}
 
 // ===== LANGUAGE TOGGLE =====
 const langToggle = document.getElementById('langToggle');
