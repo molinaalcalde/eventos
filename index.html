@@ -234,24 +234,19 @@ tailwind.config = {
 <section class="relative min-h-screen flex items-center overflow-hidden" id="hero">
   <!-- Fullscreen YouTube Video Background -->
   <div class="absolute inset-0 z-0 overflow-hidden">
-    <iframe
-      id="heroVideo"
-      src="https://www.youtube.com/embed/HMk7x9cX_eU?start=3&end=98&autoplay=1&mute=1&loop=1&playlist=HMk7x9cX_eU&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1"
-      title="MAR Entertainment Group Showreel"
-      class="absolute pointer-events-none"
-      style="top: 50%; left: 50%; width: 177.78vh; min-width: 100%; height: 100vh; min-height: 56.25vw; transform: translate(-50%, -50%);"
-      allow="autoplay; encrypted-media"
-      frameborder="0"
-      loading="eager"
-    ></iframe>
+    <div id="heroVideoWrap" class="absolute" style="top: 50%; left: 50%; width: 177.78vh; min-width: 100%; height: 100vh; min-height: 56.25vw; transform: translate(-50%, -50%);">
+      <div id="heroVideo"></div>
+    </div>
   </div>
+  <!-- Black mask to hide YT loading/play button — fades out once video is playing -->
+  <div class="absolute inset-0 z-[1] bg-surface-black transition-opacity duration-1000" id="videoMask"></div>
   <!-- Dark overlays for readability -->
-  <div class="absolute inset-0 bg-surface-black/55 z-[1]"></div>
-  <div class="absolute inset-0 bg-gradient-to-t from-surface-black via-transparent to-surface-black/40 z-[1]"></div>
-  <div class="absolute inset-0 bg-gradient-to-r from-surface-black/60 via-transparent to-transparent z-[1]"></div>
+  <div class="absolute inset-0 bg-surface-black/50 z-[2]"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-surface-black via-transparent to-surface-black/40 z-[2]"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-surface-black/60 via-transparent to-transparent z-[2]"></div>
 
   <!-- Content -->
-  <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full pt-32 pb-24 lg:pt-40 lg:pb-32">
+  <div class="relative z-20 max-w-7xl mx-auto px-6 lg:px-12 w-full pt-32 pb-24 lg:pt-40 lg:pb-32">
     <div class="max-w-3xl flex flex-col gap-7">
       <!-- Badge -->
       <div class="flex flex-wrap items-center gap-3" data-animate>
@@ -263,10 +258,10 @@ tailwind.config = {
 
       <!-- Hero Headline with line reveal -->
       <div>
-        <h1 class="font-display font-[800] uppercase leading-[0.95] tracking-tight">
-          <div class="reveal-line"><span class="text-[clamp(40px,8vw,80px)] drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]" data-i18n="hero_line1">CREAMOS</span></div>
-          <div class="reveal-line"><span class="text-[clamp(34px,6.5vw,68px)] text-transparent bg-clip-text bg-gradient-to-r from-neon-magenta via-primary-container to-primary" style="-webkit-text-stroke: 0.5px rgba(250,37,126,0.3);" data-i18n="hero_line2">EXPERIENCIAS</span></div>
-          <div class="reveal-line"><span class="text-[clamp(40px,8vw,80px)] drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]" data-i18n="hero_line3">INOLVIDABLES</span></div>
+        <h1 class="font-display font-[800] uppercase leading-[0.93] tracking-tight">
+          <div class="reveal-line"><span class="text-[clamp(36px,7vw,72px)] drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]" data-i18n="hero_line1">CREAMOS</span></div>
+          <div class="reveal-line"><span class="text-[clamp(30px,5.5vw,58px)] text-transparent bg-clip-text bg-gradient-to-r from-neon-magenta via-primary-container to-primary" data-i18n="hero_line2">EXPERIENCIAS</span></div>
+          <div class="reveal-line"><span class="text-[clamp(36px,7vw,72px)] drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]" data-i18n="hero_line3">INOLVIDABLES</span></div>
         </h1>
         <div class="reveal-line mt-4">
           <span class="font-display font-bold text-[clamp(16px,2.5vw,22px)] text-stage-gold uppercase tracking-[0.12em]" data-i18n="hero_tagline">EL ARTE VIVE AQUÍ.</span>
@@ -309,13 +304,13 @@ tailwind.config = {
   </div>
 
   <!-- Mute toggle — bottom right -->
-  <button class="absolute bottom-8 right-8 w-11 h-11 rounded-full bg-surface-black/50 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/70 hover:text-neon-magenta hover:border-neon-magenta/40 transition-all z-20" id="muteToggle" title="Activar sonido">
+  <button class="absolute bottom-8 right-8 w-11 h-11 rounded-full bg-surface-black/50 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/70 hover:text-neon-magenta hover:border-neon-magenta/40 transition-all z-30" id="muteToggle" title="Activar sonido">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="muteIcon"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="unmuteIcon" class="hidden"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
   </button>
 
   <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 z-20" data-animate>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 z-30" data-animate>
     <span class="text-[11px] font-display font-bold uppercase tracking-widest" data-i18n="scroll">Scroll</span>
     <div class="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
       <div class="w-1 h-2 rounded-full bg-neon-magenta animate-bounce"></div>
@@ -1369,30 +1364,70 @@ ScrollTrigger.create({
   }
 });
 
-// ===== HERO VIDEO: Loop between 3s and 1:38, mute toggle =====
+// ===== HERO VIDEO: YT Player API — loop 4s to 1:37, black mask until playing =====
 let heroPlayer;
+const VIDEO_START = 4;
+const VIDEO_END = 97;
+const videoMask = document.getElementById('videoMask');
+let maskRemoved = false;
+
 function onYouTubeIframeAPIReady() {
   heroPlayer = new YT.Player('heroVideo', {
+    videoId: 'HMk7x9cX_eU',
+    playerVars: {
+      autoplay: 1,
+      mute: 1,
+      controls: 0,
+      showinfo: 0,
+      modestbranding: 1,
+      rel: 0,
+      playsinline: 1,
+      start: VIDEO_START,
+      end: VIDEO_END,
+      loop: 0,
+      disablekb: 1,
+      fs: 0,
+      iv_load_policy: 3,
+    },
     events: {
       onReady: (e) => {
-        e.target.seekTo(3);
+        e.target.seekTo(VIDEO_START, true);
         e.target.playVideo();
-        // Check every 500ms if past 98s, loop back to 3s
-        setInterval(() => {
-          if (heroPlayer && heroPlayer.getCurrentTime && heroPlayer.getCurrentTime() >= 98) {
-            heroPlayer.seekTo(3);
-          }
-        }, 500);
+        // Make iframe fill container
+        const iframe = document.querySelector('#heroVideoWrap iframe');
+        if (iframe) {
+          iframe.style.width = '100%';
+          iframe.style.height = '100%';
+          iframe.style.position = 'absolute';
+          iframe.style.top = '0';
+          iframe.style.left = '0';
+          iframe.style.pointerEvents = 'none';
+        }
       },
       onStateChange: (e) => {
-        // If video ends, restart from 3s
-        if (e.data === YT.PlayerState.ENDED) {
-          heroPlayer.seekTo(3);
+        // Fade out mask once video is actually playing
+        if (e.data === YT.PlayerState.PLAYING && !maskRemoved) {
+          maskRemoved = true;
+          setTimeout(() => {
+            if (videoMask) videoMask.style.opacity = '0';
+            setTimeout(() => { if (videoMask) videoMask.style.display = 'none'; }, 1000);
+          }, 300);
+        }
+        // If video ends or pauses at end, loop back
+        if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
+          heroPlayer.seekTo(VIDEO_START, true);
           heroPlayer.playVideo();
         }
       }
     }
   });
+  // Backup loop check every 500ms
+  setInterval(() => {
+    if (heroPlayer && heroPlayer.getCurrentTime && heroPlayer.getCurrentTime() >= VIDEO_END) {
+      heroPlayer.seekTo(VIDEO_START, true);
+      heroPlayer.playVideo();
+    }
+  }, 500);
 }
 // Load YT API
 const ytScript = document.createElement('script');
