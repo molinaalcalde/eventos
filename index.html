@@ -98,8 +98,10 @@ tailwind.config = {
     background-size: 32px 32px;
   }
 
-  /* Text reveal clip */
-  .reveal-line { overflow: hidden; }
+  /* Text reveal clip — only clips vertically, never horizontally */
+  .reveal-line {
+    clip-path: inset(-5px -200vw -5px -200vw);
+  }
   .reveal-line span {
     display: inline-block;
     transform: translateY(110%);
@@ -179,12 +181,11 @@ tailwind.config = {
     transform-origin: left; will-change: transform;
   }
 
-  /* Hero headline responsive — fits longest word (UNFORGETTABLE = 13 chars) */
-  .hero-headline span { font-size: clamp(30px, 5.5vw, 60px); }
-  .hero-headline .reveal-line:nth-child(2) span { font-size: clamp(26px, 4.8vw, 52px); }
-  @media (min-width: 1024px) {
-    .hero-headline span { font-size: clamp(44px, 4.5vw, 68px); }
-    .hero-headline .reveal-line:nth-child(2) span { font-size: clamp(38px, 3.8vw, 56px); }
+  /* Hero headline — sized by JS fitText to never clip */
+  .hero-headline span {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 48px; /* fallback, JS overrides */
   }
 
   /* Mobile menu */
@@ -1297,6 +1298,29 @@ gsap.utils.toArray('.reveal-line span').forEach((span, i) => {
   });
 });
 
+// ===== FIT HERO TEXT — auto-size to container width =====
+function fitHeroText() {
+  const headline = document.querySelector('.hero-headline');
+  if (!headline) return;
+  const containerWidth = headline.parentElement.offsetWidth;
+  const spans = headline.querySelectorAll('.reveal-line span');
+  spans.forEach(span => {
+    // Start large, shrink until it fits
+    let size = 120;
+    span.style.fontSize = size + 'px';
+    while (span.scrollWidth > containerWidth && size > 20) {
+      size -= 1;
+      span.style.fontSize = size + 'px';
+    }
+    // Cap at max 80px for aesthetics
+    if (size > 80) {
+      span.style.fontSize = '80px';
+    }
+  });
+}
+fitHeroText();
+window.addEventListener('resize', fitHeroText);
+
 // ===== SCROLL-TRIGGERED ANIMATIONS =====
 gsap.utils.toArray('[data-animate]').forEach(el => {
   gsap.to(el, {
@@ -1837,6 +1861,10 @@ function applyTranslations() {
   // Re-apply builder UI labels if form is visible
   if (typeof updateBuilderUI === 'function') {
     updateBuilderUI();
+  }
+  // Re-fit hero text after language change
+  if (typeof fitHeroText === 'function') {
+    requestAnimationFrame(fitHeroText);
   }
 }
 
