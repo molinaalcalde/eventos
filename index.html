@@ -348,18 +348,18 @@ tailwind.config = {
       </div>
 
       <!-- Metrics with animated counters -->
-      <div class="grid grid-cols-3 gap-6 pt-6 border-t border-white/10 mt-2 max-w-lg" data-animate>
+      <div class="grid grid-cols-3 gap-4 sm:gap-6 pt-6 border-t border-white/10 mt-2 max-w-md sm:max-w-lg" data-animate>
         <div>
-          <p class="font-display font-[800] text-3xl text-text-primary counter drop-shadow-lg" data-count="1200">0</p>
-          <p class="text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1" data-i18n="hero_stat1">Shows Producidos</p>
+          <p class="font-display font-[800] text-2xl sm:text-3xl text-text-primary counter drop-shadow-lg" data-count="1200">0</p>
+          <p class="text-[10px] sm:text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1" data-i18n="hero_stat1">Shows en Vivo</p>
         </div>
         <div>
-          <p class="font-display font-[800] text-3xl text-neon-magenta counter drop-shadow-lg" data-count="50">0</p>
-          <p class="text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1" data-i18n="hero_stat2">Artistas & Performers</p>
+          <p class="font-display font-[800] text-2xl sm:text-3xl text-neon-magenta counter drop-shadow-lg" data-count="8">0</p>
+          <p class="text-[10px] sm:text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1" data-i18n="hero_stat2">Países</p>
         </div>
         <div>
-          <p class="font-display font-[800] text-3xl text-stage-gold counter drop-shadow-lg" data-count="100">0</p>
-          <p class="text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1" data-i18n="hero_stat3">Resorts & Venues</p>
+          <p class="font-display font-[800] text-2xl sm:text-3xl text-stage-gold counter drop-shadow-lg" data-count="15">0</p>
+          <p class="text-[10px] sm:text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1" data-i18n="hero_stat3">Años de Experiencia</p>
         </div>
       </div>
     </div>
@@ -1335,8 +1335,8 @@ gsap.utils.toArray('[data-animate]').forEach(el => {
 // ===== COUNTER ANIMATION =====
 gsap.utils.toArray('.counter').forEach(counter => {
   const target = parseInt(counter.dataset.count);
-  const prefix = target > 100 ? '+' : '';
-  const suffix = target === 100 ? '%' : '+';
+  const prefix = target >= 1000 ? '+' : '';
+  const suffix = target < 100 ? '+' : '';
   ScrollTrigger.create({
     trigger: counter,
     start: 'top 90%',
@@ -1347,7 +1347,8 @@ gsap.utils.toArray('.counter').forEach(counter => {
         duration: 2,
         ease: 'power2.out',
         onUpdate: function() {
-          counter.textContent = (target > 100 ? '+' : '') + Math.floor(this.targets()[0].val).toLocaleString() + (target === 100 ? '%' : target <= 50 ? '+' : '');
+          const val = Math.floor(this.targets()[0].val);
+          counter.textContent = prefix + val.toLocaleString() + suffix;
         }
       });
     }
@@ -1585,9 +1586,9 @@ const translations = {
     hero_desc: "Entertainment \u00b7 Direcci\u00f3n Art\u00edstica \u00b7 Producci\u00f3n. Dise\u00f1amos cada propuesta seg\u00fan el espacio, el p\u00fablico y la experiencia que se quiera crear.",
     hero_cta1: "Tu Idea. Nuestro Escenario.",
     hero_cta2: "Ver Shows",
-    hero_stat1: "Shows Producidos",
-    hero_stat2: "Artistas & Performers",
-    hero_stat3: "Resorts & Venues",
+    hero_stat1: "Shows en Vivo",
+    hero_stat2: "Países",
+    hero_stat3: "Años de Experiencia",
     nav_home: "Inicio",
     nav_shows: "Shows",
     nav_formats: "Formatos",
@@ -1705,9 +1706,9 @@ const translations = {
     hero_desc: "Entertainment \u00b7 Artistic Direction \u00b7 Production. We design every proposal based on the space, the audience, and the experience you want to create.",
     hero_cta1: "Your Idea. Our Stage.",
     hero_cta2: "See Shows",
-    hero_stat1: "Shows Produced",
-    hero_stat2: "Artists & Performers",
-    hero_stat3: "Resorts & Venues",
+    hero_stat1: "Live Shows",
+    hero_stat2: "Countries",
+    hero_stat3: "Years of Experience",
     nav_home: "Home",
     nav_shows: "Shows",
     nav_formats: "Formats",
