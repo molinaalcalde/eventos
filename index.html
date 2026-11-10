@@ -197,12 +197,12 @@ tailwind.config = {
 
 <!-- FLOATING NAVIGATION PILL -->
 <nav class="nav-pill fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-2 py-2 rounded-full bg-surface-glass backdrop-blur-md border border-border-subtle flex items-center gap-1" id="mainNav">
-  <a href="#" class="nav-link px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-[0.14em] text-neon-magenta bg-neon-magenta/10 transition-all" data-section="hero">Inicio</a>
-  <a href="#experiencias" class="nav-link px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-[0.14em] text-text-secondary hover:text-text-primary transition-all">Shows</a>
+  <a href="#" class="nav-link px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-[0.14em] text-neon-magenta bg-neon-magenta/10 transition-all" data-section="hero" data-i18n="nav_home">Inicio</a>
+  <a href="#experiencias" class="nav-link px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-[0.14em] text-text-secondary hover:text-text-primary transition-all" data-i18n="nav_shows">Shows</a>
   <a href="#malevo" class="nav-link px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-[0.14em] text-text-secondary hover:text-text-primary transition-all">Malevo</a>
-  <a href="#formatos" class="nav-link px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-[0.14em] text-text-secondary hover:text-text-primary transition-all">Formatos</a>
-  <a href="#calculadora" class="nav-link px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-[0.14em] text-text-secondary hover:text-text-primary transition-all">Reservar</a>
-  <a href="#contacto" class="nav-link px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-[0.14em] text-text-secondary hover:text-text-primary transition-all">Contacto</a>
+  <a href="#formatos" class="nav-link px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-[0.14em] text-text-secondary hover:text-text-primary transition-all" data-i18n="nav_formats">Formatos</a>
+  <a href="#calculadora" class="nav-link px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-[0.14em] text-text-secondary hover:text-text-primary transition-all" data-i18n="nav_book">Reservar</a>
+  <a href="#contacto" class="nav-link px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-[0.14em] text-text-secondary hover:text-text-primary transition-all" data-i18n="nav_contact">Contacto</a>
 </nav>
 
 <!-- TOP HEADER BAR -->
@@ -213,15 +213,15 @@ tailwind.config = {
     </a>
     <div class="flex items-center gap-4">
       <button class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface-elevated/70 text-text-secondary hover:text-text-primary text-[11px] font-display font-bold tracking-wider flex items-center gap-1.5 transition-colors magnetic-btn" id="langToggle">
-        <span class="text-neon-magenta" id="lang-current">ES</span>
+        <span class="text-neon-magenta" id="lang-es">ES</span>
         <span class="text-text-muted">/</span>
-        <span>EN</span>
+        <span class="text-text-secondary" id="lang-en">EN</span>
       </button>
       <a class="hidden sm:flex items-center justify-center p-2 rounded-full border border-border-subtle hover:border-neon-magenta/40 text-text-primary hover:text-neon-magenta transition-all magnetic-btn" href="tel:+18295484316">
         <span class="material-symbols-outlined text-[18px]">call</span>
       </a>
       <a class="px-5 py-2.5 rounded-full bg-neon-magenta text-text-primary text-[11px] font-display font-bold uppercase tracking-[0.14em] glow-magenta hover:scale-105 active:scale-95 transition-all flex items-center gap-2 magnetic-btn" href="#calculadora">
-        <span>Reservar Show</span>
+        <span data-i18n="header_cta">Reservar Show</span>
         <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
       </a>
     </div>
@@ -257,35 +257,35 @@ tailwind.config = {
       <div class="flex flex-wrap items-center gap-3" data-animate>
         <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-surface-black/50 backdrop-blur-md border border-border-glow text-neon-magenta text-[11px] font-display font-bold uppercase tracking-[0.14em] glow-magenta-subtle">
           <span class="w-2 h-2 rounded-full bg-neon-magenta animate-pulse"></span>
-          Punta Cana · Riviera del Caribe
+          <span data-i18n="hero_badge">Punta Cana · Riviera del Caribe</span>
         </span>
       </div>
 
       <!-- Hero Headline with line reveal -->
       <div>
         <h1 class="font-display font-[800] uppercase leading-[0.95] tracking-tight">
-          <div class="reveal-line"><span class="text-[clamp(44px,9vw,88px)] drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]">WE CREATE</span></div>
-          <div class="reveal-line"><span class="text-[clamp(44px,9vw,88px)] text-transparent bg-clip-text bg-gradient-to-r from-neon-magenta via-primary-container to-primary drop-shadow-[0_2px_20px_rgba(250,37,126,0.3)]">UNFORGETTABLE</span></div>
-          <div class="reveal-line"><span class="text-[clamp(44px,9vw,88px)] drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]">EXPERIENCES</span></div>
+          <div class="reveal-line"><span class="text-[clamp(40px,8vw,80px)] drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]" data-i18n="hero_line1">CREAMOS</span></div>
+          <div class="reveal-line"><span class="text-[clamp(34px,6.5vw,68px)] text-transparent bg-clip-text bg-gradient-to-r from-neon-magenta via-primary-container to-primary" style="-webkit-text-stroke: 0.5px rgba(250,37,126,0.3);" data-i18n="hero_line2">EXPERIENCIAS</span></div>
+          <div class="reveal-line"><span class="text-[clamp(40px,8vw,80px)] drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]" data-i18n="hero_line3">INOLVIDABLES</span></div>
         </h1>
         <div class="reveal-line mt-4">
-          <span class="font-display font-bold text-[clamp(16px,2.5vw,22px)] text-stage-gold uppercase tracking-[0.12em]">ART LIVES HERE.</span>
+          <span class="font-display font-bold text-[clamp(16px,2.5vw,22px)] text-stage-gold uppercase tracking-[0.12em]" data-i18n="hero_tagline">EL ARTE VIVE AQUÍ.</span>
         </div>
       </div>
 
       <!-- Description -->
-      <p class="text-lg text-white/80 max-w-xl leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.4)]" data-animate>
-        Entertainment · Artistic Direction · Production. Diseñamos cada propuesta según el espacio, el público y la experiencia que se quiera crear. Desde una idea hasta el escenario.
+      <p class="text-lg text-white/80 max-w-xl leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.4)]" data-animate data-i18n="hero_desc">
+        Entertainment · Dirección Artística · Producción. Diseñamos cada propuesta según el espacio, el público y la experiencia que se quiera crear.
       </p>
 
       <!-- CTAs -->
       <div class="flex flex-wrap items-center gap-4" data-animate>
         <a class="px-8 py-4 rounded-xl bg-neon-magenta text-text-primary text-[12px] font-display font-bold uppercase tracking-[0.14em] glow-magenta hover:scale-[1.03] active:scale-95 transition-all flex items-center gap-3 magnetic-btn" href="#calculadora">
-          <span>Your Idea. Our Stage.</span>
+          <span data-i18n="hero_cta1">Tu Idea. Nuestro Escenario.</span>
           <span class="material-symbols-outlined text-[18px]">bolt</span>
         </a>
         <a class="px-7 py-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:border-neon-magenta/40 hover:bg-white/15 text-text-primary text-[12px] font-display font-bold uppercase tracking-[0.14em] transition-all flex items-center gap-2 magnetic-btn" href="#experiencias">
-          <span>Ver Shows</span>
+          <span data-i18n="hero_cta2">Ver Shows</span>
           <span class="material-symbols-outlined text-[18px]">play_circle</span>
         </a>
       </div>
@@ -294,15 +294,15 @@ tailwind.config = {
       <div class="grid grid-cols-3 gap-6 pt-6 border-t border-white/10 mt-2 max-w-lg" data-animate>
         <div>
           <p class="font-display font-[800] text-3xl text-text-primary counter drop-shadow-lg" data-count="1200">0</p>
-          <p class="text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1">Shows Producidos</p>
+          <p class="text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1" data-i18n="hero_stat1">Shows Producidos</p>
         </div>
         <div>
           <p class="font-display font-[800] text-3xl text-neon-magenta counter drop-shadow-lg" data-count="50">0</p>
-          <p class="text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1">Artistas & Performers</p>
+          <p class="text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1" data-i18n="hero_stat2">Artistas & Performers</p>
         </div>
         <div>
           <p class="font-display font-[800] text-3xl text-stage-gold counter drop-shadow-lg" data-count="100">0</p>
-          <p class="text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1">Resorts & Venues</p>
+          <p class="text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1" data-i18n="hero_stat3">Resorts & Venues</p>
         </div>
       </div>
     </div>
@@ -316,7 +316,7 @@ tailwind.config = {
 
   <!-- Scroll indicator -->
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 z-20" data-animate>
-    <span class="text-[11px] font-display font-bold uppercase tracking-widest">Scroll</span>
+    <span class="text-[11px] font-display font-bold uppercase tracking-widest" data-i18n="scroll">Scroll</span>
     <div class="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
       <div class="w-1 h-2 rounded-full bg-neon-magenta animate-bounce"></div>
     </div>
@@ -377,12 +377,12 @@ tailwind.config = {
     <div class="max-w-3xl mb-16">
       <div class="flex items-center gap-3 mb-3" data-animate>
         <span class="h-px w-10 bg-neon-magenta"></span>
-        <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]">Shows & Espectáculos</span>
+        <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" data-i18n="exp_label">Shows & Espectáculos</span>
       </div>
-      <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] uppercase text-text-primary leading-[1.05]" data-animate>
-        THREE WAYS<br><span class="text-neon-magenta">TO LIVE THE NIGHT</span>
+      <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] uppercase text-text-primary leading-[1.05]" data-animate data-i18n-html="exp_title">
+        TRES FORMAS<br><span class="text-neon-magenta">DE VIVIR LA NOCHE</span>
       </h2>
-      <p class="text-lg text-text-secondary mt-5 leading-relaxed" data-animate>
+      <p class="text-lg text-text-secondary mt-5 leading-relaxed" data-animate data-i18n="exp_desc">
         Producciones artísticas listas para tu programación. Música, artistas y actuaciones integrados en cada momento del día — diseñados según el espacio, el público y la experiencia que se quiera crear.
       </p>
     </div>
@@ -403,15 +403,15 @@ tailwind.config = {
         <div class="p-6 md:p-8 flex flex-col justify-between flex-1">
           <div>
             <h3 class="font-display font-bold text-3xl text-text-primary uppercase tracking-wide">SUNSET</h3>
-            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-1">Golden Hour · Beach Clubs · Terrazas</p>
-            <p class="text-[15px] text-text-secondary mt-4 leading-relaxed">
+            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-1" data-i18n="exp_sunset_sub">Golden Hour · Beach Clubs · Terrazas</p>
+            <p class="text-[15px] text-text-secondary mt-4 leading-relaxed" data-i18n="exp_sunset_desc">
               DJ sets, saxofonista en vivo, percusión, artistas itinerantes y actuaciones integradas al atardecer caribeño. Música y performances que elevan la atmósfera sin interrumpir — fluyen con el momento.
             </p>
           </div>
           <div class="pt-6 mt-6 border-t border-border-subtle flex items-center justify-between">
-            <span class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider">2h - 5h · Outdoor</span>
+            <span class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider" data-i18n="exp_footer_sunset">2h - 5h · Outdoor</span>
             <a class="inline-flex items-center gap-1 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-2 transition-all" href="#calculadora">
-              <span>Cotizar</span>
+              <span data-i18n="cotizar">Cotizar</span>
               <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
           </div>
@@ -430,15 +430,15 @@ tailwind.config = {
         <div class="p-6 md:p-8 flex flex-col justify-between flex-1">
           <div>
             <h3 class="font-display font-bold text-3xl text-text-primary uppercase tracking-wide">DINNER SHOW</h3>
-            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-1">Espectáculos con Desarrollo Escénico Completo</p>
-            <p class="text-[15px] text-text-secondary mt-4 leading-relaxed">
+            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-1" data-i18n="exp_dinner_sub">Espectáculos con Desarrollo Escénico Completo</p>
+            <p class="text-[15px] text-text-secondary mt-4 leading-relaxed" data-i18n="exp_dinner_desc">
               Belly dance internacional con coreografías originales y animación que interactúa con los invitados. Tango contemporáneo, danza aérea, percusionistas en vivo con darbuka. Vestuarios de alta costura y elementos escénicos que transforman la cena en teatro.
             </p>
           </div>
           <div class="pt-6 mt-6 border-t border-border-subtle flex items-center justify-between">
-            <span class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider">Teatral · Sensorial · Inmersivo</span>
+            <span class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider" data-i18n="exp_footer_dinner">Teatral · Sensorial · Inmersivo</span>
             <a class="inline-flex items-center gap-1 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-2 transition-all" href="#calculadora">
-              <span>Cotizar</span>
+              <span data-i18n="cotizar">Cotizar</span>
               <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
           </div>
@@ -456,16 +456,16 @@ tailwind.config = {
         </div>
         <div class="p-6 md:p-8 flex flex-col justify-between flex-1">
           <div>
-            <h3 class="font-display font-bold text-3xl text-text-primary uppercase tracking-wide">FIESTAS TEMÁTICAS</h3>
-            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-1">Creadas desde Cero para Tu Marca</p>
-            <p class="text-[15px] text-text-secondary mt-4 leading-relaxed">
+            <h3 class="font-display font-bold text-3xl text-text-primary uppercase tracking-wide" data-i18n="exp_fiestas_title">FIESTAS TEMÁTICAS</h3>
+            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-1" data-i18n="exp_fiestas_sub">Creadas desde Cero para Tu Marca</p>
+            <p class="text-[15px] text-text-secondary mt-4 leading-relaxed" data-i18n="exp_fiestas_desc">
               Producciones a medida con concepto, casting, dirección artística, vestuario, coreografía, música original y puesta en escena completa. Bailarines, acróbatas aéreos, comparsas de plumas, fuego, zanqueros, DJs y ambientación escénica integral.
             </p>
           </div>
           <div class="pt-6 mt-6 border-t border-border-subtle flex items-center justify-between">
-            <span class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider">Grandes Formatos · 360°</span>
+            <span class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider" data-i18n="exp_footer_fiestas">Grandes Formatos · 360°</span>
             <a class="inline-flex items-center gap-1 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-2 transition-all" href="#calculadora">
-              <span>Cotizar</span>
+              <span data-i18n="cotizar">Cotizar</span>
               <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
           </div>
@@ -490,7 +490,7 @@ tailwind.config = {
         </div>
         <div class="absolute -top-4 -left-4 px-4 py-2 rounded-xl bg-neon-magenta text-text-primary text-[11px] font-display font-bold uppercase tracking-[0.14em] glow-magenta flex items-center gap-2 z-10">
           <span class="material-symbols-outlined text-[16px]">verified</span>
-          <span>Headliner Mundial</span>
+          <span data-i18n="malevo_headline_badge">Headliner Mundial</span>
         </div>
       </div>
 
@@ -506,11 +506,11 @@ tailwind.config = {
         <div data-animate>
           <h2 class="font-display font-[800] text-[clamp(32px,5vw,52px)] text-text-primary uppercase tracking-tight leading-[1]">MALEVO</h2>
           <p class="font-display font-bold text-[clamp(16px,2.5vw,24px)] text-neon-magenta uppercase tracking-wide mt-2">The Argentinian Dance Sensation</p>
-          <p class="text-[12px] font-display font-bold text-text-primary uppercase tracking-[0.14em] mt-3">
+          <p class="text-[12px] font-display font-bold text-text-primary uppercase tracking-[0.14em] mt-3" data-i18n-html="malevo_sub">
             Malambo. Bombos. Boleadoras. Zapateo. <span class="text-neon-magenta">Energía en estado puro.</span>
           </p>
         </div>
-        <p class="text-[15px] text-text-secondary leading-relaxed" data-animate>
+        <p class="text-[15px] text-text-secondary leading-relaxed" data-animate data-i18n="malevo_desc">
           Compañía Argentina de proyección internacional. Malambo contemporáneo de gran potencia visual y sonora dirigida por Matías Jaime. Percusión en vivo, zapateo sincronizado y una puesta en escena que ha recorrido los escenarios más importantes del mundo.
         </p>
         <!-- World Cities -->
@@ -529,7 +529,7 @@ tailwind.config = {
         <div class="grid grid-cols-2 gap-3 pt-4 border-t border-border-subtle" data-animate>
           <div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle hover:border-neon-magenta/30 transition-colors">
             <p class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">America's Got Talent</p>
-            <p class="text-[11px] text-text-muted mt-1">Semifinalistas mundiales</p>
+            <p class="text-[11px] text-text-muted mt-1" data-i18n="malevo_agt">Semifinalistas mundiales</p>
           </div>
           <div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle hover:border-neon-magenta/30 transition-colors">
             <p class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Cirque du Soleil</p>
@@ -537,17 +537,17 @@ tailwind.config = {
           </div>
           <div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle hover:border-neon-magenta/30 transition-colors">
             <p class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Ricky Martin</p>
-            <p class="text-[11px] text-text-muted mt-1">Residencia All In — Las Vegas</p>
+            <p class="text-[11px] text-text-muted mt-1" data-i18n="malevo_ricky">Residencia All In — Las Vegas</p>
           </div>
           <div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle hover:border-neon-magenta/30 transition-colors">
             <p class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Universal Studios JP</p>
-            <p class="text-[11px] text-text-muted mt-1">Residencia en Osaka, Japón</p>
+            <p class="text-[11px] text-text-muted mt-1" data-i18n="malevo_universal">Residencia en Osaka, Japón</p>
           </div>
         </div>
 
         <div data-animate>
           <a class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-neon-magenta text-text-primary text-[11px] font-display font-bold uppercase tracking-[0.14em] glow-magenta hover:scale-105 transition-transform magnetic-btn" href="#calculadora">
-            <span>Contratar MALEVO</span>
+            <span data-i18n="malevo_cta">Contratar MALEVO</span>
             <span class="material-symbols-outlined text-[16px]">bolt</span>
           </a>
         </div>
@@ -561,11 +561,11 @@ tailwind.config = {
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
       <div class="lg:col-span-7 flex flex-col gap-6">
-        <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" data-animate>From an Idea to the Stage</span>
-        <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] uppercase text-text-primary leading-[1.05]" data-animate>
-          YOUR IDEA.<br><span class="text-neon-magenta">OUR STAGE.</span>
+        <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" data-animate data-i18n="fmt_subtitle">De la Idea al Escenario</span>
+        <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] uppercase text-text-primary leading-[1.05]" data-animate data-i18n-html="fmt_title_html">
+          TU IDEA.<br><span class="text-neon-magenta">NUESTRO ESCENARIO.</span>
         </h2>
-        <p class="text-lg text-text-secondary leading-relaxed" data-animate>
+        <p class="text-lg text-text-secondary leading-relaxed" data-animate data-i18n="fmt_desc">
           5 formatos de producción que se adaptan a tu espacio, tu público y la experiencia que querés crear. Cada propuesta incluye dirección artística, casting, vestuario y producción integral.
         </p>
 
@@ -584,35 +584,35 @@ tailwind.config = {
             <span class="font-display font-[800] text-xl text-neon-magenta">01</span>
             <div>
               <h4 class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Special Act</h4>
-              <p class="text-[13px] text-text-secondary mt-1">Intervenciones de alto impacto. Momentos puntuales que capturan toda la atención y elevan la experiencia.</p>
+              <p class="text-[13px] text-text-secondary mt-1" data-i18n="fmt_01_desc">Intervenciones de alto impacto. Momentos puntuales que capturan toda la atención y elevan la experiencia.</p>
             </div>
           </div>
           <div class="p-4 rounded-xl glass-panel flex items-start gap-4" data-animate>
             <span class="font-display font-[800] text-xl text-neon-magenta">02</span>
             <div>
               <h4 class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Full Show</h4>
-              <p class="text-[13px] text-text-secondary mt-1">Espectáculos completos con desarrollo escénico, narrativa, vestuario y producción de punta a punta.</p>
+              <p class="text-[13px] text-text-secondary mt-1" data-i18n="fmt_02_desc">Espectáculos completos con desarrollo escénico, narrativa, vestuario y producción de punta a punta.</p>
             </div>
           </div>
           <div class="p-4 rounded-xl glass-panel flex items-start gap-4" data-animate>
             <span class="font-display font-[800] text-xl text-neon-magenta">03</span>
             <div>
               <h4 class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Entertainment Experience</h4>
-              <p class="text-[13px] text-text-secondary mt-1">Música, artistas y actuaciones integrados al ambiente. Entretenimiento que fluye con el evento sin interrumpirlo.</p>
+              <p class="text-[13px] text-text-secondary mt-1" data-i18n="fmt_03_desc">Música, artistas y actuaciones integrados al ambiente. Entretenimiento que fluye con el evento sin interrumpirlo.</p>
             </div>
           </div>
           <div class="p-4 rounded-xl glass-panel flex items-start gap-4" data-animate>
             <span class="font-display font-[800] text-xl text-neon-magenta">04</span>
             <div>
               <h4 class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Resident Entertainment</h4>
-              <p class="text-[13px] text-text-secondary mt-1">Programación artística recurrente y permanente para hoteles, resorts y restaurantes. Tu cartelera, nuestra producción.</p>
+              <p class="text-[13px] text-text-secondary mt-1" data-i18n="fmt_04_desc">Programación artística recurrente y permanente para hoteles, resorts y restaurantes. Tu cartelera, nuestra producción.</p>
             </div>
           </div>
           <div class="p-4 rounded-xl glass-panel flex items-start gap-4" data-animate>
             <span class="font-display font-[800] text-xl text-neon-magenta">05</span>
             <div>
               <h4 class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Custom Production</h4>
-              <p class="text-[13px] text-text-secondary mt-1">Creada desde cero para tu marca. Concepto → Casting → Dirección Artística → Vestuario → Coreografía & Música → Producción → Puesta en Escena.</p>
+              <p class="text-[13px] text-text-secondary mt-1" data-i18n="fmt_05_desc">Creada desde cero para tu marca. Concepto → Casting → Dirección Artística → Vestuario → Coreografía & Música → Producción → Puesta en Escena.</p>
             </div>
           </div>
         </div>
@@ -625,8 +625,8 @@ tailwind.config = {
             <span class="material-symbols-outlined">image</span>
           </div>
           <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-surface-black via-surface-black/80 to-transparent">
-            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]">Talento & Performances</p>
-            <p class="text-[13px] text-text-secondary mt-1">Bailarines, cantantes, músicos, DJs, acróbatas aéreos, zanqueros, performers de fuego y más.</p>
+            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" data-i18n="fmt_visual_label">Talento & Performances</p>
+            <p class="text-[13px] text-text-secondary mt-1" data-i18n="fmt_visual_desc">Bailarines, cantantes, músicos, DJs, acróbatas aéreos, zanqueros, performers de fuego y más.</p>
           </div>
         </div>
       </div>
@@ -645,10 +645,10 @@ tailwind.config = {
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FA257E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]">Experience Builder</span>
       </div>
-      <h2 class="font-display font-[800] text-[clamp(28px,5vw,48px)] text-text-primary uppercase leading-[1.05]" data-animate>
-        FROM AN IDEA<br><span class="text-neon-magenta">TO THE STAGE</span>
+      <h2 class="font-display font-[800] text-[clamp(28px,5vw,48px)] text-text-primary uppercase leading-[1.05]" data-animate data-i18n-html="calc_title_html">
+        DE LA IDEA<br><span class="text-neon-magenta">AL ESCENARIO</span>
       </h2>
-      <p class="text-[15px] text-text-secondary max-w-lg mx-auto mt-4 leading-relaxed" data-animate>
+      <p class="text-[15px] text-text-secondary max-w-lg mx-auto mt-4 leading-relaxed" data-animate data-i18n="calc_desc">
         4 pasos. 60 segundos. Nuestro equipo de dirección artística diseña una propuesta a medida según tu espacio, público y experiencia deseada.
       </p>
     </div>
@@ -681,28 +681,28 @@ tailwind.config = {
             <div class="w-10 h-10 rounded-full border-2 border-neon-magenta bg-neon-magenta/15 flex items-center justify-center transition-all">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neon-magenta"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
-            <span class="text-[10px] font-display font-bold text-neon-magenta uppercase tracking-wider hidden sm:block">Lugar</span>
+            <span class="text-[10px] font-display font-bold text-neon-magenta uppercase tracking-wider hidden sm:block" data-i18n="step_lugar">Lugar</span>
           </button>
           <div class="flex-1 h-px bg-border-subtle mx-2"></div>
           <button class="step-dot group flex flex-col items-center gap-1.5 transition-all" data-step="2">
             <div class="w-10 h-10 rounded-full border-2 border-border-subtle bg-surface-elevated flex items-center justify-center transition-all">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-text-muted"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
             </div>
-            <span class="text-[10px] font-display font-bold text-text-muted uppercase tracking-wider hidden sm:block">Show</span>
+            <span class="text-[10px] font-display font-bold text-text-muted uppercase tracking-wider hidden sm:block" data-i18n="step_show">Show</span>
           </button>
           <div class="flex-1 h-px bg-border-subtle mx-2"></div>
           <button class="step-dot group flex flex-col items-center gap-1.5 transition-all" data-step="3">
             <div class="w-10 h-10 rounded-full border-2 border-border-subtle bg-surface-elevated flex items-center justify-center transition-all">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-text-muted"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
-            <span class="text-[10px] font-display font-bold text-text-muted uppercase tracking-wider hidden sm:block">Escala</span>
+            <span class="text-[10px] font-display font-bold text-text-muted uppercase tracking-wider hidden sm:block" data-i18n="step_escala">Escala</span>
           </button>
           <div class="flex-1 h-px bg-border-subtle mx-2"></div>
           <button class="step-dot group flex flex-col items-center gap-1.5 transition-all" data-step="4">
             <div class="w-10 h-10 rounded-full border-2 border-border-subtle bg-surface-elevated flex items-center justify-center transition-all">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-text-muted"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
             </div>
-            <span class="text-[10px] font-display font-bold text-text-muted uppercase tracking-wider hidden sm:block">Enviar</span>
+            <span class="text-[10px] font-display font-bold text-text-muted uppercase tracking-wider hidden sm:block" data-i18n="step_enviar">Enviar</span>
           </button>
         </div>
       </div>
@@ -714,8 +714,8 @@ tailwind.config = {
           <!-- STEP 1: Venue -->
           <div class="builder-step" id="builderStep1">
             <div class="mb-6">
-              <h3 class="font-display font-bold text-2xl text-text-primary">¿Dónde creamos la experiencia?</h3>
-              <p class="text-[13px] text-text-muted mt-1">Diseñamos cada propuesta según el espacio y el público.</p>
+              <h3 class="font-display font-bold text-2xl text-text-primary" data-i18n="step1_title">¿Dónde creamos la experiencia?</h3>
+              <p class="text-[13px] text-text-muted mt-1" data-i18n="step1_sub">Diseñamos cada propuesta según el espacio y el público.</p>
             </div>
             <div class="grid grid-cols-2 gap-3">
               <label class="cursor-pointer group">
@@ -726,8 +726,8 @@ tailwind.config = {
                       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-secondary group-hover:text-neon-magenta transition-colors"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg>
                     </div>
                     <div>
-                      <p class="text-[13px] font-display font-bold text-text-primary">Resort 5★</p>
-                      <p class="text-[11px] text-text-muted mt-0.5">Hotel de lujo</p>
+                      <p class="text-[13px] font-display font-bold text-text-primary" data-i18n="venue_resort">Resort 5★</p>
+                      <p class="text-[11px] text-text-muted mt-0.5" data-i18n="venue_resort_sub">Hotel de lujo</p>
                     </div>
                   </div>
                   <div class="absolute top-3 right-3 w-5 h-5 rounded-full border-2 border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta flex items-center justify-center transition-all opacity-0 peer-checked:opacity-100">
@@ -743,8 +743,8 @@ tailwind.config = {
                       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-secondary group-hover:text-stage-gold transition-colors"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                     </div>
                     <div>
-                      <p class="text-[13px] font-display font-bold text-text-primary">Beach Club</p>
-                      <p class="text-[11px] text-text-muted mt-0.5">Terraza & playa</p>
+                      <p class="text-[13px] font-display font-bold text-text-primary" data-i18n="venue_beach">Beach Club</p>
+                      <p class="text-[11px] text-text-muted mt-0.5" data-i18n="venue_beach_sub">Terraza & playa</p>
                     </div>
                   </div>
                   <div class="absolute top-3 right-3 w-5 h-5 rounded-full border-2 border-border-subtle flex items-center justify-center transition-all opacity-0 peer-checked:opacity-100 peer-checked:border-neon-magenta peer-checked:bg-neon-magenta">
@@ -760,8 +760,8 @@ tailwind.config = {
                       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-secondary group-hover:text-pink-400 transition-colors"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                     </div>
                     <div>
-                      <p class="text-[13px] font-display font-bold text-text-primary">Boda VIP</p>
-                      <p class="text-[11px] text-text-muted mt-0.5">Destino exclusivo</p>
+                      <p class="text-[13px] font-display font-bold text-text-primary" data-i18n="venue_wedding">Boda VIP</p>
+                      <p class="text-[11px] text-text-muted mt-0.5" data-i18n="venue_wedding_sub">Destino exclusivo</p>
                     </div>
                   </div>
                   <div class="absolute top-3 right-3 w-5 h-5 rounded-full border-2 border-border-subtle flex items-center justify-center transition-all opacity-0 peer-checked:opacity-100 peer-checked:border-neon-magenta peer-checked:bg-neon-magenta">
@@ -777,8 +777,8 @@ tailwind.config = {
                       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-secondary group-hover:text-stage-gold transition-colors"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     </div>
                     <div>
-                      <p class="text-[13px] font-display font-bold text-text-primary">Gala Privada</p>
-                      <p class="text-[11px] text-text-muted mt-0.5">Corporativo & Premium</p>
+                      <p class="text-[13px] font-display font-bold text-text-primary" data-i18n="venue_gala">Gala Privada</p>
+                      <p class="text-[11px] text-text-muted mt-0.5" data-i18n="venue_gala_sub">Corporativo & Premium</p>
                     </div>
                   </div>
                   <div class="absolute top-3 right-3 w-5 h-5 rounded-full border-2 border-border-subtle flex items-center justify-center transition-all opacity-0 peer-checked:opacity-100 peer-checked:border-neon-magenta peer-checked:bg-neon-magenta">
@@ -792,8 +792,8 @@ tailwind.config = {
           <!-- STEP 2: Show Vibe -->
           <div class="builder-step hidden" id="builderStep2">
             <div class="mb-6">
-              <h3 class="font-display font-bold text-2xl text-text-primary">¿Qué tipo de experiencia querés crear?</h3>
-              <p class="text-[13px] text-text-muted mt-1">Elegí el estilo artístico principal. Nuestro equipo puede combinar formatos.</p>
+              <h3 class="font-display font-bold text-2xl text-text-primary" data-i18n="step2_title">¿Qué tipo de experiencia querés crear?</h3>
+              <p class="text-[13px] text-text-muted mt-1" data-i18n="step2_sub">Elegí el estilo artístico principal. Nuestro equipo puede combinar formatos.</p>
             </div>
             <div class="space-y-3">
               <label class="cursor-pointer group block">
@@ -807,7 +807,7 @@ tailwind.config = {
                       <p class="text-[14px] font-display font-bold text-text-primary">MALEVO Headline</p>
                       <span class="px-2 py-0.5 rounded-full bg-neon-magenta/15 text-[9px] font-display font-bold text-neon-magenta uppercase tracking-wider">Popular</span>
                     </div>
-                    <p class="text-[12px] text-text-muted mt-0.5">Malambo, bombos, boleadoras y zapateo. La sensación argentina que ha recorrido el mundo.</p>
+                    <p class="text-[12px] text-text-muted mt-0.5" data-i18n="vibe_malevo_desc">Malambo, bombos, boleadoras y zapateo. La sensación argentina que ha recorrido el mundo.</p>
                   </div>
                   <div class="w-5 h-5 rounded-full border-2 border-border-subtle flex-shrink-0 flex items-center justify-center transition-all peer-checked:border-neon-magenta peer-checked:bg-neon-magenta">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0 peer-checked:opacity-100"><path d="M20 6L9 17l-5-5"/></svg>
@@ -822,7 +822,7 @@ tailwind.config = {
                   </div>
                   <div class="flex-1 min-w-0">
                     <p class="text-[14px] font-display font-bold text-text-primary">Sunset Chill & DJ</p>
-                    <p class="text-[12px] text-text-muted mt-0.5">Sax en vivo, deep house, golden hour. Atardecer caribeño mágico.</p>
+                    <p class="text-[12px] text-text-muted mt-0.5" data-i18n="vibe_sunset_desc">Sax en vivo, deep house, golden hour. Atardecer caribeño mágico.</p>
                   </div>
                   <div class="w-5 h-5 rounded-full border-2 border-border-subtle flex-shrink-0 flex items-center justify-center transition-all peer-checked:border-neon-magenta peer-checked:bg-neon-magenta">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0 peer-checked:opacity-100"><path d="M20 6L9 17l-5-5"/></svg>
@@ -837,7 +837,7 @@ tailwind.config = {
                   </div>
                   <div class="flex-1 min-w-0">
                     <p class="text-[14px] font-display font-bold text-text-primary">Dinner Show Teatral</p>
-                    <p class="text-[12px] text-text-muted mt-0.5">Belly dance internacional, tango contemporáneo, danza aérea. Percusionistas en vivo.</p>
+                    <p class="text-[12px] text-text-muted mt-0.5" data-i18n="vibe_dinner_desc">Belly dance internacional, tango contemporáneo, danza aérea. Percusionistas en vivo.</p>
                   </div>
                   <div class="w-5 h-5 rounded-full border-2 border-border-subtle flex-shrink-0 flex items-center justify-center transition-all peer-checked:border-neon-magenta peer-checked:bg-neon-magenta">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0 peer-checked:opacity-100"><path d="M20 6L9 17l-5-5"/></svg>
@@ -852,7 +852,7 @@ tailwind.config = {
                   </div>
                   <div class="flex-1 min-w-0">
                     <p class="text-[14px] font-display font-bold text-text-primary">Carnaval & Acróbatas</p>
-                    <p class="text-[12px] text-text-muted mt-0.5">Comparsas, trajes de plumas, acrobacias aéreas, fuego, zanqueros y producción 360°.</p>
+                    <p class="text-[12px] text-text-muted mt-0.5" data-i18n="vibe_carnaval_desc">Comparsas, trajes de plumas, acrobacias aéreas, fuego, zanqueros y producción 360°.</p>
                   </div>
                   <div class="w-5 h-5 rounded-full border-2 border-border-subtle flex-shrink-0 flex items-center justify-center transition-all peer-checked:border-neon-magenta peer-checked:bg-neon-magenta">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0 peer-checked:opacity-100"><path d="M20 6L9 17l-5-5"/></svg>
@@ -865,8 +865,8 @@ tailwind.config = {
           <!-- STEP 3: Scale -->
           <div class="builder-step hidden" id="builderStep3">
             <div class="mb-6">
-              <h3 class="font-display font-bold text-2xl text-text-primary">¿Cuántos invitados esperás?</h3>
-              <p class="text-[13px] text-text-muted mt-1">Esto define la escala de producción, artistas y logística.</p>
+              <h3 class="font-display font-bold text-2xl text-text-primary" data-i18n="step3_title">¿Cuántos invitados esperás?</h3>
+              <p class="text-[13px] text-text-muted mt-1" data-i18n="step3_sub">Esto define la escala de producción, artistas y logística.</p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <label class="cursor-pointer group">
@@ -876,8 +876,8 @@ tailwind.config = {
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-secondary group-hover:text-neon-magenta transition-colors"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                   </div>
                   <p class="font-display font-[800] text-3xl text-text-primary">&lt;100</p>
-                  <p class="text-[12px] font-display font-bold text-text-muted mt-1 uppercase tracking-wider">Íntimo / VIP</p>
-                  <p class="text-[11px] text-text-muted/70 mt-2">Cena exclusiva, suite privada, experiencia personal</p>
+                  <p class="text-[12px] font-display font-bold text-text-muted mt-1 uppercase tracking-wider" data-i18n="scale_intimate">Íntimo / VIP</p>
+                  <p class="text-[11px] text-text-muted/70 mt-2" data-i18n="scale_intimate_desc">Cena exclusiva, suite privada, experiencia personal</p>
                   <div class="absolute top-3 right-3 w-5 h-5 rounded-full border-2 border-border-subtle flex items-center justify-center transition-all opacity-0 peer-checked:opacity-100 peer-checked:border-neon-magenta peer-checked:bg-neon-magenta">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
                   </div>
@@ -890,8 +890,8 @@ tailwind.config = {
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-secondary group-hover:text-neon-magenta transition-colors"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                   </div>
                   <p class="font-display font-[800] text-3xl text-text-primary">100-350</p>
-                  <p class="text-[12px] font-display font-bold text-text-muted mt-1 uppercase tracking-wider">Mediano</p>
-                  <p class="text-[11px] text-text-muted/70 mt-2">Boda, gala corporativa, evento de hotel</p>
+                  <p class="text-[12px] font-display font-bold text-text-muted mt-1 uppercase tracking-wider" data-i18n="scale_medium">Mediano</p>
+                  <p class="text-[11px] text-text-muted/70 mt-2" data-i18n="scale_medium_desc">Boda, gala corporativa, evento de hotel</p>
                   <div class="absolute top-3 right-3 w-5 h-5 rounded-full border-2 border-border-subtle flex items-center justify-center transition-all opacity-0 peer-checked:opacity-100 peer-checked:border-neon-magenta peer-checked:bg-neon-magenta">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
                   </div>
@@ -904,8 +904,8 @@ tailwind.config = {
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-secondary group-hover:text-stage-gold transition-colors"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><line x1="23" y1="11" x2="23" y2="17"/><line x1="20" y1="14" x2="26" y2="14"/></svg>
                   </div>
                   <p class="font-display font-[800] text-3xl text-text-primary">350+</p>
-                  <p class="text-[12px] font-display font-bold text-text-muted mt-1 uppercase tracking-wider">Festival / Masivo</p>
-                  <p class="text-[11px] text-text-muted/70 mt-2">Convención, festival, año nuevo</p>
+                  <p class="text-[12px] font-display font-bold text-text-muted mt-1 uppercase tracking-wider" data-i18n="scale_large">Festival / Masivo</p>
+                  <p class="text-[11px] text-text-muted/70 mt-2" data-i18n="scale_large_desc">Convención, festival, año nuevo</p>
                   <div class="absolute top-3 right-3 w-5 h-5 rounded-full border-2 border-border-subtle flex items-center justify-center transition-all opacity-0 peer-checked:opacity-100 peer-checked:border-neon-magenta peer-checked:bg-neon-magenta">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
                   </div>
@@ -917,12 +917,12 @@ tailwind.config = {
           <!-- STEP 4: Contact + Summary -->
           <div class="builder-step hidden" id="builderStep4">
             <div class="mb-6">
-              <h3 class="font-display font-bold text-2xl text-text-primary">Último paso — ¿a dónde enviamos tu propuesta?</h3>
-              <p class="text-[13px] text-text-muted mt-1">Nuestro equipo de dirección artística te contacta en menos de 2 horas con un dossier personalizado.</p>
+              <h3 class="font-display font-bold text-2xl text-text-primary" data-i18n="step4_title">Último paso — ¿a dónde enviamos tu propuesta?</h3>
+              <p class="text-[13px] text-text-muted mt-1" data-i18n="step4_sub">Nuestro equipo de dirección artística te contacta en menos de 2 horas con un dossier personalizado.</p>
             </div>
             <!-- Live Summary Card -->
             <div class="p-5 rounded-2xl bg-surface-container/60 border border-border-subtle mb-6">
-              <p class="text-[10px] font-display font-bold text-text-muted uppercase tracking-widest mb-3">Tu experiencia</p>
+              <p class="text-[10px] font-display font-bold text-text-muted uppercase tracking-widest mb-3" data-i18n="summary_label">Tu experiencia</p>
               <div class="grid grid-cols-3 gap-3">
                 <div class="p-3 rounded-xl bg-surface-elevated/80 text-center">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FA257E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -944,19 +944,19 @@ tailwind.config = {
                 <div class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </div>
-                <input class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all" id="builderName" placeholder="Tu nombre y organización" required type="text"/>
+                <input class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all" id="builderName" placeholder="Tu nombre y organización" data-i18n-placeholder="form_name_placeholder" required type="text"/>
               </div>
               <div class="relative">
                 <div class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                 </div>
-                <input class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all" id="builderContact" placeholder="WhatsApp o email" required type="text"/>
+                <input class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all" id="builderContact" placeholder="WhatsApp o email" data-i18n-placeholder="form_contact_placeholder" required type="text"/>
               </div>
               <div class="relative">
                 <div class="absolute left-4 top-4 text-text-muted">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
                 </div>
-                <textarea class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all resize-none" id="builderNotes" placeholder="Detalles adicionales (fecha, duración, ideas...)" rows="3"></textarea>
+                <textarea class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all resize-none" id="builderNotes" placeholder="Detalles adicionales (fecha, duración, ideas...)" data-i18n-placeholder="form_notes_placeholder" rows="3"></textarea>
               </div>
             </div>
           </div>
@@ -968,10 +968,10 @@ tailwind.config = {
       <div class="px-8 pb-8 md:px-12 md:pb-10 flex items-center justify-between gap-4">
         <button class="px-6 py-3 rounded-xl bg-surface-elevated border border-border-subtle text-text-secondary text-[12px] font-display font-bold uppercase tracking-wider hover:text-text-primary hover:border-neon-magenta/30 transition-all flex items-center gap-2 invisible" id="btnPrev">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-          <span>Atrás</span>
+          <span data-i18n="btn_prev">Atrás</span>
         </button>
         <button class="px-8 py-3.5 rounded-xl bg-neon-magenta text-text-primary text-[12px] font-display font-bold uppercase tracking-[0.14em] glow-magenta hover:scale-[1.03] active:scale-95 transition-all flex items-center gap-2 magnetic-btn disabled:opacity-40 disabled:pointer-events-none disabled:scale-100" id="btnNext" disabled>
-          <span>Siguiente</span>
+          <span data-i18n="btn_next">Siguiente</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
       </div>
@@ -984,12 +984,12 @@ tailwind.config = {
         <div class="w-20 h-20 rounded-full bg-neon-magenta/20 border-2 border-neon-magenta mx-auto flex items-center justify-center mb-5">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FA257E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
-        <h4 class="font-display font-[800] text-2xl text-text-primary uppercase">¡Solicitud Enviada!</h4>
-        <p class="text-[15px] text-text-secondary mt-3 max-w-md mx-auto">Nuestro equipo de dirección artística y producción revisará tu solicitud y te contactará vía WhatsApp o Email en menos de 2 horas con una propuesta personalizada según tu espacio, público y experiencia deseada.</p>
+        <h4 class="font-display font-[800] text-2xl text-text-primary uppercase" data-i18n="success_title">¡Solicitud Enviada!</h4>
+        <p class="text-[15px] text-text-secondary mt-3 max-w-md mx-auto" data-i18n="success_desc">Nuestro equipo de dirección artística y producción revisará tu solicitud y te contactará vía WhatsApp o Email en menos de 2 horas con una propuesta personalizada según tu espacio, público y experiencia deseada.</p>
         <div class="mt-6 flex items-center justify-center gap-3">
           <a href="https://wa.me/18295484316" target="_blank" rel="noopener" class="px-5 py-2.5 rounded-full bg-[#25D366] text-white text-[11px] font-display font-bold uppercase tracking-wider flex items-center gap-2 hover:scale-105 transition-transform">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.515A11.93 11.93 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-2.09 0-4.025-.659-5.616-1.781l-.402-.265-2.743.899.879-2.681-.293-.421A9.715 9.715 0 0 1 2.25 12c0-5.385 4.365-9.75 9.75-9.75S21.75 6.615 21.75 12s-4.365 9.75-9.75 9.75z"/></svg>
-            <span>WhatsApp Directo</span>
+            <span data-i18n="success_wa">WhatsApp Directo</span>
           </a>
         </div>
       </div>
@@ -1002,8 +1002,8 @@ tailwind.config = {
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
       <div>
-        <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" data-animate>Testimonios</span>
-        <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] text-text-primary uppercase mt-2" data-animate>EXCELENCIA VERIFICADA</h2>
+        <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" data-animate data-i18n="test_label">Testimonios</span>
+        <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] text-text-primary uppercase mt-2" data-animate data-i18n="test_title">EXCELENCIA VERIFICADA</h2>
       </div>
       <div class="flex items-center gap-3 p-3 rounded-2xl bg-surface-elevated border border-border-subtle" data-animate>
         <span class="font-display font-bold text-2xl text-stage-gold">5.0</span>
@@ -1015,7 +1015,7 @@ tailwind.config = {
             <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">star</span>
             <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">star</span>
           </div>
-          <p class="text-[11px] text-text-muted">Resorts &amp; Eventos</p>
+          <p class="text-[11px] text-text-muted" data-i18n="test_rating_sub">Resorts & Eventos</p>
         </div>
       </div>
     </div>
@@ -1029,13 +1029,13 @@ tailwind.config = {
             <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">star</span>
             <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">star</span>
           </div>
-          <p class="text-[15px] text-text-secondary italic leading-relaxed">"La energía que MALEVO y las comparsas aportaron a nuestro resort fue monumental. La dirección artística, el vestuario, la producción — todo impecable. Superaron cada expectativa."</p>
+          <p class="text-[15px] text-text-secondary italic leading-relaxed" data-i18n="test_1">"La energía que MALEVO y las comparsas aportaron a nuestro resort fue monumental. La dirección artística, el vestuario, la producción — todo impecable. Superaron cada expectativa."</p>
         </div>
         <div class="mt-6 pt-6 border-t border-border-subtle flex items-center gap-3">
           <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-neon-magenta text-sm">GM</div>
           <div>
             <p class="text-[12px] font-display font-bold text-text-primary uppercase">Guillermo Morales</p>
-            <p class="text-[11px] text-text-muted">Gerente General · Resort 5★ Bávaro</p>
+            <p class="text-[11px] text-text-muted" data-i18n="test_1_role">Gerente General · Resort 5★ Bávaro</p>
           </div>
         </div>
       </div>
@@ -1048,7 +1048,7 @@ tailwind.config = {
             <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">star</span>
             <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">star</span>
           </div>
-          <p class="text-[15px] text-text-secondary italic leading-relaxed">"Los Dinner Shows de MAR son el sello definitivo de distinción para nuestras bodas en Cap Cana. El belly dance, el tango, los percusionistas en vivo — cada detalle transforma la cena en un espectáculo inolvidable."</p>
+          <p class="text-[15px] text-text-secondary italic leading-relaxed" data-i18n="test_2">"Los Dinner Shows de MAR son el sello definitivo de distinción para nuestras bodas en Cap Cana. El belly dance, el tango, los percusionistas en vivo — cada detalle transforma la cena en un espectáculo inolvidable."</p>
         </div>
         <div class="mt-6 pt-6 border-t border-border-subtle flex items-center gap-3">
           <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-stage-gold text-sm">SD</div>
@@ -1067,13 +1067,13 @@ tailwind.config = {
             <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">star</span>
             <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">star</span>
           </div>
-          <p class="text-[15px] text-text-secondary italic leading-relaxed">"Desde el concepto hasta la puesta en escena, MAR creó una Custom Production que transformó nuestra convención de 400 directivos en una experiencia que nadie va a olvidar."</p>
+          <p class="text-[15px] text-text-secondary italic leading-relaxed" data-i18n="test_3">"Desde el concepto hasta la puesta en escena, MAR creó una Custom Production que transformó nuestra convención de 400 directivos en una experiencia que nadie va a olvidar."</p>
         </div>
         <div class="mt-6 pt-6 border-t border-border-subtle flex items-center gap-3">
           <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-neon-magenta text-sm">CL</div>
           <div>
             <p class="text-[12px] font-display font-bold text-text-primary uppercase">Carlos Larraín</p>
-            <p class="text-[11px] text-text-muted">Productor Corporativo</p>
+            <p class="text-[11px] text-text-muted" data-i18n="test_3_role">Productor Corporativo</p>
           </div>
         </div>
       </div>
@@ -1085,44 +1085,44 @@ tailwind.config = {
 <section class="py-24 lg:py-32 bg-surface-black relative">
   <div class="max-w-4xl mx-auto px-6 lg:px-12">
     <div class="text-center mb-16">
-      <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" data-animate>FAQ</span>
-      <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] text-text-primary uppercase mt-2" data-animate>PREGUNTAS FRECUENTES</h2>
+      <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" data-animate data-i18n="faq_label">FAQ</span>
+      <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] text-text-primary uppercase mt-2" data-animate data-i18n="faq_title">PREGUNTAS FRECUENTES</h2>
     </div>
     <div class="space-y-3">
       <div class="rounded-xl glass-panel overflow-hidden" data-animate>
         <button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-lg text-text-primary hover:text-neon-magenta transition-colors">
-          <span>¿Con cuánta anticipación debo reservar?</span>
+          <span data-i18n="faq_q1">¿Con cuánta anticipación debo reservar?</span>
           <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
         </button>
-        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed">Recomendamos 3 a 6 semanas de antelación para producciones Custom y Full Show. Para Special Acts y Entertainment Experience, podemos coordinar con 1-2 semanas. En temporada alta (diciembre a mayo), reservá con la mayor anticipación posible.</div>
+        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed" data-i18n="faq_a1">Recomendamos 3 a 6 semanas de antelación para producciones Custom y Full Show. Para Special Acts y Entertainment Experience, podemos coordinar con 1-2 semanas. En temporada alta (diciembre a mayo), reservá con la mayor anticipación posible.</div>
       </div>
       <div class="rounded-xl glass-panel overflow-hidden" data-animate>
         <button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-lg text-text-primary hover:text-neon-magenta transition-colors">
-          <span>¿Pueden adaptar la producción a cualquier espacio?</span>
+          <span data-i18n="faq_q2">¿Pueden adaptar la producción a cualquier espacio?</span>
           <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
         </button>
-        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed">Absolutamente. Diseñamos cada propuesta según el espacio, el público y la experiencia que se quiera crear. Auditorios, arena de playa, decks de piscina, salones boutique, terrazas — adaptamos escena, artistas y producción técnica a cada venue.</div>
+        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed" data-i18n="faq_a2">Absolutamente. Diseñamos cada propuesta según el espacio, el público y la experiencia que se quiera crear. Auditorios, arena de playa, decks de piscina, salones boutique, terrazas — adaptamos escena, artistas y producción técnica a cada venue.</div>
       </div>
       <div class="rounded-xl glass-panel overflow-hidden" data-animate>
         <button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-lg text-text-primary hover:text-neon-magenta transition-colors">
-          <span>¿Cómo funciona una Custom Production?</span>
+          <span data-i18n="faq_q3">¿Cómo funciona una Custom Production?</span>
           <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
         </button>
-        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed">Seguimos un pipeline completo: Concepto → Casting → Dirección Artística → Vestuario → Coreografía & Música → Producción → Puesta en Escena. Desde tu idea inicial hasta el telón, nuestro equipo desarrolla cada aspecto de la producción a medida.</div>
+        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed" data-i18n="faq_a3">Seguimos un pipeline completo: Concepto → Casting → Dirección Artística → Vestuario → Coreografía & Música → Producción → Puesta en Escena. Desde tu idea inicial hasta el telón, nuestro equipo desarrolla cada aspecto de la producción a medida.</div>
       </div>
       <div class="rounded-xl glass-panel overflow-hidden" data-animate>
         <button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-lg text-text-primary hover:text-neon-magenta transition-colors">
-          <span>¿Ofrecen programación recurrente para hoteles?</span>
+          <span data-i18n="faq_q4">¿Ofrecen programación recurrente para hoteles?</span>
           <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
         </button>
-        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed">Sí. Nuestro formato Resident Entertainment ofrece programación artística permanente: cartelera semanal con rotación de shows, artistas residentes, y producción continua. Ideal para resorts y restaurantes que buscan entretenimiento consistente y profesional.</div>
+        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed" data-i18n="faq_a4">Sí. Nuestro formato Resident Entertainment ofrece programación artística permanente: cartelera semanal con rotación de shows, artistas residentes, y producción continua. Ideal para resorts y restaurantes que buscan entretenimiento consistente y profesional.</div>
       </div>
       <div class="rounded-xl glass-panel overflow-hidden" data-animate>
         <button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-lg text-text-primary hover:text-neon-magenta transition-colors">
-          <span>¿Qué requerimientos técnicos necesitan?</span>
+          <span data-i18n="faq_q5">¿Qué requerimientos técnicos necesitan?</span>
           <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
         </button>
-        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed">Proporcionamos rider técnico adaptado a cada formato. Si tu venue no tiene equipo de sonido, iluminación o escenario, gestionamos la producción técnica integral. Nos encargamos de todo para que solo tengas que preocuparte por disfrutar.</div>
+        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed" data-i18n="faq_a5">Proporcionamos rider técnico adaptado a cada formato. Si tu venue no tiene equipo de sonido, iluminación o escenario, gestionamos la producción técnica integral. Nos encargamos de todo para que solo tengas que preocuparte por disfrutar.</div>
       </div>
     </div>
   </div>
@@ -1134,27 +1134,27 @@ tailwind.config = {
     <div class="flex justify-center mb-8" data-animate>
       <img src="logo-mar.jpeg" alt="MAR Entertainment Group" class="h-10 w-auto"/>
     </div>
-    <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] text-neon-magenta uppercase tracking-widest mb-10" data-animate>CONTACTO</h2>
+    <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] text-neon-magenta uppercase tracking-widest mb-10" data-animate data-i18n="contact_title">CONTACTO</h2>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
       <a class="p-6 rounded-2xl glass-panel hover:border-neon-magenta/40 transition-all flex flex-col items-center gap-3 group tilt-card" href="tel:+18295484316" data-animate>
         <div class="w-12 h-12 rounded-full bg-neon-magenta/20 flex items-center justify-center text-neon-magenta group-hover:bg-neon-magenta group-hover:text-text-primary transition-colors">
           <span class="material-symbols-outlined text-[24px]">call</span>
         </div>
-        <p class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider">Teléfono</p>
+        <p class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider" data-i18n="contact_phone">Teléfono</p>
         <p class="font-display font-bold text-[17px] text-text-primary">+1 829 548 4316</p>
       </a>
       <a class="p-6 rounded-2xl glass-panel hover:border-neon-magenta/40 transition-all flex flex-col items-center gap-3 group tilt-card" href="mailto:info@marentertainmentgroup.com" data-animate>
         <div class="w-12 h-12 rounded-full bg-neon-magenta/20 flex items-center justify-center text-neon-magenta group-hover:bg-neon-magenta group-hover:text-text-primary transition-colors">
           <span class="material-symbols-outlined text-[24px]">mail</span>
         </div>
-        <p class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider">Email</p>
+        <p class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider" data-i18n="contact_email_label">Email</p>
         <p class="font-display font-bold text-[15px] text-text-primary break-all">info@marentertainmentgroup.com</p>
       </a>
       <a class="p-6 rounded-2xl glass-panel hover:border-neon-magenta/40 transition-all flex flex-col items-center gap-3 group tilt-card" href="https://instagram.com/mar.engroup" rel="noopener" target="_blank" data-animate>
         <div class="w-12 h-12 rounded-full bg-neon-magenta/20 flex items-center justify-center text-neon-magenta group-hover:bg-neon-magenta group-hover:text-text-primary transition-colors">
           <span class="material-symbols-outlined text-[24px]">photo_camera</span>
         </div>
-        <p class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider">Instagram</p>
+        <p class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider" data-i18n="contact_ig_label">Instagram</p>
         <p class="font-display font-bold text-[17px] text-text-primary">@mar.engroup</p>
       </a>
     </div>
@@ -1169,17 +1169,17 @@ tailwind.config = {
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
       <div>
         <img src="logo-mar.jpeg" alt="MAR Entertainment Group" class="h-8 w-auto"/>
-        <p class="text-[13px] text-text-muted mt-1">Punta Cana, Dominican Republic · Entertainment · Artistic Direction · Production</p>
+        <p class="text-[13px] text-text-muted mt-1" data-i18n="footer_tagline">Punta Cana, Dominican Republic · Entertainment · Dirección Artística · Producción</p>
       </div>
       <div class="flex flex-wrap gap-6 text-[13px]">
-        <a class="text-text-muted hover:text-text-primary transition-colors" href="#experiencias">Shows</a>
+        <a class="text-text-muted hover:text-text-primary transition-colors" href="#experiencias" data-i18n="nav_shows">Shows</a>
         <a class="text-text-muted hover:text-text-primary transition-colors" href="#malevo">Malevo</a>
-        <a class="text-text-muted hover:text-text-primary transition-colors" href="#formatos">Formatos</a>
-        <a class="text-text-muted hover:text-text-primary transition-colors" href="#contacto">Contacto</a>
+        <a class="text-text-muted hover:text-text-primary transition-colors" href="#formatos" data-i18n="nav_formats">Formatos</a>
+        <a class="text-text-muted hover:text-text-primary transition-colors" href="#contacto" data-i18n="nav_contact">Contacto</a>
       </div>
     </div>
     <div class="pt-6 border-t border-border-subtle flex flex-col sm:flex-row justify-between items-center gap-4 text-text-muted text-[13px]">
-      <p>© 2025 MAR Entertainment Group. All rights reserved.</p>
+      <p data-i18n="footer_copyright">© 2025 MAR Entertainment Group. Todos los derechos reservados.</p>
       <div class="flex items-center gap-6">
         <a class="hover:text-neon-magenta transition-colors" href="tel:+18295484316">+1 829 548 4316</a>
         <a class="hover:text-neon-magenta transition-colors" href="mailto:info@marentertainmentgroup.com">info@marentertainmentgroup.com</a>
@@ -1420,12 +1420,303 @@ if (muteToggle) {
   });
 }
 
-// ===== LANGUAGE TOGGLE =====
+// ===== LANGUAGE TOGGLE — FULL i18n SYSTEM =====
+let currentLang = 'es';
+
+const translations = {
+  es: {
+    hero_badge: "Punta Cana \u00b7 Riviera del Caribe",
+    hero_line1: "CREAMOS",
+    hero_line2: "EXPERIENCIAS",
+    hero_line3: "INOLVIDABLES",
+    hero_tagline: "EL ARTE VIVE AQU\u00cd.",
+    hero_desc: "Entertainment \u00b7 Direcci\u00f3n Art\u00edstica \u00b7 Producci\u00f3n. Dise\u00f1amos cada propuesta seg\u00fan el espacio, el p\u00fablico y la experiencia que se quiera crear.",
+    hero_cta1: "Tu Idea. Nuestro Escenario.",
+    hero_cta2: "Ver Shows",
+    hero_stat1: "Shows Producidos",
+    hero_stat2: "Artistas & Performers",
+    hero_stat3: "Resorts & Venues",
+    nav_home: "Inicio",
+    nav_shows: "Shows",
+    nav_formats: "Formatos",
+    nav_book: "Reservar",
+    nav_contact: "Contacto",
+    header_cta: "Reservar Show",
+    scroll: "Scroll",
+    exp_label: "Shows & Espect\u00e1culos",
+    exp_title: "TRES FORMAS<br><span class='text-neon-magenta'>DE VIVIR LA NOCHE</span>",
+    exp_desc: "Producciones art\u00edsticas listas para tu programaci\u00f3n. M\u00fasica, artistas y actuaciones integrados en cada momento del d\u00eda \u2014 dise\u00f1ados seg\u00fan el espacio, el p\u00fablico y la experiencia que se quiera crear.",
+    exp_sunset_sub: "Golden Hour \u00b7 Beach Clubs \u00b7 Terrazas",
+    exp_sunset_desc: "DJ sets, saxofonista en vivo, percusi\u00f3n, artistas itinerantes y actuaciones integradas al atardecer caribe\u00f1o. M\u00fasica y performances que elevan la atm\u00f3sfera sin interrumpir \u2014 fluyen con el momento.",
+    exp_dinner_sub: "Espect\u00e1culos con Desarrollo Esc\u00e9nico Completo",
+    exp_dinner_desc: "Belly dance internacional con coreograf\u00edas originales y animaci\u00f3n que interact\u00faa con los invitados. Tango contempor\u00e1neo, danza a\u00e9rea, percusionistas en vivo con darbuka. Vestuarios de alta costura y elementos esc\u00e9nicos que transforman la cena en teatro.",
+    exp_fiestas_title: "FIESTAS TEM\u00c1TICAS",
+    exp_fiestas_sub: "Creadas desde Cero para Tu Marca",
+    exp_fiestas_desc: "Producciones a medida con concepto, casting, direcci\u00f3n art\u00edstica, vestuario, coreograf\u00eda, m\u00fasica original y puesta en escena completa. Bailarines, acr\u00f3batas a\u00e9reos, comparsas de plumas, fuego, zanqueros, DJs y ambientaci\u00f3n esc\u00e9nica integral.",
+    exp_footer_sunset: "2h - 5h \u00b7 Outdoor",
+    exp_footer_dinner: "Teatral \u00b7 Sensorial \u00b7 Inmersivo",
+    exp_footer_fiestas: "Grandes Formatos \u00b7 360\u00b0",
+    cotizar: "Cotizar",
+    malevo_headline_badge: "Headliner Mundial",
+    malevo_sub: "Malambo. Bombos. Boleadoras. Zapateo. <span class='text-neon-magenta'>Energ\u00eda en estado puro.</span>",
+    malevo_desc: "Compa\u00f1\u00eda Argentina de proyecci\u00f3n internacional. Malambo contempor\u00e1neo de gran potencia visual y sonora dirigida por Mat\u00edas Jaime. Percusi\u00f3n en vivo, zapateo sincronizado y una puesta en escena que ha recorrido los escenarios m\u00e1s importantes del mundo.",
+    malevo_agt: "Semifinalistas mundiales",
+    malevo_ricky: "Residencia All In \u2014 Las Vegas",
+    malevo_universal: "Residencia en Osaka, Jap\u00f3n",
+    malevo_cta: "Contratar MALEVO",
+    fmt_subtitle: "De la Idea al Escenario",
+    fmt_title_html: "TU IDEA.<br><span class='text-neon-magenta'>NUESTRO ESCENARIO.</span>",
+    fmt_desc: "5 formatos de producci\u00f3n que se adaptan a tu espacio, tu p\u00fablico y la experiencia que quer\u00e9s crear. Cada propuesta incluye direcci\u00f3n art\u00edstica, casting, vestuario y producci\u00f3n integral.",
+    fmt_01_desc: "Intervenciones de alto impacto. Momentos puntuales que capturan toda la atenci\u00f3n y elevan la experiencia.",
+    fmt_02_desc: "Espect\u00e1culos completos con desarrollo esc\u00e9nico, narrativa, vestuario y producci\u00f3n de punta a punta.",
+    fmt_03_desc: "M\u00fasica, artistas y actuaciones integrados al ambiente. Entretenimiento que fluye con el evento sin interrumpirlo.",
+    fmt_04_desc: "Programaci\u00f3n art\u00edstica recurrente y permanente para hoteles, resorts y restaurantes. Tu cartelera, nuestra producci\u00f3n.",
+    fmt_05_desc: "Creada desde cero para tu marca. Concepto \u2192 Casting \u2192 Direcci\u00f3n Art\u00edstica \u2192 Vestuario \u2192 Coreograf\u00eda & M\u00fasica \u2192 Producci\u00f3n \u2192 Puesta en Escena.",
+    fmt_visual_label: "Talento & Performances",
+    fmt_visual_desc: "Bailarines, cantantes, m\u00fasicos, DJs, acr\u00f3batas a\u00e9reos, zanqueros, performers de fuego y m\u00e1s.",
+    calc_title_html: "DE LA IDEA<br><span class='text-neon-magenta'>AL ESCENARIO</span>",
+    calc_desc: "4 pasos. 60 segundos. Nuestro equipo de direcci\u00f3n art\u00edstica dise\u00f1a una propuesta a medida seg\u00fan tu espacio, p\u00fablico y experiencia deseada.",
+    step_lugar: "Lugar",
+    step_show: "Show",
+    step_escala: "Escala",
+    step_enviar: "Enviar",
+    step1_title: "\u00bfD\u00f3nde creamos la experiencia?",
+    step1_sub: "Dise\u00f1amos cada propuesta seg\u00fan el espacio y el p\u00fablico.",
+    step2_title: "\u00bfQu\u00e9 tipo de experiencia quer\u00e9s crear?",
+    step2_sub: "Eleg\u00ed el estilo art\u00edstico principal. Nuestro equipo puede combinar formatos.",
+    step3_title: "\u00bfCu\u00e1ntos invitados esper\u00e1s?",
+    step3_sub: "Esto define la escala de producci\u00f3n, artistas y log\u00edstica.",
+    step4_title: "\u00daltimo paso \u2014 \u00bfa d\u00f3nde enviamos tu propuesta?",
+    step4_sub: "Nuestro equipo de direcci\u00f3n art\u00edstica te contacta en menos de 2 horas con un dossier personalizado.",
+    venue_resort: "Resort 5\u2605",
+    venue_resort_sub: "Hotel de lujo",
+    venue_beach: "Beach Club",
+    venue_beach_sub: "Terraza & playa",
+    venue_wedding: "Boda VIP",
+    venue_wedding_sub: "Destino exclusivo",
+    venue_gala: "Gala Privada",
+    venue_gala_sub: "Corporativo & Premium",
+    vibe_malevo_desc: "Malambo, bombos, boleadoras y zapateo. La sensaci\u00f3n argentina que ha recorrido el mundo.",
+    vibe_sunset_desc: "Sax en vivo, deep house, golden hour. Atardecer caribe\u00f1o m\u00e1gico.",
+    vibe_dinner_desc: "Belly dance internacional, tango contempor\u00e1neo, danza a\u00e9rea. Percusionistas en vivo.",
+    vibe_carnaval_desc: "Comparsas, trajes de plumas, acrobacias a\u00e9reas, fuego, zanqueros y producci\u00f3n 360\u00b0.",
+    scale_intimate: "\u00cdntimo / VIP",
+    scale_intimate_desc: "Cena exclusiva, suite privada, experiencia personal",
+    scale_medium: "Mediano",
+    scale_medium_desc: "Boda, gala corporativa, evento de hotel",
+    scale_large: "Festival / Masivo",
+    scale_large_desc: "Convenci\u00f3n, festival, a\u00f1o nuevo",
+    form_name_placeholder: "Tu nombre y organizaci\u00f3n",
+    form_contact_placeholder: "WhatsApp o email",
+    form_notes_placeholder: "Detalles adicionales (fecha, duraci\u00f3n, ideas...)",
+    summary_label: "Tu experiencia",
+    btn_prev: "Atr\u00e1s",
+    btn_next: "Siguiente",
+    btn_submit: "Enviar Solicitud",
+    success_title: "\u00a1Solicitud Enviada!",
+    success_desc: "Nuestro equipo de direcci\u00f3n art\u00edstica y producci\u00f3n revisar\u00e1 tu solicitud y te contactar\u00e1 v\u00eda WhatsApp o Email en menos de 2 horas con una propuesta personalizada seg\u00fan tu espacio, p\u00fablico y experiencia deseada.",
+    success_wa: "WhatsApp Directo",
+    test_label: "Testimonios",
+    test_title: "EXCELENCIA VERIFICADA",
+    test_rating_sub: "Resorts & Eventos",
+    test_1: "\u201cLa energ\u00eda que MALEVO y las comparsas aportaron a nuestro resort fue monumental. La direcci\u00f3n art\u00edstica, el vestuario, la producci\u00f3n \u2014 todo impecable. Superaron cada expectativa.\u201d",
+    test_1_role: "Gerente General \u00b7 Resort 5\u2605 B\u00e1varo",
+    test_2: "\u201cLos Dinner Shows de MAR son el sello definitivo de distinci\u00f3n para nuestras bodas en Cap Cana. El belly dance, el tango, los percusionistas en vivo \u2014 cada detalle transforma la cena en un espect\u00e1culo inolvidable.\u201d",
+    test_3: "\u201cDesde el concepto hasta la puesta en escena, MAR cre\u00f3 una Custom Production que transform\u00f3 nuestra convenci\u00f3n de 400 directivos en una experiencia que nadie va a olvidar.\u201d",
+    test_3_role: "Productor Corporativo",
+    faq_label: "FAQ",
+    faq_title: "PREGUNTAS FRECUENTES",
+    faq_q1: "\u00bfCon cu\u00e1nta anticipaci\u00f3n debo reservar?",
+    faq_a1: "Recomendamos 3 a 6 semanas de antelaci\u00f3n para producciones Custom y Full Show. Para Special Acts y Entertainment Experience, podemos coordinar con 1-2 semanas. En temporada alta (diciembre a mayo), reserv\u00e1 con la mayor anticipaci\u00f3n posible.",
+    faq_q2: "\u00bfPueden adaptar la producci\u00f3n a cualquier espacio?",
+    faq_a2: "Absolutamente. Dise\u00f1amos cada propuesta seg\u00fan el espacio, el p\u00fablico y la experiencia que se quiera crear. Auditorios, arena de playa, decks de piscina, salones boutique, terrazas \u2014 adaptamos escena, artistas y producci\u00f3n t\u00e9cnica a cada venue.",
+    faq_q3: "\u00bfC\u00f3mo funciona una Custom Production?",
+    faq_a3: "Seguimos un pipeline completo: Concepto \u2192 Casting \u2192 Direcci\u00f3n Art\u00edstica \u2192 Vestuario \u2192 Coreograf\u00eda & M\u00fasica \u2192 Producci\u00f3n \u2192 Puesta en Escena. Desde tu idea inicial hasta el tel\u00f3n, nuestro equipo desarrolla cada aspecto de la producci\u00f3n a medida.",
+    faq_q4: "\u00bfOfrecen programaci\u00f3n recurrente para hoteles?",
+    faq_a4: "S\u00ed. Nuestro formato Resident Entertainment ofrece programaci\u00f3n art\u00edstica permanente: cartelera semanal con rotaci\u00f3n de shows, artistas residentes, y producci\u00f3n continua. Ideal para resorts y restaurantes que buscan entretenimiento consistente y profesional.",
+    faq_q5: "\u00bfQu\u00e9 requerimientos t\u00e9cnicos necesitan?",
+    faq_a5: "Proporcionamos rider t\u00e9cnico adaptado a cada formato. Si tu venue no tiene equipo de sonido, iluminaci\u00f3n o escenario, gestionamos la producci\u00f3n t\u00e9cnica integral. Nos encargamos de todo para que solo tengas que preocuparte por disfrutar.",
+    contact_title: "CONTACTO",
+    contact_phone: "Tel\u00e9fono",
+    contact_email_label: "Email",
+    contact_ig_label: "Instagram",
+    footer_tagline: "Punta Cana, Dominican Republic \u00b7 Entertainment \u00b7 Direcci\u00f3n Art\u00edstica \u00b7 Producci\u00f3n",
+    footer_copyright: "\u00a9 2025 MAR Entertainment Group. Todos los derechos reservados.",
+    step_label_tpl: "Paso {step} de {total}",
+  },
+  en: {
+    hero_badge: "Punta Cana \u00b7 Caribbean Riviera",
+    hero_line1: "WE CREATE",
+    hero_line2: "UNFORGETTABLE",
+    hero_line3: "EXPERIENCES",
+    hero_tagline: "ART LIVES HERE.",
+    hero_desc: "Entertainment \u00b7 Artistic Direction \u00b7 Production. We design every proposal based on the space, the audience, and the experience you want to create.",
+    hero_cta1: "Your Idea. Our Stage.",
+    hero_cta2: "See Shows",
+    hero_stat1: "Shows Produced",
+    hero_stat2: "Artists & Performers",
+    hero_stat3: "Resorts & Venues",
+    nav_home: "Home",
+    nav_shows: "Shows",
+    nav_formats: "Formats",
+    nav_book: "Book",
+    nav_contact: "Contact",
+    header_cta: "Book a Show",
+    scroll: "Scroll",
+    exp_label: "Shows & Performances",
+    exp_title: "THREE WAYS<br><span class='text-neon-magenta'>TO LIVE THE NIGHT</span>",
+    exp_desc: "Artistic productions ready for your programming. Music, artists, and performances integrated into every moment \u2014 designed around the space, the audience, and the experience you want to create.",
+    exp_sunset_sub: "Golden Hour \u00b7 Beach Clubs \u00b7 Terraces",
+    exp_sunset_desc: "DJ sets, live saxophone, percussion, roaming artists, and performances woven into the Caribbean sunset. Music and acts that elevate the atmosphere without interrupting \u2014 they flow with the moment.",
+    exp_dinner_sub: "Full Staged Performances",
+    exp_dinner_desc: "International belly dance with original choreography and animation that interacts with guests. Contemporary tango, aerial dance, live darbuka percussionists. Haute couture costumes and scenic elements that transform dinner into theater.",
+    exp_fiestas_title: "THEMED PARTIES",
+    exp_fiestas_sub: "Created from Scratch for Your Brand",
+    exp_fiestas_desc: "Custom productions with concept, casting, artistic direction, costumes, choreography, original music, and full staging. Dancers, aerial acrobats, feathered troupes, fire, stilt walkers, DJs, and full scenic design.",
+    exp_footer_sunset: "2h - 5h \u00b7 Outdoor",
+    exp_footer_dinner: "Theatrical \u00b7 Sensory \u00b7 Immersive",
+    exp_footer_fiestas: "Large Scale \u00b7 360\u00b0",
+    cotizar: "Get Quote",
+    malevo_headline_badge: "World Headliner",
+    malevo_sub: "Malambo. Drums. Boleadoras. Footwork. <span class='text-neon-magenta'>Raw energy.</span>",
+    malevo_desc: "Argentine company with international reach. Contemporary malambo of great visual and sonic power directed by Mat\u00edas Jaime. Live percussion, synchronized footwork, and a staging that has toured the most important stages in the world.",
+    malevo_agt: "World Semifinalists",
+    malevo_ricky: "All In Residency \u2014 Las Vegas",
+    malevo_universal: "Residency in Osaka, Japan",
+    malevo_cta: "Book MALEVO",
+    fmt_subtitle: "From an Idea to the Stage",
+    fmt_title_html: "YOUR IDEA.<br><span class='text-neon-magenta'>OUR STAGE.</span>",
+    fmt_desc: "5 production formats that adapt to your space, audience, and the experience you want to create. Every proposal includes artistic direction, casting, costumes, and full production.",
+    fmt_01_desc: "High-impact interventions. Specific moments that capture all attention and elevate the experience.",
+    fmt_02_desc: "Complete shows with staging, narrative, costumes, and end-to-end production.",
+    fmt_03_desc: "Music, artists, and performances integrated into the atmosphere. Entertainment that flows with the event without interrupting it.",
+    fmt_04_desc: "Recurring and permanent artistic programming for hotels, resorts, and restaurants. Your lineup, our production.",
+    fmt_05_desc: "Created from scratch for your brand. Concept \u2192 Casting \u2192 Artistic Direction \u2192 Costumes \u2192 Choreography & Music \u2192 Production \u2192 Staging.",
+    fmt_visual_label: "Talent & Performances",
+    fmt_visual_desc: "Dancers, singers, musicians, DJs, aerial acrobats, stilt walkers, fire performers, and more.",
+    calc_title_html: "FROM AN IDEA<br><span class='text-neon-magenta'>TO THE STAGE</span>",
+    calc_desc: "4 steps. 60 seconds. Our artistic direction team designs a custom proposal based on your space, audience, and desired experience.",
+    step_lugar: "Venue",
+    step_show: "Show",
+    step_escala: "Scale",
+    step_enviar: "Send",
+    step1_title: "Where do we create the experience?",
+    step1_sub: "We design every proposal based on the space and the audience.",
+    step2_title: "What kind of experience do you want to create?",
+    step2_sub: "Choose the main artistic style. Our team can combine formats.",
+    step3_title: "How many guests do you expect?",
+    step3_sub: "This defines the production scale, artists, and logistics.",
+    step4_title: "Last step \u2014 where do we send your proposal?",
+    step4_sub: "Our artistic direction team contacts you within 2 hours with a personalized dossier.",
+    venue_resort: "5\u2605 Resort",
+    venue_resort_sub: "Luxury hotel",
+    venue_beach: "Beach Club",
+    venue_beach_sub: "Terrace & beach",
+    venue_wedding: "VIP Wedding",
+    venue_wedding_sub: "Exclusive destination",
+    venue_gala: "Private Gala",
+    venue_gala_sub: "Corporate & Premium",
+    vibe_malevo_desc: "Malambo, drums, boleadoras, and footwork. The Argentine sensation that has toured the world.",
+    vibe_sunset_desc: "Live sax, deep house, golden hour. Magical Caribbean sunset.",
+    vibe_dinner_desc: "International belly dance, contemporary tango, aerial dance. Live percussionists.",
+    vibe_carnaval_desc: "Troupes, feathered costumes, aerial acrobatics, fire, stilt walkers, and 360\u00b0 production.",
+    scale_intimate: "Intimate / VIP",
+    scale_intimate_desc: "Exclusive dinner, private suite, personal experience",
+    scale_medium: "Medium",
+    scale_medium_desc: "Wedding, corporate gala, hotel event",
+    scale_large: "Festival / Massive",
+    scale_large_desc: "Convention, festival, New Year\u2019s",
+    form_name_placeholder: "Your name and organization",
+    form_contact_placeholder: "WhatsApp or email",
+    form_notes_placeholder: "Additional details (date, duration, ideas...)",
+    summary_label: "Your experience",
+    btn_prev: "Back",
+    btn_next: "Next",
+    btn_submit: "Send Request",
+    success_title: "Request Sent!",
+    success_desc: "Our artistic direction and production team will review your request and contact you via WhatsApp or Email within 2 hours with a personalized proposal based on your space, audience, and desired experience.",
+    success_wa: "Direct WhatsApp",
+    test_label: "Testimonials",
+    test_title: "VERIFIED EXCELLENCE",
+    test_rating_sub: "Resorts & Events",
+    test_1: "\u201cThe energy that MALEVO and the troupes brought to our resort was monumental. The artistic direction, costumes, production \u2014 all impeccable. They exceeded every expectation.\u201d",
+    test_1_role: "General Manager \u00b7 5\u2605 Resort B\u00e1varo",
+    test_2: "\u201cMAR\u2019s Dinner Shows are the ultimate hallmark of distinction for our weddings in Cap Cana. The belly dance, tango, live percussionists \u2014 every detail transforms dinner into an unforgettable show.\u201d",
+    test_3: "\u201cFrom concept to staging, MAR created a Custom Production that transformed our convention of 400 executives into an experience no one will forget.\u201d",
+    test_3_role: "Corporate Producer",
+    faq_label: "FAQ",
+    faq_title: "FREQUENTLY ASKED QUESTIONS",
+    faq_q1: "How far in advance should I book?",
+    faq_a1: "We recommend 3 to 6 weeks in advance for Custom and Full Show productions. For Special Acts and Entertainment Experience, we can coordinate within 1-2 weeks. During peak season (December to May), book as early as possible.",
+    faq_q2: "Can you adapt the production to any venue?",
+    faq_a2: "Absolutely. We design every proposal based on the space, the audience, and the desired experience. Auditoriums, beach sand, pool decks, boutique halls, terraces \u2014 we adapt staging, artists, and technical production to every venue.",
+    faq_q3: "How does a Custom Production work?",
+    faq_a3: "We follow a complete pipeline: Concept \u2192 Casting \u2192 Artistic Direction \u2192 Costumes \u2192 Choreography & Music \u2192 Production \u2192 Staging. From your initial idea to curtain call, our team develops every aspect of the custom production.",
+    faq_q4: "Do you offer recurring programming for hotels?",
+    faq_a4: "Yes. Our Resident Entertainment format offers permanent artistic programming: weekly lineups with show rotation, resident artists, and ongoing production. Ideal for resorts and restaurants seeking consistent, professional entertainment.",
+    faq_q5: "What technical requirements do you need?",
+    faq_a5: "We provide a technical rider tailored to each format. If your venue lacks sound, lighting, or staging equipment, we handle the full technical production. We take care of everything so you only need to enjoy.",
+    contact_title: "CONTACT",
+    contact_phone: "Phone",
+    contact_email_label: "Email",
+    contact_ig_label: "Instagram",
+    footer_tagline: "Punta Cana, Dominican Republic \u00b7 Entertainment \u00b7 Artistic Direction \u00b7 Production",
+    footer_copyright: "\u00a9 2025 MAR Entertainment Group. All rights reserved.",
+    step_label_tpl: "Step {step} of {total}",
+  }
+};
+
+function t(key) {
+  return translations[currentLang][key] || key;
+}
+
+function applyTranslations() {
+  // textContent
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[currentLang][key]) {
+      el.textContent = translations[currentLang][key];
+    }
+  });
+  // innerHTML
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (translations[currentLang][key]) {
+      el.innerHTML = translations[currentLang][key];
+    }
+  });
+  // placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (translations[currentLang][key]) {
+      el.placeholder = translations[currentLang][key];
+    }
+  });
+  // Update lang toggle button highlight
+  const langEs = document.getElementById('lang-es');
+  const langEn = document.getElementById('lang-en');
+  if (langEs && langEn) {
+    if (currentLang === 'es') {
+      langEs.className = 'text-neon-magenta';
+      langEn.className = 'text-text-secondary';
+    } else {
+      langEs.className = 'text-text-secondary';
+      langEn.className = 'text-neon-magenta';
+    }
+  }
+  // Update html lang attribute
+  document.documentElement.lang = currentLang;
+  // Re-apply builder UI labels if form is visible
+  if (typeof updateBuilderUI === 'function') {
+    updateBuilderUI();
+  }
+}
+
 const langToggle = document.getElementById('langToggle');
-const langCurrent = document.getElementById('lang-current');
 if (langToggle) {
   langToggle.addEventListener('click', () => {
-    langCurrent.textContent = langCurrent.textContent === 'ES' ? 'EN' : 'ES';
+    currentLang = currentLang === 'es' ? 'en' : 'es';
+    applyTranslations();
   });
 }
 
@@ -1468,7 +1759,8 @@ function updateBuilderUI() {
   });
   // Progress
   const pct = Math.round(((step - 1) / (total - 1)) * 100);
-  stepLabel.textContent = `Paso ${step} de ${total}`;
+  const tpl = (typeof t === 'function') ? t('step_label_tpl') : `Paso ${step} de ${total}`;
+  stepLabel.textContent = tpl.replace('{step}', step).replace('{total}', total);
   stepPercent.textContent = `${pct}%`;
   gsap.to(progressBar, { width: pct + '%', duration: 0.5, ease: 'power2.out' });
   // Dots
@@ -1490,10 +1782,10 @@ function updateBuilderUI() {
   btnPrev.classList.toggle('invisible', step === 1);
   btnNext.disabled = !isStepValid(step);
   if (step === total) {
-    btnNext.querySelector('span').textContent = 'Enviar Solicitud';
+    btnNext.querySelector('span').textContent = (typeof t === 'function') ? t('btn_submit') : 'Enviar Solicitud';
     btnNext.querySelector('svg').innerHTML = '<path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>';
   } else {
-    btnNext.querySelector('span').textContent = 'Siguiente';
+    btnNext.querySelector('span').textContent = (typeof t === 'function') ? t('btn_next') : 'Siguiente';
     btnNext.querySelector('svg').innerHTML = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>';
   }
   // Update summary on step 4
