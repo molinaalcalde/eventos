@@ -212,6 +212,14 @@ tailwind.config = {
   /* Responsive */
   @media (max-width: 768px) {
     .cursor-dot, .cursor-ring { display: none; }
+    /* Prevent any horizontal overflow */
+    body { overflow-x: hidden; }
+    /* Safe area insets for notched iPhones */
+    .fixed { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+  }
+  @media (max-width: 380px) {
+    /* Extra-small screens: reduce hero CTA text */
+    .hero-headline span { letter-spacing: -0.02em; }
   }
 </style>
 </head>
@@ -239,12 +247,12 @@ tailwind.config = {
 <div class="fixed inset-0 z-[60] pointer-events-none" id="mobileMenu">
   <div class="absolute inset-0 bg-surface-black/95 backdrop-blur-xl opacity-0 transition-opacity duration-500" id="mobileMenuBg"></div>
   <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-0 translate-y-8 transition-all duration-500" id="mobileMenuContent">
-    <a href="#" class="mobile-nav-link text-[clamp(28px,8vw,42px)] font-display font-[800] uppercase text-text-primary hover:text-neon-magenta transition-colors py-2" data-section="hero" data-i18n="nav_home">Inicio</a>
-    <a href="#experiencias" class="mobile-nav-link text-[clamp(28px,8vw,42px)] font-display font-[800] uppercase text-text-primary hover:text-neon-magenta transition-colors py-2" data-i18n="nav_shows">Shows</a>
-    <a href="#malevo" class="mobile-nav-link text-[clamp(28px,8vw,42px)] font-display font-[800] uppercase text-text-primary hover:text-neon-magenta transition-colors py-2">Malevo</a>
-    <a href="#formatos" class="mobile-nav-link text-[clamp(28px,8vw,42px)] font-display font-[800] uppercase text-text-primary hover:text-neon-magenta transition-colors py-2" data-i18n="nav_formats">Formatos</a>
-    <a href="#calculadora" class="mobile-nav-link text-[clamp(28px,8vw,42px)] font-display font-[800] uppercase text-text-primary hover:text-neon-magenta transition-colors py-2" data-i18n="nav_book">Reservar</a>
-    <a href="#contacto" class="mobile-nav-link text-[clamp(28px,8vw,42px)] font-display font-[800] uppercase text-text-primary hover:text-neon-magenta transition-colors py-2" data-i18n="nav_contact">Contacto</a>
+    <a href="#" class="mobile-nav-link text-[clamp(28px,8vw,42px)] font-display font-[800] uppercase text-text-primary hover:text-neon-magenta transition-colors py-3" data-section="hero" data-i18n="nav_home">Inicio</a>
+    <a href="#experiencias" class="mobile-nav-link text-[clamp(28px,8vw,42px)] font-display font-[800] uppercase text-text-primary hover:text-neon-magenta transition-colors py-3" data-i18n="nav_shows">Shows</a>
+    <a href="#malevo" class="mobile-nav-link text-[clamp(28px,8vw,42px)] font-display font-[800] uppercase text-text-primary hover:text-neon-magenta transition-colors py-3">Malevo</a>
+    <a href="#formatos" class="mobile-nav-link text-[clamp(28px,8vw,42px)] font-display font-[800] uppercase text-text-primary hover:text-neon-magenta transition-colors py-3" data-i18n="nav_formats">Formatos</a>
+    <a href="#calculadora" class="mobile-nav-link text-[clamp(28px,8vw,42px)] font-display font-[800] uppercase text-text-primary hover:text-neon-magenta transition-colors py-3" data-i18n="nav_book">Reservar</a>
+    <a href="#contacto" class="mobile-nav-link text-[clamp(28px,8vw,42px)] font-display font-[800] uppercase text-text-primary hover:text-neon-magenta transition-colors py-3" data-i18n="nav_contact">Contacto</a>
     <div class="mt-8 flex items-center gap-5">
       <a class="w-12 h-12 rounded-full bg-neon-magenta/20 flex items-center justify-center text-neon-magenta hover:bg-neon-magenta hover:text-white transition-colors" href="tel:+18295484316">
         <span class="material-symbols-outlined text-[22px]">call</span>
@@ -266,7 +274,7 @@ tailwind.config = {
       <img src="logo-mar.jpeg" alt="MAR Entertainment Group" class="h-7 lg:h-8 w-auto"/>
     </a>
     <div class="flex items-center gap-3 lg:gap-4">
-      <button class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface-elevated/70 text-text-secondary hover:text-text-primary text-[11px] font-display font-bold tracking-wider flex items-center gap-1.5 transition-colors magnetic-btn" id="langToggle">
+      <button class="px-3.5 py-2 rounded-full border border-border-subtle bg-surface-elevated/70 text-text-secondary hover:text-text-primary text-[11px] font-display font-bold tracking-wider flex items-center gap-1.5 transition-colors magnetic-btn min-h-[44px] min-w-[44px] justify-center" id="langToggle">
         <span class="text-neon-magenta" id="lang-es">ES</span>
         <span class="text-text-muted">/</span>
         <span class="text-text-secondary" id="lang-en">EN</span>
@@ -279,7 +287,7 @@ tailwind.config = {
         <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
       </a>
       <!-- Hamburger — mobile/tablet only -->
-      <button class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full border border-border-subtle hover:border-neon-magenta/40 text-text-primary hover:text-neon-magenta transition-all" id="hamburgerBtn" aria-label="Menu">
+      <button class="lg:hidden w-11 h-11 flex items-center justify-center rounded-full border border-border-subtle hover:border-neon-magenta/40 text-text-primary hover:text-neon-magenta transition-all" id="hamburgerBtn" aria-label="Menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="hamburgerIcon">
           <line x1="3" y1="6" x2="21" y2="6" class="transition-all duration-300 origin-center" id="hamburgerLine1"/>
           <line x1="3" y1="12" x2="21" y2="12" class="transition-all duration-300" id="hamburgerLine2"/>
@@ -308,8 +316,8 @@ tailwind.config = {
   <div class="absolute inset-0 bg-gradient-to-r from-surface-black/60 via-transparent to-transparent z-[2]"></div>
 
   <!-- Content -->
-  <div class="relative z-20 max-w-7xl mx-auto px-6 lg:px-12 w-full pt-32 pb-24 lg:pt-40 lg:pb-32">
-    <div class="max-w-3xl flex flex-col gap-7">
+  <div class="relative z-20 max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 w-full pt-28 pb-20 sm:pt-32 sm:pb-24 lg:pt-40 lg:pb-32">
+    <div class="max-w-3xl flex flex-col gap-5 sm:gap-7">
       <!-- Badge -->
       <div class="flex flex-wrap items-center gap-3" data-animate>
         <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-surface-black/50 backdrop-blur-md border border-border-glow text-neon-magenta text-[11px] font-display font-bold uppercase tracking-[0.14em] glow-magenta-subtle">
@@ -331,48 +339,48 @@ tailwind.config = {
       </div>
 
       <!-- Description -->
-      <p class="text-lg text-white/80 max-w-xl leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.4)]" data-animate data-i18n="hero_desc">
+      <p class="text-[15px] sm:text-lg text-white/80 max-w-xl leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.4)]" data-animate data-i18n="hero_desc">
         Entertainment · Dirección Artística · Producción. Diseñamos cada propuesta según el espacio, el público y la experiencia que se quiera crear.
       </p>
 
       <!-- CTAs -->
-      <div class="flex flex-wrap items-center gap-4" data-animate>
-        <a class="px-8 py-4 rounded-xl bg-neon-magenta text-text-primary text-[12px] font-display font-bold uppercase tracking-[0.14em] glow-magenta hover:scale-[1.03] active:scale-95 transition-all flex items-center gap-3 magnetic-btn" href="#calculadora">
+      <div class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4" data-animate>
+        <a class="px-6 sm:px-8 py-4 rounded-xl bg-neon-magenta text-text-primary text-[12px] font-display font-bold uppercase tracking-[0.14em] glow-magenta hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-3 magnetic-btn min-h-[48px]" href="#calculadora">
           <span data-i18n="hero_cta1">Tu Idea. Nuestro Escenario.</span>
           <span class="material-symbols-outlined text-[18px]">bolt</span>
         </a>
-        <a class="px-7 py-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:border-neon-magenta/40 hover:bg-white/15 text-text-primary text-[12px] font-display font-bold uppercase tracking-[0.14em] transition-all flex items-center gap-2 magnetic-btn" href="#experiencias">
+        <a class="px-6 sm:px-7 py-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:border-neon-magenta/40 hover:bg-white/15 text-text-primary text-[12px] font-display font-bold uppercase tracking-[0.14em] transition-all flex items-center justify-center gap-2 magnetic-btn min-h-[48px]" href="#experiencias">
           <span data-i18n="hero_cta2">Ver Shows</span>
           <span class="material-symbols-outlined text-[18px]">play_circle</span>
         </a>
       </div>
 
       <!-- Metrics with animated counters -->
-      <div class="grid grid-cols-3 gap-4 sm:gap-6 pt-6 border-t border-white/10 mt-2 max-w-md sm:max-w-lg" data-animate>
-        <div>
-          <p class="font-display font-[800] text-2xl sm:text-3xl text-text-primary counter drop-shadow-lg" data-count="1200">0</p>
-          <p class="text-[10px] sm:text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1" data-i18n="hero_stat1">Shows en Vivo</p>
+      <div class="flex items-start gap-6 sm:gap-10 pt-6 border-t border-white/10 mt-2" data-animate>
+        <div class="flex-shrink-0">
+          <p class="font-display font-[800] text-[28px] sm:text-4xl text-text-primary counter drop-shadow-lg" data-count="1200">0</p>
+          <p class="text-[10px] sm:text-[11px] font-display font-bold text-white/50 uppercase tracking-[0.08em] mt-1" data-i18n="hero_stat1">Shows</p>
         </div>
-        <div>
-          <p class="font-display font-[800] text-2xl sm:text-3xl text-neon-magenta counter drop-shadow-lg" data-count="8">0</p>
-          <p class="text-[10px] sm:text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1" data-i18n="hero_stat2">Países</p>
+        <div class="flex-shrink-0">
+          <p class="font-display font-[800] text-[28px] sm:text-4xl text-neon-magenta counter drop-shadow-lg" data-count="50">0</p>
+          <p class="text-[10px] sm:text-[11px] font-display font-bold text-white/50 uppercase tracking-[0.08em] mt-1" data-i18n="hero_stat2">Artistas</p>
         </div>
-        <div>
-          <p class="font-display font-[800] text-2xl sm:text-3xl text-stage-gold counter drop-shadow-lg" data-count="15">0</p>
-          <p class="text-[10px] sm:text-[11px] font-display font-bold text-white/60 uppercase tracking-[0.05em] mt-1" data-i18n="hero_stat3">Años de Experiencia</p>
+        <div class="flex-shrink-0">
+          <p class="font-display font-[800] text-[28px] sm:text-4xl text-stage-gold counter drop-shadow-lg" data-count="5">0</p>
+          <p class="text-[10px] sm:text-[11px] font-display font-bold text-white/50 uppercase tracking-[0.08em] mt-1" data-i18n="hero_stat3">Formatos</p>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Mute toggle — bottom right -->
-  <button class="absolute bottom-8 right-8 w-11 h-11 rounded-full bg-surface-black/50 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/70 hover:text-neon-magenta hover:border-neon-magenta/40 transition-all z-30" id="muteToggle" title="Activar sonido">
+  <button class="absolute bottom-20 sm:bottom-8 right-4 sm:right-8 w-11 h-11 rounded-full bg-surface-black/50 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/70 hover:text-neon-magenta hover:border-neon-magenta/40 transition-all z-30" id="muteToggle" title="Activar sonido">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="muteIcon"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="unmuteIcon" class="hidden"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
   </button>
 
   <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 z-30" data-animate>
+  <div class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 z-30" data-animate>
     <span class="text-[11px] font-display font-bold uppercase tracking-widest" data-i18n="scroll">Scroll</span>
     <div class="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
       <div class="w-1 h-2 rounded-full bg-neon-magenta animate-bounce"></div>
@@ -428,10 +436,10 @@ tailwind.config = {
 </div>
 
 <!-- ==================== EXPERIENCIAS — HORIZONTAL SCROLL ON DESKTOP ==================== -->
-<section class="py-24 lg:py-32 bg-surface-container-lowest relative" id="experiencias">
+<section class="py-16 lg:py-32 bg-surface-container-lowest relative" id="experiencias">
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
     <!-- Section Header -->
-    <div class="max-w-3xl mb-16">
+    <div class="max-w-3xl mb-10 lg:mb-16">
       <div class="flex items-center gap-3 mb-3" data-animate>
         <span class="h-px w-10 bg-neon-magenta"></span>
         <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" data-i18n="exp_label">Shows & Espectáculos</span>
@@ -439,7 +447,7 @@ tailwind.config = {
       <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] uppercase text-text-primary leading-[1.05]" data-animate data-i18n-html="exp_title">
         TRES FORMAS<br><span class="text-neon-magenta">DE VIVIR LA NOCHE</span>
       </h2>
-      <p class="text-lg text-text-secondary mt-5 leading-relaxed" data-animate data-i18n="exp_desc">
+      <p class="text-[15px] sm:text-lg text-text-secondary mt-4 sm:mt-5 leading-relaxed" data-animate data-i18n="exp_desc">
         Producciones artísticas listas para tu programación. Música, artistas y actuaciones integrados en cada momento del día — diseñados según el espacio, el público y la experiencia que se quiera crear.
       </p>
     </div>
@@ -447,10 +455,10 @@ tailwind.config = {
 
   <!-- Horizontal scroll wrapper -->
   <div class="lg:overflow-hidden" id="horizontalScrollWrap">
-    <div class="horizontal-scroll-container px-6 lg:px-12 flex flex-col lg:flex-row gap-8" id="horizontalCards">
+    <div class="horizontal-scroll-container px-5 sm:px-6 lg:px-12 flex flex-col lg:flex-row gap-6 lg:gap-8" id="horizontalCards">
       <!-- Card 1: SUNSET -->
       <div class="group relative rounded-2xl overflow-hidden glass-panel flex flex-col w-full lg:w-[420px] lg:min-w-[420px] tilt-card">
-        <div class="relative aspect-[4/5] img-placeholder">
+        <div class="relative aspect-[4/3] lg:aspect-[4/5] img-placeholder">
           <span class="material-symbols-outlined">image</span>
           <div class="absolute inset-0 bg-gradient-to-t from-surface-elevated via-surface-elevated/40 to-transparent"></div>
           <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-surface-black/70 backdrop-blur-md border border-border-subtle text-[11px] font-display font-bold text-stage-gold uppercase tracking-wider">
@@ -477,7 +485,7 @@ tailwind.config = {
 
       <!-- Card 2: DINNER SHOW -->
       <div class="group relative rounded-2xl overflow-hidden glass-panel flex flex-col w-full lg:w-[420px] lg:min-w-[420px] border-border-glow tilt-card">
-        <div class="relative aspect-[4/5] img-placeholder">
+        <div class="relative aspect-[4/3] lg:aspect-[4/5] img-placeholder">
           <span class="material-symbols-outlined">image</span>
           <div class="absolute inset-0 bg-gradient-to-t from-surface-elevated via-surface-elevated/40 to-transparent"></div>
           <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-surface-black/70 backdrop-blur-md border border-neon-magenta/50 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-wider glow-magenta-subtle">
@@ -504,7 +512,7 @@ tailwind.config = {
 
       <!-- Card 3: FIESTAS TEMÁTICAS -->
       <div class="group relative rounded-2xl overflow-hidden glass-panel flex flex-col w-full lg:w-[420px] lg:min-w-[420px] tilt-card">
-        <div class="relative aspect-[4/5] img-placeholder">
+        <div class="relative aspect-[4/3] lg:aspect-[4/5] img-placeholder">
           <span class="material-symbols-outlined">image</span>
           <div class="absolute inset-0 bg-gradient-to-t from-surface-elevated via-surface-elevated/40 to-transparent"></div>
           <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-surface-black/70 backdrop-blur-md border border-border-subtle text-[11px] font-display font-bold text-stage-gold uppercase tracking-wider">
@@ -533,7 +541,7 @@ tailwind.config = {
 </section>
 
 <!-- ==================== MALEVO SECTION ==================== -->
-<section class="py-24 lg:py-32 bg-surface-black relative overflow-hidden" id="malevo">
+<section class="py-16 lg:py-32 bg-surface-black relative overflow-hidden" id="malevo">
   <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-magenta/15 blur-[180px] pointer-events-none parallax-slow"></div>
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -583,27 +591,27 @@ tailwind.config = {
         </div>
 
         <!-- Credentials Grid -->
-        <div class="grid grid-cols-2 gap-3 pt-4 border-t border-border-subtle" data-animate>
-          <div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle hover:border-neon-magenta/30 transition-colors">
-            <p class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">America's Got Talent</p>
-            <p class="text-[11px] text-text-muted mt-1" data-i18n="malevo_agt">Semifinalistas mundiales</p>
+        <div class="grid grid-cols-2 gap-2 sm:gap-3 pt-4 border-t border-border-subtle" data-animate>
+          <div class="p-3 sm:p-4 rounded-xl bg-surface-elevated border border-border-subtle hover:border-neon-magenta/30 transition-colors">
+            <p class="text-[11px] sm:text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">America's Got Talent</p>
+            <p class="text-[10px] sm:text-[11px] text-text-muted mt-1" data-i18n="malevo_agt">Semifinalistas mundiales</p>
           </div>
-          <div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle hover:border-neon-magenta/30 transition-colors">
-            <p class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Cirque du Soleil</p>
-            <p class="text-[11px] text-text-muted mt-1">One Night for One Drop</p>
+          <div class="p-3 sm:p-4 rounded-xl bg-surface-elevated border border-border-subtle hover:border-neon-magenta/30 transition-colors">
+            <p class="text-[11px] sm:text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Cirque du Soleil</p>
+            <p class="text-[10px] sm:text-[11px] text-text-muted mt-1">One Night for One Drop</p>
           </div>
-          <div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle hover:border-neon-magenta/30 transition-colors">
-            <p class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Ricky Martin</p>
-            <p class="text-[11px] text-text-muted mt-1" data-i18n="malevo_ricky">Residencia All In — Las Vegas</p>
+          <div class="p-3 sm:p-4 rounded-xl bg-surface-elevated border border-border-subtle hover:border-neon-magenta/30 transition-colors">
+            <p class="text-[11px] sm:text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Ricky Martin</p>
+            <p class="text-[10px] sm:text-[11px] text-text-muted mt-1" data-i18n="malevo_ricky">Residencia All In — Las Vegas</p>
           </div>
-          <div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle hover:border-neon-magenta/30 transition-colors">
-            <p class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Universal Studios JP</p>
-            <p class="text-[11px] text-text-muted mt-1" data-i18n="malevo_universal">Residencia en Osaka, Japón</p>
+          <div class="p-3 sm:p-4 rounded-xl bg-surface-elevated border border-border-subtle hover:border-neon-magenta/30 transition-colors">
+            <p class="text-[11px] sm:text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Universal Studios JP</p>
+            <p class="text-[10px] sm:text-[11px] text-text-muted mt-1" data-i18n="malevo_universal">Residencia en Osaka, Japón</p>
           </div>
         </div>
 
         <div data-animate>
-          <a class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-neon-magenta text-text-primary text-[11px] font-display font-bold uppercase tracking-[0.14em] glow-magenta hover:scale-105 transition-transform magnetic-btn" href="#calculadora">
+          <a class="inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 rounded-full bg-neon-magenta text-text-primary text-[11px] font-display font-bold uppercase tracking-[0.14em] glow-magenta hover:scale-105 transition-transform magnetic-btn min-h-[44px]" href="#calculadora">
             <span data-i18n="malevo_cta">Contratar MALEVO</span>
             <span class="material-symbols-outlined text-[16px]">bolt</span>
           </a>
@@ -614,7 +622,7 @@ tailwind.config = {
 </section>
 
 <!-- ==================== FORMATOS SECTION ==================== -->
-<section class="py-24 lg:py-32 bg-surface-container-lowest relative" id="formatos">
+<section class="py-16 lg:py-32 bg-surface-container-lowest relative" id="formatos">
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
       <div class="lg:col-span-7 flex flex-col gap-6">
@@ -622,17 +630,17 @@ tailwind.config = {
         <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] uppercase text-text-primary leading-[1.05]" data-animate data-i18n-html="fmt_title_html">
           TU IDEA.<br><span class="text-neon-magenta">NUESTRO ESCENARIO.</span>
         </h2>
-        <p class="text-lg text-text-secondary leading-relaxed" data-animate data-i18n="fmt_desc">
+        <p class="text-[15px] sm:text-lg text-text-secondary leading-relaxed" data-animate data-i18n="fmt_desc">
           5 formatos de producción que se adaptan a tu espacio, tu público y la experiencia que querés crear. Cada propuesta incluye dirección artística, casting, vestuario y producción integral.
         </p>
 
         <!-- Format Pills -->
-        <div class="flex flex-wrap gap-2.5 pt-2" id="formatButtons" data-animate>
-          <button class="px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-neon-magenta text-text-primary glow-magenta-subtle magnetic-btn" data-target="format-special">Special Act</button>
-          <button class="px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-surface-elevated text-text-secondary border border-border-subtle hover:border-neon-magenta/40 transition-all magnetic-btn" data-target="format-fullshow">Full Show</button>
-          <button class="px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-surface-elevated text-text-secondary border border-border-subtle hover:border-neon-magenta/40 transition-all magnetic-btn" data-target="format-entertainment">Entertainment</button>
-          <button class="px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-surface-elevated text-text-secondary border border-border-subtle hover:border-neon-magenta/40 transition-all magnetic-btn" data-target="format-resident">Resident</button>
-          <button class="px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-surface-elevated text-text-secondary border border-border-subtle hover:border-neon-magenta/40 transition-all magnetic-btn" data-target="format-custom">Custom</button>
+        <div class="flex flex-wrap gap-2 sm:gap-2.5 pt-2" id="formatButtons" data-animate>
+          <button class="px-4 py-2.5 sm:py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-neon-magenta text-text-primary glow-magenta-subtle magnetic-btn min-h-[44px] sm:min-h-0" data-target="format-special">Special Act</button>
+          <button class="px-4 py-2.5 sm:py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-surface-elevated text-text-secondary border border-border-subtle hover:border-neon-magenta/40 transition-all magnetic-btn min-h-[44px] sm:min-h-0" data-target="format-fullshow">Full Show</button>
+          <button class="px-4 py-2.5 sm:py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-surface-elevated text-text-secondary border border-border-subtle hover:border-neon-magenta/40 transition-all magnetic-btn min-h-[44px] sm:min-h-0" data-target="format-entertainment">Entertainment</button>
+          <button class="px-4 py-2.5 sm:py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-surface-elevated text-text-secondary border border-border-subtle hover:border-neon-magenta/40 transition-all magnetic-btn min-h-[44px] sm:min-h-0" data-target="format-resident">Resident</button>
+          <button class="px-4 py-2.5 sm:py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-surface-elevated text-text-secondary border border-border-subtle hover:border-neon-magenta/40 transition-all magnetic-btn min-h-[44px] sm:min-h-0" data-target="format-custom">Custom</button>
         </div>
 
         <!-- Services — 5 Formats from Catalog -->
@@ -692,12 +700,12 @@ tailwind.config = {
 </section>
 
 <!-- ==================== CALCULADORA / EVENT BUILDER — MULTI-STEP GAMIFIED ==================== -->
-<section class="py-24 lg:py-32 bg-surface-black relative" id="calculadora">
+<section class="py-16 lg:py-32 bg-surface-black relative" id="calculadora">
   <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-magenta/6 rounded-full blur-[200px] pointer-events-none"></div>
   <div class="absolute right-0 top-0 w-[400px] h-[400px] bg-stage-gold/5 rounded-full blur-[150px] pointer-events-none"></div>
   <div class="max-w-3xl mx-auto px-6 lg:px-12">
     <!-- Header -->
-    <div class="text-center mb-14">
+    <div class="text-center mb-10 lg:mb-14">
       <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-surface-elevated/80 border border-border-glow mb-5" data-animate>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FA257E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]">Experience Builder</span>
@@ -724,7 +732,7 @@ tailwind.config = {
       </div>
 
       <!-- Progress Bar -->
-      <div class="px-8 pt-8 md:px-12 md:pt-10">
+      <div class="px-5 pt-6 sm:px-8 sm:pt-8 md:px-12 md:pt-10">
         <div class="flex items-center justify-between mb-2">
           <span class="text-[11px] font-display font-bold text-text-muted uppercase tracking-widest" id="stepLabel">Paso 1 de 4</span>
           <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-widest" id="stepPercent">0%</span>
@@ -733,30 +741,30 @@ tailwind.config = {
           <div class="h-full rounded-full bg-gradient-to-r from-neon-magenta to-primary-container transition-all duration-700 ease-out" id="stepProgressBar" style="width: 0%"></div>
         </div>
         <!-- Step dots -->
-        <div class="flex items-center justify-between mt-4">
-          <button class="step-dot group flex flex-col items-center gap-1.5 transition-all" data-step="1">
-            <div class="w-10 h-10 rounded-full border-2 border-neon-magenta bg-neon-magenta/15 flex items-center justify-center transition-all">
+        <div class="flex items-center justify-between mt-3 sm:mt-4">
+          <button class="step-dot group flex flex-col items-center gap-1 sm:gap-1.5 transition-all" data-step="1">
+            <div class="w-11 h-11 sm:w-10 sm:h-10 rounded-full border-2 border-neon-magenta bg-neon-magenta/15 flex items-center justify-center transition-all">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neon-magenta"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <span class="text-[10px] font-display font-bold text-neon-magenta uppercase tracking-wider hidden sm:block" data-i18n="step_lugar">Lugar</span>
           </button>
-          <div class="flex-1 h-px bg-border-subtle mx-2"></div>
-          <button class="step-dot group flex flex-col items-center gap-1.5 transition-all" data-step="2">
-            <div class="w-10 h-10 rounded-full border-2 border-border-subtle bg-surface-elevated flex items-center justify-center transition-all">
+          <div class="flex-1 h-px bg-border-subtle mx-1 sm:mx-2"></div>
+          <button class="step-dot group flex flex-col items-center gap-1 sm:gap-1.5 transition-all" data-step="2">
+            <div class="w-11 h-11 sm:w-10 sm:h-10 rounded-full border-2 border-border-subtle bg-surface-elevated flex items-center justify-center transition-all">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-text-muted"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
             </div>
             <span class="text-[10px] font-display font-bold text-text-muted uppercase tracking-wider hidden sm:block" data-i18n="step_show">Show</span>
           </button>
-          <div class="flex-1 h-px bg-border-subtle mx-2"></div>
-          <button class="step-dot group flex flex-col items-center gap-1.5 transition-all" data-step="3">
-            <div class="w-10 h-10 rounded-full border-2 border-border-subtle bg-surface-elevated flex items-center justify-center transition-all">
+          <div class="flex-1 h-px bg-border-subtle mx-1 sm:mx-2"></div>
+          <button class="step-dot group flex flex-col items-center gap-1 sm:gap-1.5 transition-all" data-step="3">
+            <div class="w-11 h-11 sm:w-10 sm:h-10 rounded-full border-2 border-border-subtle bg-surface-elevated flex items-center justify-center transition-all">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-text-muted"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
             <span class="text-[10px] font-display font-bold text-text-muted uppercase tracking-wider hidden sm:block" data-i18n="step_escala">Escala</span>
           </button>
-          <div class="flex-1 h-px bg-border-subtle mx-2"></div>
-          <button class="step-dot group flex flex-col items-center gap-1.5 transition-all" data-step="4">
-            <div class="w-10 h-10 rounded-full border-2 border-border-subtle bg-surface-elevated flex items-center justify-center transition-all">
+          <div class="flex-1 h-px bg-border-subtle mx-1 sm:mx-2"></div>
+          <button class="step-dot group flex flex-col items-center gap-1 sm:gap-1.5 transition-all" data-step="4">
+            <div class="w-11 h-11 sm:w-10 sm:h-10 rounded-full border-2 border-border-subtle bg-surface-elevated flex items-center justify-center transition-all">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-text-muted"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
             </div>
             <span class="text-[10px] font-display font-bold text-text-muted uppercase tracking-wider hidden sm:block" data-i18n="step_enviar">Enviar</span>
@@ -765,7 +773,7 @@ tailwind.config = {
       </div>
 
       <!-- Steps Container -->
-      <div class="p-8 md:p-12 relative" style="min-height: 380px;">
+      <div class="p-5 sm:p-8 md:p-12 relative" style="min-height: 340px;">
         <form id="experienceBuilderForm">
 
           <!-- STEP 1: Venue -->
@@ -774,12 +782,12 @@ tailwind.config = {
               <h3 class="font-display font-bold text-2xl text-text-primary" data-i18n="step1_title">¿Dónde creamos la experiencia?</h3>
               <p class="text-[13px] text-text-muted mt-1" data-i18n="step1_sub">Diseñamos cada propuesta según el espacio y el público.</p>
             </div>
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-2 gap-2.5 sm:gap-3">
               <label class="cursor-pointer group">
                 <input class="peer sr-only" name="venue" type="radio" value="Resort 5 Estrellas"/>
-                <div class="relative p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 hover:bg-surface-container/50">
-                  <div class="flex flex-col items-center text-center gap-3">
-                    <div class="w-14 h-14 rounded-2xl bg-surface-container flex items-center justify-center peer-checked:bg-neon-magenta/20 transition-colors">
+                <div class="relative p-3.5 sm:p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 hover:bg-surface-container/50">
+                  <div class="flex flex-col items-center text-center gap-2 sm:gap-3">
+                    <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl bg-surface-container flex items-center justify-center peer-checked:bg-neon-magenta/20 transition-colors">
                       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-secondary group-hover:text-neon-magenta transition-colors"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg>
                     </div>
                     <div>
@@ -794,9 +802,9 @@ tailwind.config = {
               </label>
               <label class="cursor-pointer group">
                 <input class="peer sr-only" name="venue" type="radio" value="Beach Club"/>
-                <div class="relative p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 hover:bg-surface-container/50">
-                  <div class="flex flex-col items-center text-center gap-3">
-                    <div class="w-14 h-14 rounded-2xl bg-surface-container flex items-center justify-center">
+                <div class="relative p-3.5 sm:p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 hover:bg-surface-container/50">
+                  <div class="flex flex-col items-center text-center gap-2 sm:gap-3">
+                    <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl bg-surface-container flex items-center justify-center">
                       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-secondary group-hover:text-stage-gold transition-colors"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                     </div>
                     <div>
@@ -811,9 +819,9 @@ tailwind.config = {
               </label>
               <label class="cursor-pointer group">
                 <input class="peer sr-only" name="venue" type="radio" value="Boda de Destino"/>
-                <div class="relative p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 hover:bg-surface-container/50">
-                  <div class="flex flex-col items-center text-center gap-3">
-                    <div class="w-14 h-14 rounded-2xl bg-surface-container flex items-center justify-center">
+                <div class="relative p-3.5 sm:p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 hover:bg-surface-container/50">
+                  <div class="flex flex-col items-center text-center gap-2 sm:gap-3">
+                    <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl bg-surface-container flex items-center justify-center">
                       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-secondary group-hover:text-pink-400 transition-colors"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                     </div>
                     <div>
@@ -828,9 +836,9 @@ tailwind.config = {
               </label>
               <label class="cursor-pointer group">
                 <input class="peer sr-only" name="venue" type="radio" value="Gala Corporativa"/>
-                <div class="relative p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 hover:bg-surface-container/50">
-                  <div class="flex flex-col items-center text-center gap-3">
-                    <div class="w-14 h-14 rounded-2xl bg-surface-container flex items-center justify-center">
+                <div class="relative p-3.5 sm:p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 hover:bg-surface-container/50">
+                  <div class="flex flex-col items-center text-center gap-2 sm:gap-3">
+                    <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl bg-surface-container flex items-center justify-center">
                       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-secondary group-hover:text-stage-gold transition-colors"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     </div>
                     <div>
@@ -855,8 +863,8 @@ tailwind.config = {
             <div class="space-y-3">
               <label class="cursor-pointer group block">
                 <input class="peer sr-only" name="vibe" type="radio" value="MALEVO — Malambo & Percusión"/>
-                <div class="relative p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 flex items-center gap-5">
-                  <div class="w-14 h-14 rounded-2xl bg-surface-container flex-shrink-0 flex items-center justify-center">
+                <div class="relative p-4 sm:p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 flex items-center gap-3.5 sm:gap-5">
+                  <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-surface-container flex-shrink-0 flex items-center justify-center">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-neon-magenta"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
                   </div>
                   <div class="flex-1 min-w-0">
@@ -873,8 +881,8 @@ tailwind.config = {
               </label>
               <label class="cursor-pointer group block">
                 <input class="peer sr-only" name="vibe" type="radio" value="Sunset Sessions & DJ Live"/>
-                <div class="relative p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 flex items-center gap-5">
-                  <div class="w-14 h-14 rounded-2xl bg-surface-container flex-shrink-0 flex items-center justify-center">
+                <div class="relative p-4 sm:p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 flex items-center gap-3.5 sm:gap-5">
+                  <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-surface-container flex-shrink-0 flex items-center justify-center">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-stage-gold"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/></svg>
                   </div>
                   <div class="flex-1 min-w-0">
@@ -888,8 +896,8 @@ tailwind.config = {
               </label>
               <label class="cursor-pointer group block">
                 <input class="peer sr-only" name="vibe" type="radio" value="Dinner Show Sensorial"/>
-                <div class="relative p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 flex items-center gap-5">
-                  <div class="w-14 h-14 rounded-2xl bg-surface-container flex-shrink-0 flex items-center justify-center">
+                <div class="relative p-4 sm:p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 flex items-center gap-3.5 sm:gap-5">
+                  <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-surface-container flex-shrink-0 flex items-center justify-center">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
                   </div>
                   <div class="flex-1 min-w-0">
@@ -903,8 +911,8 @@ tailwind.config = {
               </label>
               <label class="cursor-pointer group block">
                 <input class="peer sr-only" name="vibe" type="radio" value="Carnaval & Acróbatas"/>
-                <div class="relative p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 flex items-center gap-5">
-                  <div class="w-14 h-14 rounded-2xl bg-surface-container flex-shrink-0 flex items-center justify-center">
+                <div class="relative p-4 sm:p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 flex items-center gap-3.5 sm:gap-5">
+                  <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-surface-container flex-shrink-0 flex items-center justify-center">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-stage-amber"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                   </div>
                   <div class="flex-1 min-w-0">
@@ -980,18 +988,18 @@ tailwind.config = {
             <!-- Live Summary Card -->
             <div class="p-5 rounded-2xl bg-surface-container/60 border border-border-subtle mb-6">
               <p class="text-[10px] font-display font-bold text-text-muted uppercase tracking-widest mb-3" data-i18n="summary_label">Tu experiencia</p>
-              <div class="grid grid-cols-3 gap-3">
-                <div class="p-3 rounded-xl bg-surface-elevated/80 text-center">
+              <div class="grid grid-cols-3 gap-2 sm:gap-3">
+                <div class="p-2 sm:p-3 rounded-xl bg-surface-elevated/80 text-center">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FA257E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                   <p class="text-[11px] font-display font-bold text-text-primary truncate" id="summaryVenue">—</p>
                 </div>
-                <div class="p-3 rounded-xl bg-surface-elevated/80 text-center">
+                <div class="p-2 sm:p-3 rounded-xl bg-surface-elevated/80 text-center">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FA257E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-                  <p class="text-[11px] font-display font-bold text-text-primary truncate" id="summaryVibe">—</p>
+                  <p class="text-[10px] sm:text-[11px] font-display font-bold text-text-primary truncate" id="summaryVibe">—</p>
                 </div>
-                <div class="p-3 rounded-xl bg-surface-elevated/80 text-center">
+                <div class="p-2 sm:p-3 rounded-xl bg-surface-elevated/80 text-center">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FA257E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                  <p class="text-[11px] font-display font-bold text-text-primary truncate" id="summaryScale">—</p>
+                  <p class="text-[10px] sm:text-[11px] font-display font-bold text-text-primary truncate" id="summaryScale">—</p>
                 </div>
               </div>
             </div>
@@ -1022,12 +1030,12 @@ tailwind.config = {
       </div>
 
       <!-- Navigation Buttons -->
-      <div class="px-8 pb-8 md:px-12 md:pb-10 flex items-center justify-between gap-4">
-        <button class="px-6 py-3 rounded-xl bg-surface-elevated border border-border-subtle text-text-secondary text-[12px] font-display font-bold uppercase tracking-wider hover:text-text-primary hover:border-neon-magenta/30 transition-all flex items-center gap-2 invisible" id="btnPrev">
+      <div class="px-5 pb-6 sm:px-8 sm:pb-8 md:px-12 md:pb-10 flex items-center justify-between gap-3">
+        <button class="px-5 sm:px-6 py-3.5 rounded-xl bg-surface-elevated border border-border-subtle text-text-secondary text-[12px] font-display font-bold uppercase tracking-wider hover:text-text-primary hover:border-neon-magenta/30 transition-all flex items-center gap-2 min-h-[44px] invisible" id="btnPrev">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           <span data-i18n="btn_prev">Atrás</span>
         </button>
-        <button class="px-8 py-3.5 rounded-xl bg-neon-magenta text-text-primary text-[12px] font-display font-bold uppercase tracking-[0.14em] glow-magenta hover:scale-[1.03] active:scale-95 transition-all flex items-center gap-2 magnetic-btn disabled:opacity-40 disabled:pointer-events-none disabled:scale-100" id="btnNext" disabled>
+        <button class="px-6 sm:px-8 py-3.5 rounded-xl bg-neon-magenta text-text-primary text-[12px] font-display font-bold uppercase tracking-[0.14em] glow-magenta hover:scale-[1.03] active:scale-95 transition-all flex items-center gap-2 magnetic-btn disabled:opacity-40 disabled:pointer-events-none disabled:scale-100 min-h-[44px]" id="btnNext" disabled>
           <span data-i18n="btn_next">Siguiente</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
@@ -1055,9 +1063,9 @@ tailwind.config = {
 </section>
 
 <!-- ==================== TESTIMONIALS ==================== -->
-<section class="py-24 lg:py-32 bg-surface-container-lowest relative">
+<section class="py-16 lg:py-32 bg-surface-container-lowest relative">
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 lg:mb-16 gap-6">
       <div>
         <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" data-animate data-i18n="test_label">Testimonios</span>
         <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] text-text-primary uppercase mt-2" data-animate data-i18n="test_title">EXCELENCIA VERIFICADA</h2>
@@ -1077,7 +1085,7 @@ tailwind.config = {
       </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="p-8 rounded-2xl glass-panel flex flex-col justify-between tilt-card" data-animate>
+      <div class="p-6 sm:p-8 rounded-2xl glass-panel flex flex-col justify-between tilt-card" data-animate>
         <div>
           <div class="flex text-stage-gold mb-4">
             <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">star</span>
@@ -1096,7 +1104,7 @@ tailwind.config = {
           </div>
         </div>
       </div>
-      <div class="p-8 rounded-2xl glass-panel flex flex-col justify-between border-border-glow tilt-card" data-animate>
+      <div class="p-6 sm:p-8 rounded-2xl glass-panel flex flex-col justify-between border-border-glow tilt-card" data-animate>
         <div>
           <div class="flex text-stage-gold mb-4">
             <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">star</span>
@@ -1115,7 +1123,7 @@ tailwind.config = {
           </div>
         </div>
       </div>
-      <div class="p-8 rounded-2xl glass-panel flex flex-col justify-between tilt-card" data-animate>
+      <div class="p-6 sm:p-8 rounded-2xl glass-panel flex flex-col justify-between tilt-card" data-animate>
         <div>
           <div class="flex text-stage-gold mb-4">
             <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">star</span>
@@ -1139,60 +1147,60 @@ tailwind.config = {
 </section>
 
 <!-- ==================== FAQs ==================== -->
-<section class="py-24 lg:py-32 bg-surface-black relative">
+<section class="py-16 lg:py-32 bg-surface-black relative">
   <div class="max-w-4xl mx-auto px-6 lg:px-12">
-    <div class="text-center mb-16">
+    <div class="text-center mb-10 lg:mb-16">
       <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" data-animate data-i18n="faq_label">FAQ</span>
       <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] text-text-primary uppercase mt-2" data-animate data-i18n="faq_title">PREGUNTAS FRECUENTES</h2>
     </div>
     <div class="space-y-3">
       <div class="rounded-xl glass-panel overflow-hidden" data-animate>
-        <button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-lg text-text-primary hover:text-neon-magenta transition-colors">
+        <button class="faq-toggle w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-text-primary hover:text-neon-magenta transition-colors min-h-[56px]">
           <span data-i18n="faq_q1">¿Con cuánta anticipación debo reservar?</span>
           <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
         </button>
-        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed" data-i18n="faq_a1">Recomendamos 3 a 6 semanas de antelación para producciones Custom y Full Show. Para Special Acts y Entertainment Experience, podemos coordinar con 1-2 semanas. En temporada alta (diciembre a mayo), reservá con la mayor anticipación posible.</div>
+        <div class="faq-content hidden px-5 pb-5 sm:px-6 sm:pb-6 text-text-secondary text-[14px] sm:text-[15px] leading-relaxed" data-i18n="faq_a1">Recomendamos 3 a 6 semanas de antelación para producciones Custom y Full Show. Para Special Acts y Entertainment Experience, podemos coordinar con 1-2 semanas. En temporada alta (diciembre a mayo), reservá con la mayor anticipación posible.</div>
       </div>
       <div class="rounded-xl glass-panel overflow-hidden" data-animate>
-        <button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-lg text-text-primary hover:text-neon-magenta transition-colors">
+        <button class="faq-toggle w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-text-primary hover:text-neon-magenta transition-colors min-h-[56px]">
           <span data-i18n="faq_q2">¿Pueden adaptar la producción a cualquier espacio?</span>
           <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
         </button>
-        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed" data-i18n="faq_a2">Absolutamente. Diseñamos cada propuesta según el espacio, el público y la experiencia que se quiera crear. Auditorios, arena de playa, decks de piscina, salones boutique, terrazas — adaptamos escena, artistas y producción técnica a cada venue.</div>
+        <div class="faq-content hidden px-5 pb-5 sm:px-6 sm:pb-6 text-text-secondary text-[14px] sm:text-[15px] leading-relaxed" data-i18n="faq_a2">Absolutamente. Diseñamos cada propuesta según el espacio, el público y la experiencia que se quiera crear. Auditorios, arena de playa, decks de piscina, salones boutique, terrazas — adaptamos escena, artistas y producción técnica a cada venue.</div>
       </div>
       <div class="rounded-xl glass-panel overflow-hidden" data-animate>
-        <button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-lg text-text-primary hover:text-neon-magenta transition-colors">
+        <button class="faq-toggle w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-text-primary hover:text-neon-magenta transition-colors min-h-[56px]">
           <span data-i18n="faq_q3">¿Cómo funciona una Custom Production?</span>
           <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
         </button>
-        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed" data-i18n="faq_a3">Seguimos un pipeline completo: Concepto → Casting → Dirección Artística → Vestuario → Coreografía & Música → Producción → Puesta en Escena. Desde tu idea inicial hasta el telón, nuestro equipo desarrolla cada aspecto de la producción a medida.</div>
+        <div class="faq-content hidden px-5 pb-5 sm:px-6 sm:pb-6 text-text-secondary text-[14px] sm:text-[15px] leading-relaxed" data-i18n="faq_a3">Seguimos un pipeline completo: Concepto → Casting → Dirección Artística → Vestuario → Coreografía & Música → Producción → Puesta en Escena. Desde tu idea inicial hasta el telón, nuestro equipo desarrolla cada aspecto de la producción a medida.</div>
       </div>
       <div class="rounded-xl glass-panel overflow-hidden" data-animate>
-        <button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-lg text-text-primary hover:text-neon-magenta transition-colors">
+        <button class="faq-toggle w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-text-primary hover:text-neon-magenta transition-colors min-h-[56px]">
           <span data-i18n="faq_q4">¿Ofrecen programación recurrente para hoteles?</span>
           <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
         </button>
-        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed" data-i18n="faq_a4">Sí. Nuestro formato Resident Entertainment ofrece programación artística permanente: cartelera semanal con rotación de shows, artistas residentes, y producción continua. Ideal para resorts y restaurantes que buscan entretenimiento consistente y profesional.</div>
+        <div class="faq-content hidden px-5 pb-5 sm:px-6 sm:pb-6 text-text-secondary text-[14px] sm:text-[15px] leading-relaxed" data-i18n="faq_a4">Sí. Nuestro formato Resident Entertainment ofrece programación artística permanente: cartelera semanal con rotación de shows, artistas residentes, y producción continua. Ideal para resorts y restaurantes que buscan entretenimiento consistente y profesional.</div>
       </div>
       <div class="rounded-xl glass-panel overflow-hidden" data-animate>
-        <button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-lg text-text-primary hover:text-neon-magenta transition-colors">
+        <button class="faq-toggle w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-text-primary hover:text-neon-magenta transition-colors min-h-[56px]">
           <span data-i18n="faq_q5">¿Qué requerimientos técnicos necesitan?</span>
           <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
         </button>
-        <div class="faq-content hidden px-6 pb-6 text-text-secondary text-[15px] leading-relaxed" data-i18n="faq_a5">Proporcionamos rider técnico adaptado a cada formato. Si tu venue no tiene equipo de sonido, iluminación o escenario, gestionamos la producción técnica integral. Nos encargamos de todo para que solo tengas que preocuparte por disfrutar.</div>
+        <div class="faq-content hidden px-5 pb-5 sm:px-6 sm:pb-6 text-text-secondary text-[14px] sm:text-[15px] leading-relaxed" data-i18n="faq_a5">Proporcionamos rider técnico adaptado a cada formato. Si tu venue no tiene equipo de sonido, iluminación o escenario, gestionamos la producción técnica integral. Nos encargamos de todo para que solo tengas que preocuparte por disfrutar.</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ==================== CONTACTO ==================== -->
-<section class="py-20 bg-gradient-to-b from-surface-black via-surface-elevated to-surface-black relative" id="contacto">
+<section class="py-16 lg:py-20 bg-gradient-to-b from-surface-black via-surface-elevated to-surface-black relative" id="contacto">
   <div class="max-w-7xl mx-auto px-6 lg:px-12 text-center">
     <div class="flex justify-center mb-8" data-animate>
       <img src="logo-mar.jpeg" alt="MAR Entertainment Group" class="h-10 w-auto"/>
     </div>
-    <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] text-neon-magenta uppercase tracking-widest mb-10" data-animate data-i18n="contact_title">CONTACTO</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] text-neon-magenta uppercase tracking-widest mb-8 lg:mb-10" data-animate data-i18n="contact_title">CONTACTO</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
       <a class="p-6 rounded-2xl glass-panel hover:border-neon-magenta/40 transition-all flex flex-col items-center gap-3 group tilt-card" href="tel:+18295484316" data-animate>
         <div class="w-12 h-12 rounded-full bg-neon-magenta/20 flex items-center justify-center text-neon-magenta group-hover:bg-neon-magenta group-hover:text-text-primary transition-colors">
           <span class="material-symbols-outlined text-[24px]">call</span>
@@ -1205,7 +1213,7 @@ tailwind.config = {
           <span class="material-symbols-outlined text-[24px]">mail</span>
         </div>
         <p class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider" data-i18n="contact_email_label">Email</p>
-        <p class="font-display font-bold text-[15px] text-text-primary break-all">info@marentertainmentgroup.com</p>
+        <p class="font-display font-bold text-[13px] sm:text-[15px] text-text-primary break-all">info@marentertainmentgroup.com</p>
       </a>
       <a class="p-6 rounded-2xl glass-panel hover:border-neon-magenta/40 transition-all flex flex-col items-center gap-3 group tilt-card" href="https://instagram.com/mar.engroup" rel="noopener" target="_blank" data-animate>
         <div class="w-12 h-12 rounded-full bg-neon-magenta/20 flex items-center justify-center text-neon-magenta group-hover:bg-neon-magenta group-hover:text-text-primary transition-colors">
@@ -1235,11 +1243,11 @@ tailwind.config = {
         <a class="text-text-muted hover:text-text-primary transition-colors" href="#contacto" data-i18n="nav_contact">Contacto</a>
       </div>
     </div>
-    <div class="pt-6 border-t border-border-subtle flex flex-col sm:flex-row justify-between items-center gap-4 text-text-muted text-[13px]">
+    <div class="pt-6 border-t border-border-subtle flex flex-col sm:flex-row justify-between items-center gap-4 text-text-muted text-[12px] sm:text-[13px]">
       <p data-i18n="footer_copyright">© 2025 MAR Entertainment Group. Todos los derechos reservados.</p>
-      <div class="flex items-center gap-6">
+      <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
         <a class="hover:text-neon-magenta transition-colors" href="tel:+18295484316">+1 829 548 4316</a>
-        <a class="hover:text-neon-magenta transition-colors" href="mailto:info@marentertainmentgroup.com">info@marentertainmentgroup.com</a>
+        <a class="hover:text-neon-magenta transition-colors break-all sm:break-normal" href="mailto:info@marentertainmentgroup.com">info@marentertainmentgroup.com</a>
       </div>
     </div>
   </div>
@@ -1336,7 +1344,7 @@ gsap.utils.toArray('[data-animate]').forEach(el => {
 gsap.utils.toArray('.counter').forEach(counter => {
   const target = parseInt(counter.dataset.count);
   const prefix = target >= 1000 ? '+' : '';
-  const suffix = target < 100 ? '+' : '';
+  const suffix = (target > 5 && target < 1000) ? '+' : '';
   ScrollTrigger.create({
     trigger: counter,
     start: 'top 90%',
@@ -1586,9 +1594,9 @@ const translations = {
     hero_desc: "Entertainment \u00b7 Direcci\u00f3n Art\u00edstica \u00b7 Producci\u00f3n. Dise\u00f1amos cada propuesta seg\u00fan el espacio, el p\u00fablico y la experiencia que se quiera crear.",
     hero_cta1: "Tu Idea. Nuestro Escenario.",
     hero_cta2: "Ver Shows",
-    hero_stat1: "Shows en Vivo",
-    hero_stat2: "Países",
-    hero_stat3: "Años de Experiencia",
+    hero_stat1: "Shows",
+    hero_stat2: "Artistas",
+    hero_stat3: "Formatos",
     nav_home: "Inicio",
     nav_shows: "Shows",
     nav_formats: "Formatos",
@@ -1706,9 +1714,9 @@ const translations = {
     hero_desc: "Entertainment \u00b7 Artistic Direction \u00b7 Production. We design every proposal based on the space, the audience, and the experience you want to create.",
     hero_cta1: "Your Idea. Our Stage.",
     hero_cta2: "See Shows",
-    hero_stat1: "Live Shows",
-    hero_stat2: "Countries",
-    hero_stat3: "Years of Experience",
+    hero_stat1: "Shows",
+    hero_stat2: "Artists",
+    hero_stat3: "Formats",
     nav_home: "Home",
     nav_shows: "Shows",
     nav_formats: "Formats",
@@ -1926,11 +1934,11 @@ function updateBuilderUI() {
     const dotLabel = dot.querySelector('span');
     const svg = dot.querySelector('svg');
     if (i + 1 <= step) {
-      dotCircle.className = 'w-10 h-10 rounded-full border-2 border-neon-magenta bg-neon-magenta/15 flex items-center justify-center transition-all';
+      dotCircle.className = 'w-11 h-11 sm:w-10 sm:h-10 rounded-full border-2 border-neon-magenta bg-neon-magenta/15 flex items-center justify-center transition-all';
       if (svg) svg.setAttribute('class', svg.getAttribute('class').replace('text-text-muted', 'text-neon-magenta'));
       if (dotLabel) dotLabel.className = dotLabel.className.replace('text-text-muted', 'text-neon-magenta');
     } else {
-      dotCircle.className = 'w-10 h-10 rounded-full border-2 border-border-subtle bg-surface-elevated flex items-center justify-center transition-all';
+      dotCircle.className = 'w-11 h-11 sm:w-10 sm:h-10 rounded-full border-2 border-border-subtle bg-surface-elevated flex items-center justify-center transition-all';
       if (svg) svg.setAttribute('class', svg.getAttribute('class').replace('text-neon-magenta', 'text-text-muted'));
       if (dotLabel) dotLabel.className = dotLabel.className.replace('text-neon-magenta', 'text-text-muted');
     }
@@ -2033,9 +2041,9 @@ document.querySelectorAll('.faq-toggle').forEach(button => {
 document.querySelectorAll('#formatButtons button').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('#formatButtons button').forEach(b => {
-      b.className = 'px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-surface-elevated text-text-secondary border border-border-subtle hover:border-neon-magenta/40 transition-all magnetic-btn';
+      b.className = 'px-4 py-2.5 sm:py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-surface-elevated text-text-secondary border border-border-subtle hover:border-neon-magenta/40 transition-all magnetic-btn min-h-[44px] sm:min-h-0';
     });
-    btn.className = 'px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-neon-magenta text-text-primary glow-magenta-subtle magnetic-btn';
+    btn.className = 'px-4 py-2.5 sm:py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-neon-magenta text-text-primary glow-magenta-subtle magnetic-btn min-h-[44px] sm:min-h-0';
   });
 });
 </script>
