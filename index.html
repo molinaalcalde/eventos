@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+
+<html class="dark scroll-smooth" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MAR Entertainment Group | Shows de Alto Nivel &amp; Producción en Punta Cana</title>
+<meta content="Compañía de producción y dirección artística en Punta Cana. Shows de alto impacto, Sunset sessions, Dinner Shows, MALEVO y producciones a la medida." name="description"/>
+<!-- Google Fonts: Syne & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Syne:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#ffb1c4",
+            "tertiary-fixed": "#efdbff",
+            "on-surface-variant": "#e3bdc4",
+            "secondary": "#fabc4d",
+            "stage-amber": "#F59E0B",
+            "surface-container-low": "#1b1b1f",
+            "on-background": "#e4e1e7",
+            "on-secondary-fixed-variant": "#604100",
+            "on-error": "#690005",
+            "primary-fixed-dim": "#ffb1c4",
+            "primary-container": "#ff4b8b",
+            "error": "#ffb4ab",
+            "surface-bright": "#39393d",
+            "text-secondary": "#A1A1AA",
+            "on-secondary-fixed": "#281900",
+            "on-primary": "#66002d",
+            "surface-container-lowest": "#0e0e12",
+            "surface-container-high": "#2a292e",
+            "on-primary-container": "#590027",
+            "hot-pink": "#FF1493",
+            "on-primary-fixed-variant": "#8f0043",
+            "secondary-fixed-dim": "#fabc4d",
+            "background": "#131317",
+            "surface-container": "#1f1f23",
+            "surface-glass": "rgba(17, 17, 22, 0.72)",
+            "tertiary-container": "#b36fff",
+            "on-tertiary-fixed": "#2b0052",
+            "on-tertiary-fixed-variant": "#6600b7",
+            "surface-elevated": "#111116",
+            "inverse-surface": "#e4e1e7",
+            "surface-container-highest": "#353439",
+            "on-error-container": "#ffdad6",
+            "neon-magenta": "#FA257E",
+            "tertiary-fixed-dim": "#dbb8ff",
+            "on-secondary-container": "#3a2600",
+            "inverse-primary": "#bb0059",
+            "on-surface": "#e4e1e7",
+            "secondary-fixed": "#ffdead",
+            "text-primary": "#FFFFFF",
+            "inverse-on-surface": "#303034",
+            "on-tertiary": "#470083",
+            "outline": "#aa888f",
+            "outline-variant": "#5b3f46",
+            "surface-tint": "#ffb1c4",
+            "error-container": "#93000a",
+            "text-muted": "#71717A",
+            "stage-gold": "#E5A93C",
+            "border-subtle": "rgba(255, 255, 255, 0.08)",
+            "border-glow": "rgba(250, 37, 126, 0.4)",
+            "secondary-container": "#bd8718",
+            "surface-dim": "#131317",
+            "on-tertiary-container": "#3e0073",
+            "tertiary": "#dbb8ff",
+            "surface-black": "#050505",
+            "primary-fixed": "#ffd9e0",
+            "surface-variant": "#353439",
+            "on-secondary": "#432c00",
+            "surface": "#131317",
+            "on-primary-fixed": "#3f001a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-mobile": "1rem",
+            "space-lg": "2rem",
+            "margin-mobile": "1.25rem",
+            "space-sm": "0.75rem",
+            "margin": "3rem",
+            "space-xs": "0.375rem",
+            "space-xl": "3.5rem",
+            "gutter": "1.5rem",
+            "space-md": "1.25rem"
+          },
+          "fontFamily": {
+            "headline-xl-mobile": ["Syne"],
+            "display-hero": ["Syne"],
+            "headline-md": ["Syne"],
+            "body-md": ["Inter"],
+            "display-hero-mobile": ["Syne"],
+            "headline-lg": ["Syne"],
+            "headline-sm": ["Syne"],
+            "label-caption": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-xl": ["Syne"],
+            "label-uppercase": ["Syne"]
+          },
+          "fontSize": {
+            "headline-xl-mobile": ["32px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+            "display-hero": ["72px", { "lineHeight": "76px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+            "headline-md": ["24px", { "lineHeight": "30px", "letterSpacing": "0em", "fontWeight": "700" }],
+            "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "display-hero-mobile": ["40px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-lg": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-sm": ["20px", { "lineHeight": "26px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+            "label-caption": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+            "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "headline-xl": ["48px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "label-uppercase": ["12px", { "lineHeight": "16px", "letterSpacing": "0.14em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .glow-magenta {
+      box-shadow: 0 8px 30px -5px rgba(250, 37, 126, 0.45);
+    }
+    .glow-magenta-subtle {
+      box-shadow: 0 4px 20px -2px rgba(250, 37, 126, 0.25);
+    }
+    .glow-gold {
+      box-shadow: 0 8px 24px -4px rgba(229, 169, 60, 0.25);
+    }
+    .glass-panel {
+      background: rgba(17, 17, 22, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-panel:hover {
+      border-color: rgba(250, 37, 126, 0.45);
+    }
+    /* Subtle neon scanline & grid texture */
+    .bg-grid-pattern {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+  </style>
+</head>
+<body class="bg-surface-black text-text-primary min-h-screen font-body-md text-body-md selection:bg-neon-magenta selection:text-text-primary antialiased relative overflow-x-hidden">
+<!-- TopNavBar (Shared Component Anchor) -->
+<header class="bg-surface-glass backdrop-blur-md dark:bg-surface-glass docked full-width top-0 z-50 sticky border-b border-border-subtle shadow-2xl transition-all duration-300">
+<div class="flex justify-between items-center w-full px-6 lg:px-12 py-4 max-w-7xl mx-auto">
+<!-- Brand Logo Anchor -->
+<a class="flex items-center gap-3 group" href="#">
+<div class="h-10 w-auto flex items-center justify-center">
+<img alt="MAR ENTERTAINMENT GROUP Logo" class="h-9 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(250,37,126,0.35)] transition-transform duration-200 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXqhaTKkeIBS2FFRub842t7X4S4rOLE8oGvrWeRCpsfIW-Op-TTOnDenHvOfdRwf0-8rHwyJw7ktnlfmfzbHxwcwzuM0csmKrNbtcojii-a8upy-m___UH5llKd5JlwtDieX48beAi3HMl2Ptw9SUv2kjh4WJpgif9cNlZIjuLAeeiIR6cu3VsKiplEu_mU5W0IfogQewN8fGV87lfRpfKmgZSvTk4o4P4HDNNlLSHWf9U5X8cOmYO"/>
+</div>
+</a>
+<!-- Desktop Navigation Links (Shared Components Labels) -->
+<nav class="hidden md:flex items-center gap-8 font-label-uppercase text-label-uppercase">
+<a class="text-neon-magenta border-b-2 border-neon-magenta pb-1 font-bold" href="#experiencias">Experiencias</a>
+<a class="text-text-secondary dark:text-text-secondary hover:text-text-primary transition-colors duration-200" href="#formatos">Formatos</a>
+<a class="text-text-secondary dark:text-text-secondary hover:text-text-primary transition-colors duration-200" href="#malevo">Malevo</a>
+<a class="text-text-secondary dark:text-text-secondary hover:text-text-primary transition-colors duration-200" href="#calculadora">Calculadora</a>
+<a class="text-text-secondary dark:text-text-secondary hover:text-text-primary transition-colors duration-200" href="#contacto">Contacto</a>
+</nav>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-4">
+<!-- Interactive ES / EN Toggle -->
+<button class="px-3 py-1.5 rounded-full border border-border-subtle bg-surface-elevated/70 text-text-secondary hover:text-text-primary font-label-caption text-label-caption flex items-center gap-1.5 transition-colors" id="langToggle">
+<span class="text-neon-magenta font-bold" id="lang-current">ES</span>
+<span class="text-text-muted">/</span>
+<span class="hover:text-text-primary">EN</span>
+</button>
+<!-- Direct Phone Link -->
+<a class="hidden sm:flex items-center justify-center p-2 rounded-full border border-border-subtle hover:border-glow text-text-primary hover:text-neon-magenta transition-all" href="tel:+18295484316" title="Llamar a MAR Entertainment">
+<span class="material-symbols-outlined text-[19px]">call</span>
+</a>
+<!-- Trailing Primary Action CTA -->
+<a class="px-5 py-2.5 rounded-full bg-neon-magenta text-text-primary font-label-uppercase text-label-uppercase glow-magenta hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2" href="#calculadora">
+<span>Reservar Show</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</header>
+<main>
+<!-- HERO SECTION: Ultra-Luxurious Cinematic Nightlife & Production Spectacle -->
+<section class="relative min-h-[92vh] flex items-center justify-center overflow-hidden pt-12 pb-20">
+<!-- Ambient Lighting Blobs -->
+<div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-neon-magenta/15 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+<div class="absolute bottom-10 right-10 w-[420px] h-[420px] bg-stage-gold/10 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+<div class="absolute inset-0 bg-grid-pattern opacity-20 pointer-events-none -z-10"></div>
+<div class="max-w-7xl mx-auto px-6 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Left Column: Editorial Headline & High-Value Pitch -->
+<div class="lg:col-span-7 flex flex-col gap-6 z-10">
+<!-- Badges Cluster -->
+<div class="flex flex-wrap items-center gap-3">
+<span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-surface-elevated/90 border border-border-glow text-neon-magenta font-label-uppercase text-label-uppercase tracking-wider glow-magenta-subtle">
+<span class="w-2 h-2 rounded-full bg-neon-magenta animate-ping"></span>
+              Punta Cana • Riviera del Caribe
+            </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high/60 border border-border-subtle text-text-secondary font-label-caption text-label-caption">
+<span class="material-symbols-outlined text-[14px] text-stage-gold" style="font-variation-settings: 'FILL' 1;">star</span>
+              Producción Artística de Élite
+            </span>
+</div>
+<!-- Hero Display Typography -->
+<div>
+<h1 class="font-display-hero-mobile lg:font-display-hero text-display-hero-mobile lg:text-display-hero text-text-primary uppercase leading-tight tracking-tight">
+              WE CREATE <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-magenta via-primary-container to-primary">EXPERIENCES</span>
+</h1>
+<p class="font-headline-sm text-headline-sm text-neon-magenta mt-3 uppercase tracking-wider">
+              FROM SUNSET TO THE LAST BEAT.
+            </p>
+</div>
+<!-- Description (Directly adapted from Official Asset) -->
+<p class="font-body-lg text-body-lg text-text-secondary max-w-xl leading-relaxed">
+            MAR Entertainment Group es una compañía de producción y dirección artística con sede en Punta Cana. Creamos espectáculos inmersivos para hoteles de 5 estrellas, restaurantes, beach clubs y celebraciones de lujo que transforman cada noche en un mito sensorial.
+          </p>
+<!-- Dual CTAs -->
+<div class="flex flex-wrap items-center gap-4 pt-2">
+<a class="px-8 py-4 rounded-xl bg-neon-magenta text-text-primary font-label-uppercase text-label-uppercase glow-magenta hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center gap-3" href="#calculadora">
+<span>Diseñar mi Evento</span>
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</a>
+<a class="px-7 py-4 rounded-xl bg-surface-elevated/80 border border-border-subtle hover:border-glow text-text-primary font-label-uppercase text-label-uppercase transition-all duration-200 flex items-center gap-2 hover:bg-surface-elevated" href="#experiencias">
+<span>Explorar Shows Exclusivos</span>
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+</a>
+</div>
+<!-- Quick Metrics Bar -->
+<div class="grid grid-cols-3 gap-6 pt-6 border-t border-border-subtle mt-4 max-w-lg">
+<div>
+<p class="font-headline-lg text-headline-lg text-text-primary font-extrabold">+1,200</p>
+<p class="font-label-caption text-label-caption text-text-muted uppercase">Shows Realizados</p>
+</div>
+<div>
+<p class="font-headline-lg text-headline-lg text-neon-magenta font-extrabold">50+</p>
+<p class="font-label-caption text-label-caption text-text-muted uppercase">Artistas de Élite</p>
+</div>
+<div>
+<p class="font-headline-lg text-headline-lg text-stage-gold font-extrabold">100%</p>
+<p class="font-label-caption text-label-caption text-text-muted uppercase">Hoteles 5 Estrellas</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Orbix Studio Layered Visual Composition -->
+<div class="lg:col-span-5 relative flex items-center justify-center">
+<!-- Outer Decorative Neon Frame Ring -->
+<div class="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-neon-magenta/20 via-transparent to-stage-gold/15 blur-xl -z-10"></div>
+<!-- Main Hero Poster Card -->
+<div class="relative w-full max-w-md rounded-2xl overflow-hidden border border-border-subtle bg-surface-elevated shadow-2xl transition-all duration-500 hover:scale-[1.01] hover:border-glow group">
+<div class="aspect-[3/4] relative overflow-hidden">
+<img alt="Espectáculo de Danza y Producción Escénica de MAR Entertainment Group" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgF_EMuwfrM5POwaW4ouu_-7sE6fuuo-8Bl2fQ_DYkkTMzPwWLNG3cpEKQ3tf9rq19uzPx1gnSLQqVEx2AwBsWjp2dymUe8MrVkwfdCx1NryLPflFwtHfNFF6wNXNCcedJG3AEmipXLyKIpj-B7mZt__F4EFBoxXLyMqQBVnoquHW0msMGH9e3idmhc5bIWgQbKgYiJe4YH_tUUZEoN1nJPDZEYUfe5g2Sv1nwEkMITSl7xEP4MjcW"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-black via-surface-black/30 to-transparent"></div>
+</div>
+<!-- Floating VIP Overlay Badge -->
+<div class="absolute top-4 right-4 px-3.5 py-1.5 rounded-full bg-surface-black/80 backdrop-blur-md border border-border-subtle flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-stage-gold"></span>
+<span class="font-label-caption text-label-caption text-text-primary uppercase tracking-wider">Punta Cana VIP</span>
+</div>
+<!-- Bottom Floating Content on Hero Card -->
+<div class="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-surface-elevated/90 backdrop-blur-md border border-border-subtle flex items-center justify-between">
+<div>
+<p class="font-label-uppercase text-label-uppercase text-neon-magenta">Puesta en Escena</p>
+<p class="font-headline-sm text-headline-sm text-text-primary">Dirección de Arte Total</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-neon-magenta flex items-center justify-center text-text-primary glow-magenta-subtle">
+<span class="material-symbols-outlined text-[20px]">music_note</span>
+</div>
+</div>
+</div>
+<!-- Mini Floating Secondary Badge -->
+<div class="hidden sm:flex absolute -bottom-6 -left-8 p-3 rounded-2xl bg-surface-elevated/95 backdrop-blur-lg border border-border-glow shadow-2xl items-center gap-3 z-20 hover:scale-105 transition-transform duration-200">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-border-subtle">
+<img alt="Sunset DJ Sessions MAR Entertainment" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn0UZiDPzoejW7kKYVGJNoYMjj9vd28I456VB1g84HKu7pRCgZSNQvm2zdh4DGTrxnCuuijoj_lxTHuoVX0AQIYNkb8BjIw3SUZmMJR7SLLHywbraeWNoKKcmPYvANGAZPd7rgm8RC_kJLBGp3Cs0Tf7O80HRE74U2IcMuaLLlxnZi9WOMqixtK27GedN3-8sHp8HNUnHGWikBDhx9WHFSP_CWTE3yxmArsyDaZMSzm6xfeBIiyWfY"/>
+</div>
+<div>
+<p class="font-label-uppercase text-[11px] text-text-primary font-bold">Sunset Sessions</p>
+<p class="font-label-caption text-label-caption text-neon-magenta">Live DJ &amp; Golden Hour</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: THREE WAYS TO LIVE LIFE (Experiencias Core) -->
+<section class="py-24 bg-surface-container-lowest relative border-t border-border-subtle" id="experiencias">
+<div class="max-w-7xl mx-auto px-6 lg:px-12">
+<!-- Section Header -->
+<div class="max-w-3xl mb-16">
+<div class="flex items-center gap-3 mb-3">
+<span class="h-px w-8 bg-neon-magenta"></span>
+<span class="font-label-uppercase text-label-uppercase text-neon-magenta tracking-widest">Catálogo Exclusivo</span>
+</div>
+<h2 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl uppercase text-text-primary">
+            THREE WAYS <br class="sm:hidden"/>
+<span class="text-neon-magenta">TO LIVE LIFE</span>
+</h2>
+<p class="font-body-lg text-body-lg text-text-secondary mt-4">
+            Experiencias de entretenimiento para cada momento del día. Creamos atmósferas únicas que combinan música, arte y actuaciones, adaptadas a la identidad de cada espacio y público.
+          </p>
+</div>
+<!-- Bento Grid of 3 Core Experiences -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1: SUNSET -->
+<div class="group relative rounded-2xl overflow-hidden glass-panel flex flex-col justify-between transition-all duration-300 hover:-translate-y-2">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img alt="Sunset Sessions en Beach Clubs MAR Entertainment" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn0UZiDPzoejW7kKYVGJNoYMjj9vd28I456VB1g84HKu7pRCgZSNQvm2zdh4DGTrxnCuuijoj_lxTHuoVX0AQIYNkb8BjIw3SUZmMJR7SLLHywbraeWNoKKcmPYvANGAZPd7rgm8RC_kJLBGp3Cs0Tf7O80HRE74U2IcMuaLLlxnZi9WOMqixtK27GedN3-8sHp8HNUnHGWikBDhx9WHFSP_CWTE3yxmArsyDaZMSzm6xfeBIiyWfY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-elevated via-surface-elevated/40 to-transparent"></div>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-surface-black/70 backdrop-blur-md border border-border-subtle font-label-uppercase text-label-uppercase text-stage-gold">
+                Atardecer &amp; Beach Club
+              </span>
+</div>
+<div class="p-6 md:p-8 flex flex-col justify-between flex-1">
+<div>
+<h3 class="font-headline-lg text-headline-lg text-text-primary uppercase tracking-wide">SUNSET</h3>
+<p class="font-label-uppercase text-label-uppercase text-neon-magenta mt-1">Música, Vistas y Experiencias Únicas</p>
+<p class="font-body-md text-body-md text-text-secondary mt-4">
+                  Sesiones de DJ, músicos en vivo y actuaciones que crean el ambiente perfecto para disfrutar del atardecer caribeño. Una propuesta ideal para terrazas, beach clubs y espacios al aire libre.
+                </p>
+</div>
+<div class="pt-6 mt-6 border-t border-border-subtle flex items-center justify-between">
+<span class="font-label-caption text-label-caption text-text-muted uppercase">Formato adaptable 2h - 5h</span>
+<a class="inline-flex items-center gap-1 font-label-uppercase text-label-uppercase text-neon-magenta group-hover:underline" href="#calculadora">
+<span>Cotizar</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 2: DINNER SHOW -->
+<div class="group relative rounded-2xl overflow-hidden glass-panel flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 border-border-glow">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img alt="Dinner Show y Belly Dance en Punta Cana MAR Entertainment" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3RmQ1DCz6iuPkDKeyiNx7tIRMMU-W8Urk7xTfYln-0XNlIz3xD8LbePUPdsI7QmrRfn7E4MiIiAZ9Z6zok-I3q6KsXmlX-1-zxzf7BzCLGkzQ180EbrFNgeT_MuLL5n4PxLnBc8CspkToQDqsw348in_XyL-KTvq60r_a-x6j8ZPfYa1NDERceFOzLpHo66iyBFWgYQac9rHgMLpUfAgf3kHXVx9vKfixQvaKl80axa2AvQ5j0KJa"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-elevated via-surface-elevated/40 to-transparent"></div>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-surface-black/70 backdrop-blur-md border border-neon-magenta/50 font-label-uppercase text-label-uppercase text-neon-magenta glow-magenta-subtle">
+                Alta Gastronomía &amp; Escena
+              </span>
+</div>
+<div class="p-6 md:p-8 flex flex-col justify-between flex-1">
+<div>
+<h3 class="font-headline-lg text-headline-lg text-text-primary uppercase tracking-wide">DINNER SHOW</h3>
+<p class="font-label-uppercase text-label-uppercase text-neon-magenta mt-1">Arte en Escena y Experiencias Únicas</p>
+<p class="font-body-md text-body-md text-text-secondary mt-4">
+                  Espectáculos en vivo mientras tus comensales disfrutan de la gastronomía. Puestas de tango contemporáneo, belly dance de alta costura, música de cámara y danza sensorial.
+                </p>
+</div>
+<div class="pt-6 mt-6 border-t border-border-subtle flex items-center justify-between">
+<span class="font-label-caption text-label-caption text-text-muted uppercase">Teatral &amp; Sensorial</span>
+<a class="inline-flex items-center gap-1 font-label-uppercase text-label-uppercase text-neon-magenta group-hover:underline" href="#calculadora">
+<span>Cotizar</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 3: FIESTAS TEMÁTICAS -->
+<div class="group relative rounded-2xl overflow-hidden glass-panel flex flex-col justify-between transition-all duration-300 hover:-translate-y-2">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img alt="Fiestas Temáticas y Carnaval Caribeño MAR Entertainment" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD_OYjm5tF0s-ir4LUAvu3LYUIozFMi8oQDKs4IOAtQfId3QZddtpH768pgDdGPwKHA3UvxDExbJob7EJDesBxZKeJPgx7JABZWzxgCbtfvJ7EvnfVI7LhnEKWwISJUjscHzXaMPQ8OLwGPaDV4y3m3yQDVPIBej6P2dCm7j8jMLcC9YIecdbNbJJEimLZgEkGPpBTIzYrtxiZ2UIs1f6yiJ9A4-8JtUxXSEchWAiCUWXKNZo0qhy-"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-elevated via-surface-elevated/40 to-transparent"></div>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-surface-black/70 backdrop-blur-md border border-border-subtle font-label-uppercase text-label-uppercase text-stage-gold">
+                Producción Inmersiva
+              </span>
+</div>
+<div class="p-6 md:p-8 flex flex-col justify-between flex-1">
+<div>
+<h3 class="font-headline-lg text-headline-lg text-text-primary uppercase tracking-wide">FIESTAS TEMÁTICAS</h3>
+<p class="font-label-uppercase text-label-uppercase text-neon-magenta mt-1">Producciones que Transforman la Vida</p>
+<p class="font-body-md text-body-md text-text-secondary mt-4">
+                  Conceptos inmersivos con artistas, bailarines, acróbatas aéreos, músicos, DJs y ambientación escénica integral. Desde el calor del carnaval caribeño hasta galas nocturnas cosmopolitas.
+                </p>
+</div>
+<div class="pt-6 mt-6 border-t border-border-subtle flex items-center justify-between">
+<span class="font-label-caption text-label-caption text-text-muted uppercase">Grandes Formatos</span>
+<a class="inline-flex items-center gap-1 font-label-uppercase text-label-uppercase text-neon-magenta group-hover:underline" href="#calculadora">
+<span>Cotizar</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: MALEVO (Headline Show Spotlight) -->
+<section class="py-24 bg-surface-black relative overflow-hidden border-t border-border-subtle" id="malevo">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-neon-magenta/20 blur-[150px] pointer-events-none -z-10"></div>
+<div class="max-w-7xl mx-auto px-6 lg:px-12">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-6 relative">
+<div class="relative rounded-2xl overflow-hidden border border-border-glow shadow-2xl glass-panel group">
+<img alt="MALEVO - The Argentinian Dance Sensation con MAR Entertainment Group" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcRerGDL7k__KBRPVXLKmlRTDSWV3BeKzmjZmetxRG2_J_m-fw-jSR-f_Q2u93VFddlKj0nZG0dYVe8nGer6WnRPQrFHSE1dtym-Y9hp4gVs2JRswlb1JLfw_c3arsyf341DaWOH5UcqBKAxIJFldWRWRnR5TzVtAQMaeEVFEvaKUU2EFUHtj8HKFXYeawbRO_ivE3Q-40Ywe15Wq0fABFt8ZfXVkVwosTRqRaKdULtodVee03Ef-C"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-black via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="absolute -top-4 -left-4 px-4 py-2 rounded-xl bg-neon-magenta text-text-primary font-label-uppercase text-label-uppercase glow-magenta flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Headliner Mundial</span>
+</div>
+</div>
+<div class="lg:col-span-6 flex flex-col gap-6">
+<div class="flex items-center gap-2 text-stage-gold">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div>
+<h2 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-text-primary uppercase tracking-tight">
+                MALEVO
+              </h2>
+<p class="font-headline-md text-headline-md text-neon-magenta uppercase tracking-wide mt-1">
+                The Argentinian Dance Sensation
+              </p>
+<p class="font-label-uppercase text-label-uppercase text-text-primary mt-2">
+                Malambo. Percusión. Boleadoras. <span class="text-neon-magenta">Energía en estado puro.</span>
+</p>
+</div>
+<p class="font-body-md text-body-md text-text-secondary leading-relaxed">
+              Una compañía Argentina de proyección internacional que transforma el malambo tradicional en un espectáculo contemporáneo de gran potencia visual y sonora. Dirigida por Matías Jaime, MALEVO fusiona zapateo, percusión en vivo y una puesta en escena única que ha conquistado escenarios alrededor del mundo.
+            </p>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-border-subtle">
+<div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle">
+<p class="font-label-uppercase text-label-uppercase text-text-primary font-bold">America's Got Talent</p>
+<p class="font-label-caption text-label-caption text-text-muted mt-1">Semifinalistas mundiales</p>
+</div>
+<div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle">
+<p class="font-label-uppercase text-label-uppercase text-text-primary font-bold">Cirque du Soleil</p>
+<p class="font-label-caption text-label-caption text-text-muted mt-1">Gala One Night for One Drop (Las Vegas)</p>
+</div>
+<div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle">
+<p class="font-label-uppercase text-label-uppercase text-text-primary font-bold">Ricky Martin</p>
+<p class="font-label-caption text-label-caption text-text-muted mt-1">Coreografía malambo para residencia All In</p>
+</div>
+<div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle">
+<p class="font-label-uppercase text-label-uppercase text-text-primary font-bold">Universal Studios Japan</p>
+<p class="font-label-caption text-label-caption text-text-muted mt-1">Residencia artística en Osaka</p>
+</div>
+</div>
+<div>
+<a class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-neon-magenta text-text-primary font-label-uppercase text-label-uppercase glow-magenta hover:scale-105 transition-transform duration-200" href="#calculadora">
+<span>Contratar MALEVO para tu Evento</span>
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: ONE CONCEPT. DIFFERENT FORMATS & NUESTROS SERVICIOS -->
+<section class="py-24 bg-surface-container-lowest relative border-t border-border-subtle" id="formatos">
+<div class="max-w-7xl mx-auto px-6 lg:px-12">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-7 flex flex-col gap-6">
+<span class="font-label-uppercase text-label-uppercase text-neon-magenta tracking-widest">Adaptabilidad Total</span>
+<h2 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl uppercase text-text-primary">
+              ONE CONCEPT. <br/>
+<span class="text-neon-magenta">DIFFERENT FORMATS.</span>
+</h2>
+<p class="font-body-lg text-body-lg text-text-secondary leading-relaxed">
+              Cada espacio es diferente. Por eso, nuestras propuestas pueden adaptarse en duración, número de artistas, puesta en escena y nivel de producción técnica y visual.
+            </p>
+<div class="flex flex-wrap gap-2.5 pt-2" id="formatButtons">
+<button class="px-4 py-2 rounded-full text-label-caption font-bold bg-neon-magenta text-text-primary glow-magenta-subtle active-format-pill" data-target="format-resorts">Hoteles &amp; Resorts</button>
+<button class="px-4 py-2 rounded-full text-label-caption font-bold bg-surface-elevated text-text-secondary border border-border-subtle hover:text-text-primary hover:border-glow transition-all" data-target="format-beachclubs">Beach Clubs</button>
+<button class="px-4 py-2 rounded-full text-label-caption font-bold bg-surface-elevated text-text-secondary border border-border-subtle hover:text-text-primary hover:border-glow transition-all" data-target="format-weddings">Bodas de Destino</button>
+<button class="px-4 py-2 rounded-full text-label-caption font-bold bg-surface-elevated text-text-secondary border border-border-subtle hover:text-text-primary hover:border-glow transition-all" data-target="format-corporate">Corporativos &amp; Galas</button>
+</div>
+<div class="space-y-4 pt-4 border-t border-border-subtle">
+<div class="p-4 rounded-xl glass-panel flex items-start gap-4">
+<span class="font-headline-sm text-headline-sm text-neon-magenta font-extrabold">01</span>
+<div>
+<h4 class="font-label-uppercase text-label-uppercase text-text-primary font-bold">Shows &amp; Espectáculos</h4>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">Producciones artísticas listas para incorporar a tu programación sin fricción operativa.</p>
+</div>
+</div>
+<div class="p-4 rounded-xl glass-panel flex items-start gap-4">
+<span class="font-headline-sm text-headline-sm text-neon-magenta font-extrabold">02</span>
+<div>
+<h4 class="font-label-uppercase text-label-uppercase text-text-primary font-bold">Producciones a Medida</h4>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">Conceptos desarrollados especialmente para cada cliente, espacio u ocasión irrepetible.</p>
+</div>
+</div>
+<div class="p-4 rounded-xl glass-panel flex items-start gap-4">
+<span class="font-headline-sm text-headline-sm text-neon-magenta font-extrabold">03</span>
+<div>
+<h4 class="font-label-uppercase text-label-uppercase text-text-primary font-bold">Programación Artística Continua</h4>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">Diseño y gestión de entretenimiento recurrente para hoteles, restaurantes y complejos de ocio.</p>
+</div>
+</div>
+<div class="p-4 rounded-xl glass-panel flex items-start gap-4">
+<span class="font-headline-sm text-headline-sm text-neon-magenta font-extrabold">04</span>
+<div>
+<h4 class="font-label-uppercase text-label-uppercase text-text-primary font-bold">Talento &amp; Performances de Élite</h4>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">Bailarines, cantantes, músicos, DJ, acróbatas, artistas escénicos y profesionales especializados.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="relative rounded-2xl overflow-hidden border border-border-subtle glass-panel shadow-2xl group">
+<div class="aspect-[3/4] overflow-hidden">
+<img alt="Acrobacias y Formatos Escénicos en MAR Entertainment Group" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHe559qcGMHMQpJx2rVQl1Z1UmbCoIe7GYhqVchOUu2NUtZYtGPS4IHQjjss78w3cyKvXe93vTH3z5QYpcSHOgZO4U082UsUF_hGAxdelJoxNhtijCmAiilxd4IN4I7qGxHB8gAA_FNboYg3Wzcv9CM5PgoQfds2zV7WLJyyXQGtc1T77GTYKV1KqZjKLoMOIOWGcuI_fNml7D-TZvHmWgNpWxOcBCwoavwvxr92JEAqZwwTaVI5Dh"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-black via-surface-black/20 to-transparent"></div>
+</div>
+<div class="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-surface-black/85 backdrop-blur-md border border-border-subtle">
+<p class="font-label-uppercase text-label-uppercase text-neon-magenta">Acrobacias &amp; Dúo Aéreo</p>
+<p class="font-body-sm text-body-sm text-text-secondary">Rigor técnico, belleza estética y seguridad certificada internacionalmente.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: INTERACTIVE EVENT EXPERIENCE BUILDER -->
+<section class="py-24 bg-surface-black relative border-t border-border-subtle" id="calculadora">
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-neon-magenta/10 rounded-full blur-[160px] pointer-events-none -z-10"></div>
+<div class="max-w-4xl mx-auto px-6 lg:px-12">
+<div class="text-center mb-12">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-elevated border border-border-glow font-label-uppercase text-label-uppercase text-neon-magenta">
+<span class="material-symbols-outlined text-[16px]">calculate</span>
+            Calculadora en Vivo
+          </span>
+<h2 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-text-primary uppercase mt-3">
+            INTERACTIVE EVENT BUILDER
+          </h2>
+<p class="font-body-lg text-body-lg text-text-secondary max-w-xl mx-auto mt-2">
+            Personaliza el espectáculo soñado para tu espacio en 4 pasos y recibe una propuesta curada al instante.
+          </p>
+</div>
+<div class="p-8 md:p-12 rounded-3xl glass-panel relative overflow-hidden shadow-2xl border-border-glow">
+<form class="space-y-8" id="experienceBuilderForm" onsubmit="event.preventDefault(); handleBuilderSubmit();">
+<div>
+<label class="block font-label-uppercase text-label-uppercase text-text-primary mb-3">
+                1. ¿Dónde se llevará a cabo la experiencia?
+              </label>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="venue" type="radio" value="Resort de Lujo"/>
+<div class="p-3.5 text-center rounded-xl bg-surface-elevated border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/10 peer-checked:text-neon-magenta transition-all">
+<span class="material-symbols-outlined text-[24px] block mb-1">apartment</span>
+<span class="font-label-caption text-label-caption uppercase font-semibold">Resort 5★</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="venue" type="radio" value="Beach Club &amp; Terraza"/>
+<div class="p-3.5 text-center rounded-xl bg-surface-elevated border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/10 peer-checked:text-neon-magenta transition-all">
+<span class="material-symbols-outlined text-[24px] block mb-1">beach_access</span>
+<span class="font-label-caption text-label-caption uppercase font-semibold">Beach Club</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="venue" type="radio" value="Boda de Destino"/>
+<div class="p-3.5 text-center rounded-xl bg-surface-elevated border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/10 peer-checked:text-neon-magenta transition-all">
+<span class="material-symbols-outlined text-[24px] block mb-1">favorite</span>
+<span class="font-label-caption text-label-caption uppercase font-semibold">Boda VIP</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="venue" type="radio" value="Gala Corporativa"/>
+<div class="p-3.5 text-center rounded-xl bg-surface-elevated border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/10 peer-checked:text-neon-magenta transition-all">
+<span class="material-symbols-outlined text-[24px] block mb-1">nightlife</span>
+<span class="font-label-caption text-label-caption uppercase font-semibold">Gala Privada</span>
+</div>
+</label>
+</div>
+</div>
+<div>
+<label class="block font-label-uppercase text-label-uppercase text-text-primary mb-3">
+                2. Selecciona la vibra principal del show
+              </label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="vibe" type="radio" value="MALEVO - The Argentinian Sensation"/>
+<div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/10 transition-all flex items-center gap-3">
+<span class="material-symbols-outlined text-neon-magenta text-[24px]">local_fire_department</span>
+<div>
+<p class="font-label-uppercase text-label-uppercase text-text-primary font-bold">MALEVO Headline</p>
+<p class="font-body-sm text-body-sm text-text-muted">Malambo, bombos y percusión de impacto</p>
+</div>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="vibe" type="radio" value="Sunset Sessions &amp; DJ Live"/>
+<div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/10 transition-all flex items-center gap-3">
+<span class="material-symbols-outlined text-stage-gold text-[24px]">sunny</span>
+<div>
+<p class="font-label-uppercase text-label-uppercase text-text-primary font-bold">Sunset Chill &amp; DJ</p>
+<p class="font-body-sm text-body-sm text-text-muted">Sax en vivo, deep house y golden hour</p>
+</div>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="vibe" type="radio" value="Dinner Show Sensorial"/>
+<div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/10 transition-all flex items-center gap-3">
+<span class="material-symbols-outlined text-neon-magenta text-[24px]">theater_comedy</span>
+<div>
+<p class="font-label-uppercase text-label-uppercase text-text-primary font-bold">Dinner Show Teatral</p>
+<p class="font-body-sm text-body-sm text-text-muted">Belly dance, tango y danza de alta costura</p>
+</div>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="vibe" type="radio" value="Fiesta Temática &amp; Carnaval Caribeño"/>
+<div class="p-4 rounded-xl bg-surface-elevated border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/10 transition-all flex items-center gap-3">
+<span class="material-symbols-outlined text-stage-amber text-[24px]">celebration</span>
+<div>
+<p class="font-label-uppercase text-label-uppercase text-text-primary font-bold">Carnaval &amp; Acróbatas</p>
+<p class="font-body-sm text-body-sm text-text-muted">Comparsas, trajes de plumas y fuego</p>
+</div>
+</div>
+</label>
+</div>
+</div>
+<div>
+<label class="block font-label-uppercase text-label-uppercase text-text-primary mb-3">
+                3. Aforo estimado de invitados
+              </label>
+<div class="grid grid-cols-3 gap-3">
+<label class="cursor-pointer">
+<input class="peer sr-only" name="scale" type="radio" value="Íntimo (&lt; 100 personas)"/>
+<div class="p-3 text-center rounded-xl bg-surface-elevated border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/10 peer-checked:text-neon-magenta transition-all">
+<p class="font-headline-sm text-headline-sm">&lt; 100</p>
+<p class="font-label-caption text-label-caption text-text-muted">Íntimo / VIP</p>
+</div>
+</label>
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="scale" type="radio" value="Mediano (100 - 350 personas)"/>
+<div class="p-3 text-center rounded-xl bg-surface-elevated border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/10 peer-checked:text-neon-magenta transition-all">
+<p class="font-headline-sm text-headline-sm">100 - 350</p>
+<p class="font-label-caption text-label-caption text-text-muted">Mediano</p>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="scale" type="radio" value="Masivo (350+ personas)"/>
+<div class="p-3 text-center rounded-xl bg-surface-elevated border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/10 peer-checked:text-neon-magenta transition-all">
+<p class="font-headline-sm text-headline-sm">350+</p>
+<p class="font-label-caption text-label-caption text-text-muted">Festival / Masivo</p>
+</div>
+</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-border-subtle">
+<div>
+<label class="block font-label-uppercase text-label-uppercase text-text-secondary mb-1">Nombre &amp; Organización</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface-container-high/60 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta text-text-primary text-body-md placeholder:text-text-muted transition-all" id="builderName" placeholder="Ej. Roberto Méndez / Hotel Paradisus" required="" type="text"/>
+</div>
+<div>
+<label class="block font-label-uppercase text-label-uppercase text-text-secondary mb-1">WhatsApp o Email</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface-container-high/60 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta text-text-primary text-body-md placeholder:text-text-muted transition-all" id="builderContact" placeholder="Ej. +1 829 ... / roberto@resort.com" required="" type="text"/>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-elevated/70 border border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="text-left">
+<span class="font-label-caption text-label-caption text-text-muted uppercase">Propuesta estimada inmediata:</span>
+<p class="font-headline-sm text-headline-sm text-neon-magenta" id="builderSummary">MALEVO Headline + Resort 5★</p>
+</div>
+<button class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-neon-magenta text-text-primary font-label-uppercase text-label-uppercase glow-magenta hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2" type="submit">
+<span>Enviar Solicitud a Producción</span>
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</form>
+<div class="hidden mt-6 p-6 rounded-2xl bg-neon-magenta/20 border border-neon-magenta text-center" id="builderSuccess">
+<span class="material-symbols-outlined text-neon-magenta text-[36px] mb-2">task_alt</span>
+<h4 class="font-headline-sm text-headline-sm text-text-primary">¡Solicitud Registrada con Éxito!</h4>
+<p class="font-body-md text-body-md text-text-secondary mt-1">El equipo de MAR Entertainment Group se comunicará contigo vía WhatsApp/Email en menos de 2 horas con el dossier técnico.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 6: CLIENT REVIEWS & VERIFIED ACCLAIM -->
+<section class="py-24 bg-surface-container-lowest relative border-t border-border-subtle">
+<div class="max-w-7xl mx-auto px-6 lg:px-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+<div>
+<span class="font-label-uppercase text-label-uppercase text-neon-magenta tracking-widest">Testimonios de Clientes</span>
+<h2 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-text-primary uppercase mt-2">
+              EXCELENCIA VERIFICADA
+            </h2>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-2xl bg-surface-elevated border border-border-subtle">
+<span class="font-headline-md text-headline-md text-stage-gold font-bold">5.0</span>
+<div>
+<div class="flex text-stage-gold text-[16px]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-label-caption text-label-caption text-text-muted">Satisfacción en Resorts &amp; Eventos</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="p-8 rounded-2xl glass-panel flex flex-col justify-between">
+<div>
+<div class="flex text-stage-gold mb-4">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-text-secondary italic">
+                "La energía que MALEVO y las comparsas de MAR aportaron a nuestro resort durante la semana de fin de año fue monumental. La acústica de los bombos y la puntualidad del staff superaron todas nuestras expectativas."
+              </p>
+</div>
+<div class="mt-6 pt-6 border-t border-border-subtle flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-neon-magenta">GM</div>
+<div>
+<p class="font-label-uppercase text-[12px] text-text-primary font-bold">Guillermo Morales</p>
+<p class="font-label-caption text-label-caption text-text-muted">Gerente General • Resort 5★ Bávaro</p>
+</div>
+</div>
+</div>
+<div class="p-8 rounded-2xl glass-panel flex flex-col justify-between border-border-glow">
+<div>
+<div class="flex text-stage-gold mb-4">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-text-secondary italic">
+                "Para nuestras bodas de lujo en la playa de Cap Cana, los Dinner Shows de danza oriental y música en vivo de MAR Entertainment Group son el sello definitivo de distinción. Inigualables en el Caribe."
+              </p>
+</div>
+<div class="mt-6 pt-6 border-t border-border-subtle flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-stage-gold">SD</div>
+<div>
+<p class="font-label-uppercase text-[12px] text-text-primary font-bold">Stephanie Duprat</p>
+<p class="font-label-caption text-label-caption text-text-muted">Destination Wedding Designer</p>
+</div>
+</div>
+</div>
+<div class="p-8 rounded-2xl glass-panel flex flex-col justify-between">
+<div>
+<div class="flex text-stage-gold mb-4">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-text-secondary italic">
+                "Contratamos la fiesta temática Sunset + Acróbatas para una convención global de 400 directivos. El montaje y el carisma de los artistas transformaron por completo la noche."
+              </p>
+</div>
+<div class="mt-6 pt-6 border-t border-border-subtle flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-neon-magenta">CL</div>
+<div>
+<p class="font-label-uppercase text-[12px] text-text-primary font-bold">Carlos Larraín</p>
+<p class="font-label-caption text-label-caption text-text-muted">Productor Corporativo Internacional</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 7: INTERACTIVE FAQS -->
+<section class="py-24 bg-surface-black relative border-t border-border-subtle">
+<div class="max-w-4xl mx-auto px-6 lg:px-12">
+<div class="text-center mb-16">
+<span class="font-label-uppercase text-label-uppercase text-neon-magenta tracking-widest">Dudas Frecuentes</span>
+<h2 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-text-primary uppercase mt-2">
+            PREGUNTAS FRECUENTES
+          </h2>
+<p class="font-body-md text-body-md text-text-secondary mt-2">
+            Todo lo que necesitas saber antes de contratar nuestras producciones escénicas.
+          </p>
+</div>
+<div class="space-y-4">
+<div class="rounded-xl glass-panel overflow-hidden transition-all duration-200">
+<button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-headline-sm text-headline-sm text-text-primary hover:text-neon-magenta transition-colors">
+<span>¿Con cuánta anticipación debo reservar un show o a MALEVO?</span>
+<span class="material-symbols-outlined transform transition-transform duration-200">expand_more</span>
+</button>
+<div class="faq-content hidden px-6 pb-6 text-text-secondary font-body-md text-body-md">
+              Recomendamos asegurar fechas de espectáculos exclusivos y giras de MALEVO con un mínimo de 3 a 6 semanas de antelación, especialmente durante temporada alta (diciembre a mayo) en Punta Cana y el Caribe.
+            </div>
+</div>
+<div class="rounded-xl glass-panel overflow-hidden transition-all duration-200">
+<button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-headline-sm text-headline-sm text-text-primary hover:text-neon-magenta transition-colors">
+<span>¿Pueden adaptar la producción a una playa o terraza sin escenario formal?</span>
+<span class="material-symbols-outlined transform transition-transform duration-200">expand_more</span>
+</button>
+<div class="faq-content hidden px-6 pb-6 text-text-secondary font-body-md text-body-md">
+              Absolutamente. Nuestro lema es 'One Concept, Different Formats'. Diseñamos shows adaptables tanto a grandes auditorios como a plataformas sobre arena, decks de piscina o interiores de restaurantes boutique.
+            </div>
+</div>
+<div class="rounded-xl glass-panel overflow-hidden transition-all duration-200">
+<button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-headline-sm text-headline-sm text-text-primary hover:text-neon-magenta transition-colors">
+<span>¿Ofrecen paquetes combinados (DJ + Acróbatas + Dinner Show)?</span>
+<span class="material-symbols-outlined transform transition-transform duration-200">expand_more</span>
+</button>
+<div class="faq-content hidden px-6 pb-6 text-text-secondary font-body-md text-body-md">
+              Sí. Creamos itinerarios completos de entretenimiento para eventos de jornada completa: desde la sesión de bienvenida al Sunset, la transición sensorial durante la cena, hasta la apoteosis con percusión o comparsa caribeña.
+            </div>
+</div>
+<div class="rounded-xl glass-panel overflow-hidden transition-all duration-200">
+<button class="faq-toggle w-full p-6 text-left flex items-center justify-between gap-4 font-headline-sm text-headline-sm text-text-primary hover:text-neon-magenta transition-colors">
+<span>¿Qué requerimientos técnicos solicitan para el montaje?</span>
+<span class="material-symbols-outlined transform transition-transform duration-200">expand_more</span>
+</button>
+<div class="faq-content hidden px-6 pb-6 text-text-secondary font-body-md text-body-md">
+              Proporcionamos un rider técnico conciso adaptado a cada formato (sonido para percusión, iluminación puntual, camerino de artistas). Si tu venue no cuenta con equipo, podemos gestionar la técnica integral con nuestros partners audiovisuales en Punta Cana.
+            </div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 8: CONTACT BANNER DIRECT -->
+<section class="py-20 bg-gradient-to-b from-surface-black via-surface-elevated to-surface-black relative border-t border-border-subtle" id="contacto">
+<div class="max-w-7xl mx-auto px-6 lg:px-12 text-center">
+<div class="flex justify-center mb-8">
+<img alt="MAR Entertainment Group" class="h-16 w-auto object-contain filter drop-shadow-[0_0_20px_rgba(250,37,126,0.3)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXqhaTKkeIBS2FFRub842t7X4S4rOLE8oGvrWeRCpsfIW-Op-TTOnDenHvOfdRwf0-8rHwyJw7ktnlfmfzbHxwcwzuM0csmKrNbtcojii-a8upy-m___UH5llKd5JlwtDieX48beAi3HMl2Ptw9SUv2kjh4WJpgif9cNlZIjuLAeeiIR6cu3VsKiplEu_mU5W0IfogQewN8fGV87lfRpfKmgZSvTk4o4P4HDNNlLSHWf9U5X8cOmYO"/>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-neon-magenta uppercase tracking-widest mb-10">
+          CONTACTO
+        </h2>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+<a class="p-6 rounded-2xl glass-panel hover:border-glow transition-all duration-200 flex flex-col items-center gap-3 group" href="tel:+18295484316">
+<div class="w-12 h-12 rounded-full bg-neon-magenta/20 flex items-center justify-center text-neon-magenta group-hover:bg-neon-magenta group-hover:text-text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">call</span>
+</div>
+<p class="font-label-uppercase text-label-uppercase text-text-muted">Teléfono Directo</p>
+<p class="font-headline-sm text-[17px] text-text-primary font-bold">+1 829 548 4316</p>
+</a>
+<a class="p-6 rounded-2xl glass-panel hover:border-glow transition-all duration-200 flex flex-col items-center gap-3 group" href="mailto:info@marentertainmentgroup.com">
+<div class="w-12 h-12 rounded-full bg-neon-magenta/20 flex items-center justify-center text-neon-magenta group-hover:bg-neon-magenta group-hover:text-text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">mail</span>
+</div>
+<p class="font-label-uppercase text-label-uppercase text-text-muted">Correo Electrónico</p>
+<p class="font-headline-sm text-[15px] text-text-primary font-bold break-all">info@marentertainmentgroup.com</p>
+</a>
+<a class="p-6 rounded-2xl glass-panel hover:border-glow transition-all duration-200 flex flex-col items-center gap-3 group" href="https://instagram.com/mar.engroup" rel="noopener" target="_blank">
+<div class="w-12 h-12 rounded-full bg-neon-magenta/20 flex items-center justify-center text-neon-magenta group-hover:bg-neon-magenta group-hover:text-text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">photo_camera</span>
+</div>
+<p class="font-label-uppercase text-label-uppercase text-text-muted">Instagram Oficial</p>
+<p class="font-headline-sm text-[17px] text-text-primary font-bold">@mar.engroup</p>
+</a>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-black dark:bg-surface-black docked full-width bottom-0 border-t border-border-subtle">
+<div class="w-full px-6 lg:px-12 py-16 max-w-7xl mx-auto flex flex-col gap-12">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+<div>
+<div class="flex items-center gap-3">
+<img alt="MAR ENTERTAINMENT GROUP" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXqhaTKkeIBS2FFRub842t7X4S4rOLE8oGvrWeRCpsfIW-Op-TTOnDenHvOfdRwf0-8rHwyJw7ktnlfmfzbHxwcwzuM0csmKrNbtcojii-a8upy-m___UH5llKd5JlwtDieX48beAi3HMl2Ptw9SUv2kjh4WJpgif9cNlZIjuLAeeiIR6cu3VsKiplEu_mU5W0IfogQewN8fGV87lfRpfKmgZSvTk4o4P4HDNNlLSHWf9U5X8cOmYO"/>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted mt-2">
+            Punta Cana, Dominican Republic • Entertainment Engineering &amp; Art Direction
+          </p>
+</div>
+<div class="flex flex-wrap gap-6 font-body-sm text-body-sm">
+<a class="text-text-muted dark:text-text-muted hover:text-text-primary transition-colors duration-200" href="#experiencias">Sunset Sessions</a>
+<a class="text-text-muted dark:text-text-muted hover:text-text-primary transition-colors duration-200" href="#experiencias">Dinner Shows</a>
+<a class="text-text-muted dark:text-text-muted hover:text-text-primary transition-colors duration-200" href="#experiencias">Fiestas Temáticas</a>
+<a class="text-text-muted dark:text-text-muted hover:text-text-primary transition-colors duration-200" href="#formatos">Talent &amp; Acrobatics</a>
+</div>
+</div>
+<div class="pt-8 border-t border-border-subtle flex flex-col sm:flex-row justify-between items-center gap-4 text-text-muted font-body-sm text-body-sm">
+<p>© 2025 MAR Entertainment Group. Punta Cana, Dominican Republic. All rights reserved.</p>
+<div class="flex items-center gap-6">
+<a class="hover:text-neon-magenta transition-colors duration-200" href="tel:+18295484316">+1 829 548 4316</a>
+<a class="hover:text-neon-magenta transition-colors duration-200" href="mailto:info@marentertainmentgroup.com">info@marentertainmentgroup.com</a>
+<a class="hover:text-neon-magenta transition-colors duration-200" href="https://instagram.com/mar.engroup" target="_blank">@mar.engroup</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- Inline Micro-Interactions Script -->
+<script>
+    const langToggle = document.getElementById('langToggle');
+    const langCurrent = document.getElementById('lang-current');
+    if (langToggle) {
+      langToggle.addEventListener('click', () => {
+        if (langCurrent.textContent === 'ES') {
+          langCurrent.textContent = 'EN';
+          langToggle.title = 'Switch to Spanish';
+        } else {
+          langCurrent.textContent = 'ES';
+          langToggle.title = 'Cambiar a Inglés';
+        }
+      });
+    }
+
+    const form = document.getElementById('experienceBuilderForm');
+    const summary = document.getElementById('builderSummary');
+    const successBox = document.getElementById('builderSuccess');
+
+    if (form) {
+      form.addEventListener('change', () => {
+        const selectedVenue = form.querySelector('input[name="venue"]:checked')?.value || 'Resort 5★';
+        const selectedVibe = form.querySelector('input[name="vibe"]:checked')?.value || 'MALEVO Headline';
+        summary.textContent = `${selectedVibe} • ${selectedVenue}`;
+      });
+    }
+
+    function handleBuilderSubmit() {
+      if (successBox) {
+        successBox.classList.remove('hidden');
+        successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    document.querySelectorAll('.faq-toggle').forEach(button => {
+      button.addEventListener('click', () => {
+        const content = button.nextElementSibling;
+        const icon = button.querySelector('.material-symbols-outlined');
+        const isOpen = !content.classList.contains('hidden');
+
+        document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+        document.querySelectorAll('.faq-toggle .material-symbols-outlined').forEach(i => i.style.transform = 'rotate(0deg)');
+
+        if (!isOpen) {
+          content.classList.remove('hidden');
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+
+    const formatButtons = document.querySelectorAll('#formatButtons button');
+    formatButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        formatButtons.forEach(b => {
+          b.className = 'px-4 py-2 rounded-full text-label-caption font-bold bg-surface-elevated text-text-secondary border border-border-subtle hover:text-text-primary hover:border-glow transition-all';
+        });
+        btn.className = 'px-4 py-2 rounded-full text-label-caption font-bold bg-neon-magenta text-text-primary glow-magenta-subtle active-format-pill';
+      });
+    });
+  </script>
+</body></html>
