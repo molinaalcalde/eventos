@@ -352,8 +352,8 @@ tailwind.config = {
 <section class="relative min-h-screen flex items-center overflow-hidden" id="hero">
   <!-- Fullscreen YouTube Video Background -->
   <div class="absolute inset-0 z-0 overflow-hidden">
-    <div id="heroVideoWrap" class="absolute" style="top: 50%; left: 50%; width: 177.78vh; min-width: 100%; height: 100vh; min-height: 56.25vw; transform: translate(-50%, -50%);">
-      <div id="heroVideo"></div>
+    <div id="heroVideoWrap" class="absolute" style="top: 50%; left: 50%; width: max(177.78vh, 100vw); height: max(100vh, 56.25vw); transform: translate(-50%, -50%); overflow: hidden;">
+      <div id="heroVideo" style="position:absolute; top:-2%; left:-2%; width:104%; height:104%;"></div>
     </div>
   </div>
   <!-- Black mask to hide YT loading/play button — fades out once video is playing -->
