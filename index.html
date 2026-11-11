@@ -114,9 +114,16 @@ tailwind.config = {
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  /* Horizontal scroll section */
-  .horizontal-scroll-container { display: flex; flex-wrap: nowrap; gap: 2rem; }
-  .horizontal-scroll-container > * { flex-shrink: 0; }
+  /* Experience cards grid */
+  .exp-card-img { transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+  .exp-card:hover .exp-card-img { transform: scale(1.08); }
+  .exp-card { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+  @media (min-width: 1024px) {
+    .exp-card:hover { box-shadow: inset 0 0 80px rgba(250, 37, 126, 0.08); }
+  }
+  @media (max-width: 1023px) {
+    .exp-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px -10px rgba(250, 37, 126, 0.25); }
+  }
 
   /* Image placeholder */
   .img-placeholder {
@@ -435,101 +442,51 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- ==================== EXPERIENCIAS — HORIZONTAL SCROLL ON DESKTOP ==================== -->
-<section class="py-16 lg:py-32 bg-surface-container-lowest relative" id="experiencias">
-  <div class="max-w-7xl mx-auto px-6 lg:px-12">
-    <!-- Section Header -->
-    <div class="max-w-3xl mb-10 lg:mb-16">
-      <div class="flex items-center gap-3 mb-3" data-animate>
-        <span class="h-px w-10 bg-neon-magenta"></span>
-        <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" data-i18n="exp_label">Shows & Espectáculos</span>
-      </div>
-      <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] uppercase text-text-primary leading-[1.05]" data-animate data-i18n-html="exp_title">
-        TRES FORMAS<br><span class="text-neon-magenta">DE VIVIR LA NOCHE</span>
-      </h2>
-      <p class="text-[15px] sm:text-lg text-text-secondary mt-4 sm:mt-5 leading-relaxed" data-animate data-i18n="exp_desc">
-        Producciones artísticas listas para tu programación. Música, artistas y actuaciones integrados en cada momento del día — diseñados según el espacio, el público y la experiencia que se quiera crear.
-      </p>
+<!-- ==================== EXPERIENCIAS — FULL-WIDTH IMMERSIVE ==================== -->
+<section class="py-20 lg:py-32 bg-surface-container-lowest relative overflow-hidden" id="experiencias">
+  <!-- Ambient glow -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[600px] bg-neon-magenta/6 blur-[250px] pointer-events-none"></div>
+
+  <!-- Section Header — centered -->
+  <div class="text-center mb-12 lg:mb-16 px-6">
+    <div class="flex items-center justify-center gap-3 mb-5" data-animate>
+      <span class="h-px w-12 bg-neon-magenta/60"></span>
+      <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.18em]" data-i18n="exp_label">Shows & Espectáculos</span>
+      <span class="h-px w-12 bg-neon-magenta/60"></span>
     </div>
+    <h2 class="font-display font-[800] text-[clamp(32px,5vw,60px)] uppercase text-text-primary leading-[1.05]" data-animate data-i18n-html="exp_title">
+      TRES FORMAS<br><span class="text-neon-magenta">DE VIVIR LA NOCHE</span>
+    </h2>
+    <p class="text-[15px] sm:text-base lg:text-lg text-text-secondary mt-5 leading-relaxed max-w-2xl mx-auto" data-animate data-i18n="exp_desc">
+      Producciones artísticas listas para tu programación. Música, artistas y actuaciones integrados en cada momento del día — diseñados según el espacio, el público y la experiencia que se quiera crear.
+    </p>
   </div>
 
-  <!-- Horizontal scroll wrapper -->
-  <div class="lg:overflow-hidden" id="horizontalScrollWrap">
-    <div class="horizontal-scroll-container px-5 sm:px-6 lg:px-12 flex flex-col lg:flex-row gap-6 lg:gap-8" id="horizontalCards">
-      <!-- Card 1: SUNSET -->
-      <div class="group relative rounded-2xl overflow-hidden glass-panel flex flex-col w-full lg:w-[420px] lg:min-w-[420px] tilt-card">
-        <div class="relative aspect-[4/3] lg:aspect-[4/5] img-placeholder">
-          <span class="material-symbols-outlined">image</span>
-          <div class="absolute inset-0 bg-gradient-to-t from-surface-elevated via-surface-elevated/40 to-transparent"></div>
-          <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-surface-black/70 backdrop-blur-md border border-border-subtle text-[11px] font-display font-bold text-stage-gold uppercase tracking-wider">
-            Entertainment Experience
-          </span>
-        </div>
-        <div class="p-6 md:p-8 flex flex-col justify-between flex-1">
-          <div>
-            <h3 class="font-display font-bold text-3xl text-text-primary uppercase tracking-wide">SUNSET</h3>
-            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-1" data-i18n="exp_sunset_sub">Golden Hour · Beach Clubs · Terrazas</p>
-            <p class="text-[15px] text-text-secondary mt-4 leading-relaxed" data-i18n="exp_sunset_desc">
-              DJ sets, saxofonista en vivo, percusión, artistas itinerantes y actuaciones integradas al atardecer caribeño. Música y performances que elevan la atmósfera sin interrumpir — fluyen con el momento.
-            </p>
-          </div>
-          <div class="pt-6 mt-6 border-t border-border-subtle flex items-center justify-between">
-            <span class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider" data-i18n="exp_footer_sunset">2h - 5h · Outdoor</span>
-            <a class="inline-flex items-center gap-1 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-2 transition-all" href="#calculadora">
-              <span data-i18n="cotizar">Cotizar</span>
-              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-            </a>
-          </div>
-        </div>
-      </div>
+  <!-- Cards: edge-to-edge on desktop, padded on mobile -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-0 px-4 md:px-6 lg:px-0">
 
-      <!-- Card 2: DINNER SHOW -->
-      <div class="group relative rounded-2xl overflow-hidden glass-panel flex flex-col w-full lg:w-[420px] lg:min-w-[420px] border-border-glow tilt-card">
-        <div class="relative aspect-[4/3] lg:aspect-[4/5] img-placeholder">
+    <!-- Card 1: SUNSET -->
+    <div class="exp-card group relative overflow-hidden flex flex-col rounded-2xl lg:rounded-none">
+      <div class="relative overflow-hidden" style="aspect-ratio:3/4;">
+        <div class="exp-card-img absolute inset-0 img-placeholder">
           <span class="material-symbols-outlined">image</span>
-          <div class="absolute inset-0 bg-gradient-to-t from-surface-elevated via-surface-elevated/40 to-transparent"></div>
-          <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-surface-black/70 backdrop-blur-md border border-neon-magenta/50 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-wider glow-magenta-subtle">
-            Full Show
-          </span>
         </div>
-        <div class="p-6 md:p-8 flex flex-col justify-between flex-1">
-          <div>
-            <h3 class="font-display font-bold text-3xl text-text-primary uppercase tracking-wide">DINNER SHOW</h3>
-            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-1" data-i18n="exp_dinner_sub">Espectáculos con Desarrollo Escénico Completo</p>
-            <p class="text-[15px] text-text-secondary mt-4 leading-relaxed" data-i18n="exp_dinner_desc">
-              Belly dance internacional con coreografías originales y animación que interactúa con los invitados. Tango contemporáneo, danza aérea, percusionistas en vivo con darbuka. Vestuarios de alta costura y elementos escénicos que transforman la cena en teatro.
-            </p>
-          </div>
-          <div class="pt-6 mt-6 border-t border-border-subtle flex items-center justify-between">
-            <span class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider" data-i18n="exp_footer_dinner">Teatral · Sensorial · Inmersivo</span>
-            <a class="inline-flex items-center gap-1 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-2 transition-all" href="#calculadora">
-              <span data-i18n="cotizar">Cotizar</span>
-              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3: FIESTAS TEMÁTICAS -->
-      <div class="group relative rounded-2xl overflow-hidden glass-panel flex flex-col w-full lg:w-[420px] lg:min-w-[420px] tilt-card">
-        <div class="relative aspect-[4/3] lg:aspect-[4/5] img-placeholder">
-          <span class="material-symbols-outlined">image</span>
-          <div class="absolute inset-0 bg-gradient-to-t from-surface-elevated via-surface-elevated/40 to-transparent"></div>
-          <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-surface-black/70 backdrop-blur-md border border-border-subtle text-[11px] font-display font-bold text-stage-gold uppercase tracking-wider">
-            Custom Production
-          </span>
-        </div>
-        <div class="p-6 md:p-8 flex flex-col justify-between flex-1">
-          <div>
-            <h3 class="font-display font-bold text-3xl text-text-primary uppercase tracking-wide" data-i18n="exp_fiestas_title">FIESTAS TEMÁTICAS</h3>
-            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-1" data-i18n="exp_fiestas_sub">Creadas desde Cero para Tu Marca</p>
-            <p class="text-[15px] text-text-secondary mt-4 leading-relaxed" data-i18n="exp_fiestas_desc">
-              Producciones a medida con concepto, casting, dirección artística, vestuario, coreografía, música original y puesta en escena completa. Bailarines, acróbatas aéreos, comparsas de plumas, fuego, zanqueros, DJs y ambientación escénica integral.
-            </p>
-          </div>
-          <div class="pt-6 mt-6 border-t border-border-subtle flex items-center justify-between">
-            <span class="text-[11px] font-display font-bold text-text-muted uppercase tracking-wider" data-i18n="exp_footer_fiestas">Grandes Formatos · 360°</span>
-            <a class="inline-flex items-center gap-1 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-2 transition-all" href="#calculadora">
+        <!-- Full gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-500"></div>
+        <!-- Badge -->
+        <span class="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-surface-black/60 backdrop-blur-md border border-white/10 text-[10px] font-display font-bold text-stage-gold uppercase tracking-[0.15em]">
+          Entertainment Experience
+        </span>
+        <!-- Content overlay -->
+        <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+          <h3 class="font-display font-[800] text-[clamp(28px,3vw,42px)] text-white uppercase tracking-wide leading-none">SUNSET</h3>
+          <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-2" data-i18n="exp_sunset_sub">Golden Hour · Beach Clubs · Terrazas</p>
+          <p class="text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_sunset_desc">
+            DJ sets, saxofonista en vivo, percusión, artistas itinerantes y actuaciones integradas al atardecer caribeño. Música y performances que elevan la atmósfera sin interrumpir — fluyen con el momento.
+          </p>
+          <div class="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
+            <span class="text-[10px] font-display font-bold text-white/40 uppercase tracking-wider" data-i18n="exp_footer_sunset">2h - 5h · Outdoor</span>
+            <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-3 transition-all" href="#calculadora">
               <span data-i18n="cotizar">Cotizar</span>
               <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
@@ -537,6 +494,62 @@ tailwind.config = {
         </div>
       </div>
     </div>
+
+    <!-- Card 2: DINNER SHOW — featured center -->
+    <div class="exp-card group relative overflow-hidden flex flex-col rounded-2xl lg:rounded-none md:col-span-2 lg:col-span-1" style="border-left: 1px solid rgba(250,37,126,0.15); border-right: 1px solid rgba(250,37,126,0.15);">
+      <div class="relative overflow-hidden" style="aspect-ratio:3/4;">
+        <div class="exp-card-img absolute inset-0 img-placeholder">
+          <span class="material-symbols-outlined">image</span>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-500"></div>
+        <!-- Featured badge -->
+        <span class="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-neon-magenta/15 backdrop-blur-md border border-neon-magenta/40 text-[10px] font-display font-bold text-neon-magenta uppercase tracking-[0.15em] glow-magenta-subtle">
+          Full Show
+        </span>
+        <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+          <h3 class="font-display font-[800] text-[clamp(28px,3vw,42px)] text-white uppercase tracking-wide leading-none">DINNER SHOW</h3>
+          <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-2" data-i18n="exp_dinner_sub">Espectáculos con Desarrollo Escénico Completo</p>
+          <p class="text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_dinner_desc">
+            Belly dance internacional con coreografías originales y animación que interactúa con los invitados. Tango contemporáneo, danza aérea, percusionistas en vivo con darbuka. Vestuarios de alta costura y elementos escénicos que transforman la cena en teatro.
+          </p>
+          <div class="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
+            <span class="text-[10px] font-display font-bold text-white/40 uppercase tracking-wider" data-i18n="exp_footer_dinner">Teatral · Sensorial · Inmersivo</span>
+            <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-3 transition-all" href="#calculadora">
+              <span data-i18n="cotizar">Cotizar</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: FIESTAS TEMÁTICAS -->
+    <div class="exp-card group relative overflow-hidden flex flex-col rounded-2xl lg:rounded-none md:col-span-2 lg:col-span-1">
+      <div class="relative overflow-hidden" style="aspect-ratio:3/4;">
+        <div class="exp-card-img absolute inset-0 img-placeholder">
+          <span class="material-symbols-outlined">image</span>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-500"></div>
+        <span class="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-surface-black/60 backdrop-blur-md border border-white/10 text-[10px] font-display font-bold text-stage-gold uppercase tracking-[0.15em]">
+          Custom Production
+        </span>
+        <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+          <h3 class="font-display font-[800] text-[clamp(28px,3vw,42px)] text-white uppercase tracking-wide leading-none" data-i18n="exp_fiestas_title">FIESTAS TEMÁTICAS</h3>
+          <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-2" data-i18n="exp_fiestas_sub">Creadas desde Cero para Tu Marca</p>
+          <p class="text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_fiestas_desc">
+            Producciones a medida con concepto, casting, dirección artística, vestuario, coreografía, música original y puesta en escena completa. Bailarines, acróbatas aéreos, comparsas de plumas, fuego, zanqueros, DJs y ambientación escénica integral.
+          </p>
+          <div class="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
+            <span class="text-[10px] font-display font-bold text-white/40 uppercase tracking-wider" data-i18n="exp_footer_fiestas">Grandes Formatos · 360°</span>
+            <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-3 transition-all" href="#calculadora">
+              <span data-i18n="cotizar">Cotizar</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1369,26 +1382,16 @@ gsap.utils.toArray('.parallax-fast').forEach(el => {
   gsap.to(el, { y: -150, scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: 1 } });
 });
 
-// ===== HORIZONTAL SCROLL (Desktop) =====
-if (window.innerWidth >= 1024) {
-  const container = document.getElementById('horizontalCards');
-  const wrap = document.getElementById('horizontalScrollWrap');
-  if (container && wrap) {
-    const totalScroll = container.scrollWidth - wrap.offsetWidth;
-    gsap.to(container, {
-      x: -totalScroll,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#experiencias',
-        start: 'top 10%',
-        end: () => '+=' + totalScroll,
-        scrub: 1,
-        pin: true,
-        anticipatePin: 1,
-      }
-    });
-  }
-}
+// ===== EXPERIENCE CARDS STAGGER ANIMATION =====
+gsap.utils.toArray('.exp-card').forEach((card, i) => {
+  gsap.fromTo(card, { opacity: 0, y: 40 }, {
+    opacity: 1, y: 0,
+    duration: 0.8,
+    ease: 'power3.out',
+    delay: i * 0.12,
+    scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none none' }
+  });
+});
 
 // ===== MAGNETIC BUTTONS =====
 document.querySelectorAll('.magnetic-btn').forEach(btn => {
