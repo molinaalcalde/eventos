@@ -660,36 +660,36 @@ tailwind.config = {
         </div>
 
         <!-- Services — 5 Formats from Catalog -->
-        <div class="space-y-3 pt-4 border-t border-border-subtle">
-          <div class="p-4 rounded-xl glass-panel flex items-start gap-4" data-animate>
+        <div class="space-y-3 pt-4 border-t border-border-subtle" id="formatCards">
+          <div class="format-card p-4 rounded-xl glass-panel flex items-start gap-4 transition-all duration-400" id="format-special" data-animate>
             <span class="font-display font-[800] text-xl text-neon-magenta">01</span>
             <div>
               <h4 class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Special Act</h4>
               <p class="text-[13px] text-text-secondary mt-1" data-i18n="fmt_01_desc">Intervenciones de alto impacto. Momentos puntuales que capturan toda la atención y elevan la experiencia.</p>
             </div>
           </div>
-          <div class="p-4 rounded-xl glass-panel flex items-start gap-4" data-animate>
+          <div class="format-card p-4 rounded-xl glass-panel flex items-start gap-4 transition-all duration-400" id="format-fullshow" data-animate>
             <span class="font-display font-[800] text-xl text-neon-magenta">02</span>
             <div>
               <h4 class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Full Show</h4>
               <p class="text-[13px] text-text-secondary mt-1" data-i18n="fmt_02_desc">Espectáculos completos con desarrollo escénico, narrativa, vestuario y producción de punta a punta.</p>
             </div>
           </div>
-          <div class="p-4 rounded-xl glass-panel flex items-start gap-4" data-animate>
+          <div class="format-card p-4 rounded-xl glass-panel flex items-start gap-4 transition-all duration-400" id="format-entertainment" data-animate>
             <span class="font-display font-[800] text-xl text-neon-magenta">03</span>
             <div>
               <h4 class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Entertainment Experience</h4>
               <p class="text-[13px] text-text-secondary mt-1" data-i18n="fmt_03_desc">Música, artistas y actuaciones integrados al ambiente. Entretenimiento que fluye con el evento sin interrumpirlo.</p>
             </div>
           </div>
-          <div class="p-4 rounded-xl glass-panel flex items-start gap-4" data-animate>
+          <div class="format-card p-4 rounded-xl glass-panel flex items-start gap-4 transition-all duration-400" id="format-resident" data-animate>
             <span class="font-display font-[800] text-xl text-neon-magenta">04</span>
             <div>
               <h4 class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Resident Entertainment</h4>
               <p class="text-[13px] text-text-secondary mt-1" data-i18n="fmt_04_desc">Programación artística recurrente y permanente para hoteles, resorts y restaurantes. Tu cartelera, nuestra producción.</p>
             </div>
           </div>
-          <div class="p-4 rounded-xl glass-panel flex items-start gap-4" data-animate>
+          <div class="format-card p-4 rounded-xl glass-panel flex items-start gap-4 transition-all duration-400" id="format-custom" data-animate>
             <span class="font-display font-[800] text-xl text-neon-magenta">05</span>
             <div>
               <h4 class="text-[12px] font-display font-bold text-text-primary uppercase tracking-wider">Custom Production</h4>
@@ -2111,10 +2111,30 @@ document.querySelectorAll('.faq-toggle').forEach(button => {
 // ===== FORMAT PILLS =====
 document.querySelectorAll('#formatButtons button').forEach(btn => {
   btn.addEventListener('click', () => {
+    // Update pill styles
     document.querySelectorAll('#formatButtons button').forEach(b => {
       b.className = 'px-4 py-2.5 sm:py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-surface-elevated text-text-secondary border border-border-subtle hover:border-neon-magenta/40 transition-all magnetic-btn min-h-[44px] sm:min-h-0';
     });
     btn.className = 'px-4 py-2.5 sm:py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-wider bg-neon-magenta text-text-primary glow-magenta-subtle magnetic-btn min-h-[44px] sm:min-h-0';
+    // Highlight target card and scroll to it
+    const targetId = btn.dataset.target;
+    const targetCard = document.getElementById(targetId);
+    if (targetCard) {
+      document.querySelectorAll('.format-card').forEach(c => {
+        c.style.borderColor = '';
+        c.style.background = '';
+        c.style.transform = '';
+      });
+      targetCard.style.borderColor = 'rgba(250, 37, 126, 0.5)';
+      targetCard.style.background = 'rgba(250, 37, 126, 0.06)';
+      targetCard.style.transform = 'scale(1.02)';
+      targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      setTimeout(() => {
+        targetCard.style.transform = '';
+        targetCard.style.borderColor = '';
+        targetCard.style.background = '';
+      }, 2000);
+    }
   });
 });
 </script>
