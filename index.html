@@ -125,6 +125,11 @@ tailwind.config = {
     .exp-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px -10px rgba(250, 37, 126, 0.25); }
   }
 
+  /* FAQ active state */
+  .faq-item { transition: background 0.3s ease; }
+  .faq-active { background: rgba(250, 37, 126, 0.03); border-radius: 12px; margin: -1px -12px; padding: 0 12px; }
+  .faq-icon { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease; }
+
   /* Image placeholder */
   .img-placeholder {
     background: linear-gradient(135deg, #1f1f23 0%, #111116 50%, #1f1f23 100%);
@@ -1158,47 +1163,99 @@ tailwind.config = {
 </section>
 
 <!-- ==================== FAQs ==================== -->
-<section class="py-16 lg:py-32 bg-surface-black relative">
-  <div class="max-w-4xl mx-auto px-6 lg:px-12">
-    <div class="text-center mb-10 lg:mb-16">
-      <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" data-animate data-i18n="faq_label">FAQ</span>
-      <h2 class="font-display font-[800] text-[clamp(28px,5vw,52px)] text-text-primary uppercase mt-2" data-animate data-i18n="faq_title">PREGUNTAS FRECUENTES</h2>
+<section class="py-20 lg:py-32 bg-surface-black relative overflow-hidden">
+  <!-- Ambient glow -->
+  <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-neon-magenta/5 blur-[200px] pointer-events-none"></div>
+
+  <div class="max-w-5xl mx-auto px-6 lg:px-12">
+    <!-- Header with 2-column layout on desktop -->
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-12 lg:mb-16">
+      <div>
+        <div class="flex items-center gap-3 mb-4" data-animate>
+          <span class="h-px w-10 bg-neon-magenta/60"></span>
+          <span class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.18em]" data-i18n="faq_label">FAQ</span>
+        </div>
+        <h2 class="font-display font-[800] text-[clamp(28px,5vw,48px)] text-text-primary uppercase leading-[1.05]" data-animate data-i18n="faq_title">PREGUNTAS FRECUENTES</h2>
+      </div>
+      <p class="text-[14px] text-text-muted lg:max-w-xs lg:text-right leading-relaxed" data-animate data-i18n="faq_subtitle">Todo lo que necesitás saber antes de reservar tu experiencia.</p>
     </div>
-    <div class="space-y-3">
-      <div class="rounded-xl glass-panel overflow-hidden" data-animate>
-        <button class="faq-toggle w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-text-primary hover:text-neon-magenta transition-colors min-h-[56px]">
-          <span data-i18n="faq_q1">¿Con cuánta anticipación debo reservar?</span>
-          <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+
+    <!-- FAQ items -->
+    <div class="space-y-0 divide-y divide-white/[0.06]">
+      <!-- FAQ 1 -->
+      <div class="faq-item" data-animate>
+        <button class="faq-toggle w-full py-6 sm:py-7 text-left flex items-center justify-between gap-6 group">
+          <div class="flex items-center gap-4 sm:gap-5">
+            <span class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center text-[12px] sm:text-[13px] font-display font-bold text-neon-magenta group-hover:bg-neon-magenta/10 group-hover:border-neon-magenta/30 transition-all">01</span>
+            <span class="font-display font-bold text-[15px] sm:text-lg text-text-primary group-hover:text-neon-magenta transition-colors" data-i18n="faq_q1">¿Con cuánta anticipación debo reservar?</span>
+          </div>
+          <span class="flex-shrink-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-neon-magenta/30 group-hover:bg-neon-magenta/10 transition-all">
+            <span class="material-symbols-outlined text-[18px] text-text-muted group-hover:text-neon-magenta transition-all duration-300 faq-icon">add</span>
+          </span>
         </button>
-        <div class="faq-content hidden px-5 pb-5 sm:px-6 sm:pb-6 text-text-secondary text-[14px] sm:text-[15px] leading-relaxed" data-i18n="faq_a1">Recomendamos 3 a 6 semanas de antelación para producciones Custom y Full Show. Para Special Acts y Entertainment Experience, podemos coordinar con 1-2 semanas. En temporada alta (diciembre a mayo), reservá con la mayor anticipación posible.</div>
+        <div class="faq-content hidden pb-6 pl-12 sm:pl-[60px] pr-12">
+          <p class="text-[14px] sm:text-[15px] text-text-secondary leading-relaxed max-w-2xl" data-i18n="faq_a1">Recomendamos 3 a 6 semanas de antelación para producciones Custom y Full Show. Para Special Acts y Entertainment Experience, podemos coordinar con 1-2 semanas. En temporada alta (diciembre a mayo), reservá con la mayor anticipación posible.</p>
+        </div>
       </div>
-      <div class="rounded-xl glass-panel overflow-hidden" data-animate>
-        <button class="faq-toggle w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-text-primary hover:text-neon-magenta transition-colors min-h-[56px]">
-          <span data-i18n="faq_q2">¿Pueden adaptar la producción a cualquier espacio?</span>
-          <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+      <!-- FAQ 2 -->
+      <div class="faq-item" data-animate>
+        <button class="faq-toggle w-full py-6 sm:py-7 text-left flex items-center justify-between gap-6 group">
+          <div class="flex items-center gap-4 sm:gap-5">
+            <span class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center text-[12px] sm:text-[13px] font-display font-bold text-neon-magenta group-hover:bg-neon-magenta/10 group-hover:border-neon-magenta/30 transition-all">02</span>
+            <span class="font-display font-bold text-[15px] sm:text-lg text-text-primary group-hover:text-neon-magenta transition-colors" data-i18n="faq_q2">¿Pueden adaptar la producción a cualquier espacio?</span>
+          </div>
+          <span class="flex-shrink-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-neon-magenta/30 group-hover:bg-neon-magenta/10 transition-all">
+            <span class="material-symbols-outlined text-[18px] text-text-muted group-hover:text-neon-magenta transition-all duration-300 faq-icon">add</span>
+          </span>
         </button>
-        <div class="faq-content hidden px-5 pb-5 sm:px-6 sm:pb-6 text-text-secondary text-[14px] sm:text-[15px] leading-relaxed" data-i18n="faq_a2">Absolutamente. Diseñamos cada propuesta según el espacio, el público y la experiencia que se quiera crear. Auditorios, arena de playa, decks de piscina, salones boutique, terrazas — adaptamos escena, artistas y producción técnica a cada venue.</div>
+        <div class="faq-content hidden pb-6 pl-12 sm:pl-[60px] pr-12">
+          <p class="text-[14px] sm:text-[15px] text-text-secondary leading-relaxed max-w-2xl" data-i18n="faq_a2">Absolutamente. Diseñamos cada propuesta según el espacio, el público y la experiencia que se quiera crear. Auditorios, arena de playa, decks de piscina, salones boutique, terrazas — adaptamos escena, artistas y producción técnica a cada venue.</p>
+        </div>
       </div>
-      <div class="rounded-xl glass-panel overflow-hidden" data-animate>
-        <button class="faq-toggle w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-text-primary hover:text-neon-magenta transition-colors min-h-[56px]">
-          <span data-i18n="faq_q3">¿Cómo funciona una Custom Production?</span>
-          <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+      <!-- FAQ 3 -->
+      <div class="faq-item" data-animate>
+        <button class="faq-toggle w-full py-6 sm:py-7 text-left flex items-center justify-between gap-6 group">
+          <div class="flex items-center gap-4 sm:gap-5">
+            <span class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center text-[12px] sm:text-[13px] font-display font-bold text-neon-magenta group-hover:bg-neon-magenta/10 group-hover:border-neon-magenta/30 transition-all">03</span>
+            <span class="font-display font-bold text-[15px] sm:text-lg text-text-primary group-hover:text-neon-magenta transition-colors" data-i18n="faq_q3">¿Cómo funciona una Custom Production?</span>
+          </div>
+          <span class="flex-shrink-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-neon-magenta/30 group-hover:bg-neon-magenta/10 transition-all">
+            <span class="material-symbols-outlined text-[18px] text-text-muted group-hover:text-neon-magenta transition-all duration-300 faq-icon">add</span>
+          </span>
         </button>
-        <div class="faq-content hidden px-5 pb-5 sm:px-6 sm:pb-6 text-text-secondary text-[14px] sm:text-[15px] leading-relaxed" data-i18n="faq_a3">Seguimos un pipeline completo: Concepto → Casting → Dirección Artística → Vestuario → Coreografía & Música → Producción → Puesta en Escena. Desde tu idea inicial hasta el telón, nuestro equipo desarrolla cada aspecto de la producción a medida.</div>
+        <div class="faq-content hidden pb-6 pl-12 sm:pl-[60px] pr-12">
+          <p class="text-[14px] sm:text-[15px] text-text-secondary leading-relaxed max-w-2xl" data-i18n="faq_a3">Seguimos un pipeline completo: Concepto → Casting → Dirección Artística → Vestuario → Coreografía & Música → Producción → Puesta en Escena. Desde tu idea inicial hasta el telón, nuestro equipo desarrolla cada aspecto de la producción a medida.</p>
+        </div>
       </div>
-      <div class="rounded-xl glass-panel overflow-hidden" data-animate>
-        <button class="faq-toggle w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-text-primary hover:text-neon-magenta transition-colors min-h-[56px]">
-          <span data-i18n="faq_q4">¿Ofrecen programación recurrente para hoteles?</span>
-          <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+      <!-- FAQ 4 -->
+      <div class="faq-item" data-animate>
+        <button class="faq-toggle w-full py-6 sm:py-7 text-left flex items-center justify-between gap-6 group">
+          <div class="flex items-center gap-4 sm:gap-5">
+            <span class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center text-[12px] sm:text-[13px] font-display font-bold text-neon-magenta group-hover:bg-neon-magenta/10 group-hover:border-neon-magenta/30 transition-all">04</span>
+            <span class="font-display font-bold text-[15px] sm:text-lg text-text-primary group-hover:text-neon-magenta transition-colors" data-i18n="faq_q4">¿Ofrecen programación recurrente para hoteles?</span>
+          </div>
+          <span class="flex-shrink-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-neon-magenta/30 group-hover:bg-neon-magenta/10 transition-all">
+            <span class="material-symbols-outlined text-[18px] text-text-muted group-hover:text-neon-magenta transition-all duration-300 faq-icon">add</span>
+          </span>
         </button>
-        <div class="faq-content hidden px-5 pb-5 sm:px-6 sm:pb-6 text-text-secondary text-[14px] sm:text-[15px] leading-relaxed" data-i18n="faq_a4">Sí. Nuestro formato Resident Entertainment ofrece programación artística permanente: cartelera semanal con rotación de shows, artistas residentes, y producción continua. Ideal para resorts y restaurantes que buscan entretenimiento consistente y profesional.</div>
+        <div class="faq-content hidden pb-6 pl-12 sm:pl-[60px] pr-12">
+          <p class="text-[14px] sm:text-[15px] text-text-secondary leading-relaxed max-w-2xl" data-i18n="faq_a4">Sí. Nuestro formato Resident Entertainment ofrece programación artística permanente: cartelera semanal con rotación de shows, artistas residentes, y producción continua. Ideal para resorts y restaurantes que buscan entretenimiento consistente y profesional.</p>
+        </div>
       </div>
-      <div class="rounded-xl glass-panel overflow-hidden" data-animate>
-        <button class="faq-toggle w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-text-primary hover:text-neon-magenta transition-colors min-h-[56px]">
-          <span data-i18n="faq_q5">¿Qué requerimientos técnicos necesitan?</span>
-          <span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+      <!-- FAQ 5 -->
+      <div class="faq-item" data-animate>
+        <button class="faq-toggle w-full py-6 sm:py-7 text-left flex items-center justify-between gap-6 group">
+          <div class="flex items-center gap-4 sm:gap-5">
+            <span class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/10 flex items-center justify-center text-[12px] sm:text-[13px] font-display font-bold text-neon-magenta group-hover:bg-neon-magenta/10 group-hover:border-neon-magenta/30 transition-all">05</span>
+            <span class="font-display font-bold text-[15px] sm:text-lg text-text-primary group-hover:text-neon-magenta transition-colors" data-i18n="faq_q5">¿Qué requerimientos técnicos necesitan?</span>
+          </div>
+          <span class="flex-shrink-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-neon-magenta/30 group-hover:bg-neon-magenta/10 transition-all">
+            <span class="material-symbols-outlined text-[18px] text-text-muted group-hover:text-neon-magenta transition-all duration-300 faq-icon">add</span>
+          </span>
         </button>
-        <div class="faq-content hidden px-5 pb-5 sm:px-6 sm:pb-6 text-text-secondary text-[14px] sm:text-[15px] leading-relaxed" data-i18n="faq_a5">Proporcionamos rider técnico adaptado a cada formato. Si tu venue no tiene equipo de sonido, iluminación o escenario, gestionamos la producción técnica integral. Nos encargamos de todo para que solo tengas que preocuparte por disfrutar.</div>
+        <div class="faq-content hidden pb-6 pl-12 sm:pl-[60px] pr-12">
+          <p class="text-[14px] sm:text-[15px] text-text-secondary leading-relaxed max-w-2xl" data-i18n="faq_a5">Proporcionamos rider técnico adaptado a cada formato. Si tu venue no tiene equipo de sonido, iluminación o escenario, gestionamos la producción técnica integral. Nos encargamos de todo para que solo tengas que preocuparte por disfrutar.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1688,6 +1745,7 @@ const translations = {
     test_3_role: "Productor Corporativo",
     faq_label: "FAQ",
     faq_title: "PREGUNTAS FRECUENTES",
+    faq_subtitle: "Todo lo que necesit\u00e1s saber antes de reservar tu experiencia.",
     faq_q1: "\u00bfCon cu\u00e1nta anticipaci\u00f3n debo reservar?",
     faq_a1: "Recomendamos 3 a 6 semanas de antelaci\u00f3n para producciones Custom y Full Show. Para Special Acts y Entertainment Experience, podemos coordinar con 1-2 semanas. En temporada alta (diciembre a mayo), reserv\u00e1 con la mayor anticipaci\u00f3n posible.",
     faq_q2: "\u00bfPueden adaptar la producci\u00f3n a cualquier espacio?",
@@ -1808,6 +1866,7 @@ const translations = {
     test_3_role: "Corporate Producer",
     faq_label: "FAQ",
     faq_title: "FREQUENTLY ASKED QUESTIONS",
+    faq_subtitle: "Everything you need to know before booking your experience.",
     faq_q1: "How far in advance should I book?",
     faq_a1: "We recommend 3 to 6 weeks in advance for Custom and Full Show productions. For Special Acts and Entertainment Experience, we can coordinate within 1-2 weeks. During peak season (December to May), book as early as possible.",
     faq_q2: "Can you adapt the production to any venue?",
@@ -2027,13 +2086,24 @@ updateBuilderUI();
 document.querySelectorAll('.faq-toggle').forEach(button => {
   button.addEventListener('click', () => {
     const content = button.nextElementSibling;
-    const icon = button.querySelector('.material-symbols-outlined');
+    if (!content || !content.classList.contains('faq-content')) return;
+    const icon = button.querySelector('.faq-icon');
+    const item = button.closest('.faq-item');
     const isOpen = !content.classList.contains('hidden');
-    document.querySelectorAll('.faq-content').forEach(c => { c.classList.add('hidden'); c.style.maxHeight = '0'; });
-    document.querySelectorAll('.faq-toggle .material-symbols-outlined').forEach(i => i.style.transform = 'rotate(0deg)');
+    // Close all
+    document.querySelectorAll('.faq-content').forEach(c => {
+      c.classList.add('hidden');
+      c.style.maxHeight = null;
+      c.style.overflow = '';
+    });
+    document.querySelectorAll('.faq-icon').forEach(i => { i.textContent = 'add'; i.style.transform = 'rotate(0deg)'; });
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('faq-active'));
     if (!isOpen) {
       content.classList.remove('hidden');
-      icon.style.transform = 'rotate(180deg)';
+      content.style.maxHeight = 'none';
+      content.style.overflow = 'visible';
+      if (icon) { icon.textContent = 'remove'; icon.style.transform = 'rotate(90deg)'; }
+      if (item) item.classList.add('faq-active');
     }
   });
 });
