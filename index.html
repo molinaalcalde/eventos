@@ -4,16 +4,52 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>MAR Entertainment Group | Entertainment · Art Direction · Production — Punta Cana</title>
-<meta content="ART LIVES HERE. Compañía de producción, dirección artística y entretenimiento en vivo en Punta Cana. Shows, Sunset Sessions, Dinner Shows, MALEVO, Belly Dance, producciones a medida y programación artística para hoteles, resorts, beach clubs y eventos de lujo." name="description"/>
+<meta content="Empresa de entretenimiento para hoteles y resorts en Punta Cana, República Dominicana. Dinner shows, sunset sessions, MALEVO, producciones a medida, belly dance, artistas en vivo y programación artística recurrente para hoteles all-inclusive, beach clubs y eventos corporativos." name="description"/>
+<meta name="keywords" content="entertainment company hotels Punta Cana, empresa entretenimiento hoteles Punta Cana, dinner show Punta Cana, sunset entertainment beach club, shows en vivo resort República Dominicana, producción artística eventos corporativos, resident entertainment program all-inclusive, fiestas temáticas hoteles Caribe, MAR Entertainment Group"/>
+<meta name="author" content="MAR Entertainment Group"/>
+<meta name="geo.region" content="DO-11"/>
+<meta name="geo.placename" content="Punta Cana"/>
+<meta name="geo.position" content="18.5601;-68.3725"/>
+<meta name="ICBM" content="18.5601, -68.3725"/>
+
+<!-- Canonical -->
+<link rel="canonical" href="https://marentertainmentgroup.com/"/>
+
+<!-- Hreflang -->
+<link rel="alternate" hreflang="es" href="https://marentertainmentgroup.com/"/>
+<link rel="alternate" hreflang="en" href="https://marentertainmentgroup.com/"/>
+<link rel="alternate" hreflang="x-default" href="https://marentertainmentgroup.com/"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="MAR Entertainment Group | Shows & Entertainment — Punta Cana"/>
+<meta property="og:description" content="Dinner shows, sunset sessions, MALEVO y producciones a medida para hoteles y resorts en Punta Cana, República Dominicana."/>
+<meta property="og:url" content="https://marentertainmentgroup.com/"/>
+<meta property="og:image" content="https://marentertainmentgroup.com/logo-mar.jpeg"/>
+<meta property="og:image:width" content="800"/>
+<meta property="og:image:height" content="267"/>
+<meta property="og:locale" content="es_DO"/>
+<meta property="og:locale:alternate" content="en_US"/>
+<meta property="og:site_name" content="MAR Entertainment Group"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="MAR Entertainment Group | Punta Cana"/>
+<meta name="twitter:description" content="Shows, dinner shows, MALEVO y entretenimiento de lujo para hoteles y resorts en Punta Cana."/>
+<meta name="twitter:image" content="https://marentertainmentgroup.com/logo-mar.jpeg"/>
+
+<!-- Favicon -->
 <link rel="icon" type="image/jpeg" href="favicon.jpeg"/>
+<link rel="apple-touch-icon" href="favicon.jpeg"/>
+
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
 <!-- GSAP + ScrollTrigger + Lenis -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
 <!-- Tailwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
@@ -940,6 +976,21 @@ tailwind.config = {
                   </div>
                 </div>
               </label>
+              <label class="cursor-pointer group block">
+                <input class="peer sr-only" name="vibe" type="radio" value="Otro / No estoy seguro"/>
+                <div class="relative p-4 sm:p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 flex items-center gap-3.5 sm:gap-5">
+                  <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-surface-container flex-shrink-0 flex items-center justify-center">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-secondary"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-[14px] font-display font-bold text-text-primary" data-i18n="vibe_other">Otro / No estoy seguro</p>
+                    <p class="text-[12px] text-text-muted mt-0.5" data-i18n="vibe_other_desc">Contanos tu idea y nuestro equipo te propone el formato ideal.</p>
+                  </div>
+                  <div class="w-5 h-5 rounded-full border-2 border-border-subtle flex-shrink-0 flex items-center justify-center transition-all peer-checked:border-neon-magenta peer-checked:bg-neon-magenta">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0 peer-checked:opacity-100"><path d="M20 6L9 17l-5-5"/></svg>
+                  </div>
+                </div>
+              </label>
             </div>
           </div>
 
@@ -1020,24 +1071,41 @@ tailwind.config = {
               </div>
             </div>
             <!-- Contact Fields -->
-            <div class="space-y-4">
+            <div class="space-y-3">
+              <!-- Nombre completo (obligatorio) -->
               <div class="relative">
                 <div class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </div>
-                <input class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all" id="builderName" placeholder="Tu nombre y organización" data-i18n-placeholder="form_name_placeholder" required type="text"/>
+                <input class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all" id="builderName" placeholder="Nombre completo *" data-i18n-placeholder="form_name_placeholder" required type="text"/>
               </div>
+              <!-- Organización (opcional) -->
+              <div class="relative">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg>
+                </div>
+                <input class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all" id="builderOrg" placeholder="Hotel / Empresa / Organización" data-i18n-placeholder="form_org_placeholder" type="text"/>
+              </div>
+              <!-- WhatsApp / Teléfono (obligatorio) -->
               <div class="relative">
                 <div class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                 </div>
-                <input class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all" id="builderContact" placeholder="WhatsApp o email" data-i18n-placeholder="form_contact_placeholder" required type="text"/>
+                <input class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all" id="builderPhone" placeholder="WhatsApp / Teléfono *" data-i18n-placeholder="form_phone_placeholder" required type="tel"/>
               </div>
+              <!-- Email (obligatorio) -->
+              <div class="relative">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <input class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all" id="builderEmail" placeholder="Email *" data-i18n-placeholder="form_email_placeholder" required type="email"/>
+              </div>
+              <!-- Detalles adicionales (opcional) -->
               <div class="relative">
                 <div class="absolute left-4 top-4 text-text-muted">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
                 </div>
-                <textarea class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all resize-none" id="builderNotes" placeholder="Detalles adicionales (fecha, duración, ideas...)" data-i18n-placeholder="form_notes_placeholder" rows="3"></textarea>
+                <textarea class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[15px] placeholder:text-text-muted/60 transition-all resize-none" id="builderNotes" placeholder="Detalles adicionales (fecha, duración, ideas...)" data-i18n-placeholder="form_notes_placeholder" rows="3"></textarea>
               </div>
             </div>
           </div>
@@ -1725,9 +1793,13 @@ const translations = {
     scale_medium_desc: "Boda, gala corporativa, evento de hotel",
     scale_large: "Festival / Masivo",
     scale_large_desc: "Convenci\u00f3n, festival, a\u00f1o nuevo",
-    form_name_placeholder: "Tu nombre y organizaci\u00f3n",
-    form_contact_placeholder: "WhatsApp o email",
+    form_name_placeholder: "Nombre completo *",
+    form_org_placeholder: "Hotel / Empresa / Organizaci\u00f3n",
+    form_phone_placeholder: "WhatsApp / Tel\u00e9fono *",
+    form_email_placeholder: "Email *",
     form_notes_placeholder: "Detalles adicionales (fecha, duraci\u00f3n, ideas...)",
+    vibe_other: "Otro / No estoy seguro",
+    vibe_other_desc: "Contanos tu idea y nuestro equipo te propone el formato ideal.",
     summary_label: "Tu experiencia",
     btn_prev: "Atr\u00e1s",
     btn_next: "Siguiente",
@@ -1846,9 +1918,13 @@ const translations = {
     scale_medium_desc: "Wedding, corporate gala, hotel event",
     scale_large: "Festival / Massive",
     scale_large_desc: "Convention, festival, New Year\u2019s",
-    form_name_placeholder: "Your name and organization",
-    form_contact_placeholder: "WhatsApp or email",
+    form_name_placeholder: "Full name *",
+    form_org_placeholder: "Hotel / Company / Organization",
+    form_phone_placeholder: "WhatsApp / Phone *",
+    form_email_placeholder: "Email *",
     form_notes_placeholder: "Additional details (date, duration, ideas...)",
+    vibe_other: "Other / Not sure yet",
+    vibe_other_desc: "Tell us your idea and our team will suggest the ideal format.",
     summary_label: "Your experience",
     btn_prev: "Back",
     btn_next: "Next",
@@ -1964,8 +2040,9 @@ function getStepFieldName(step) {
 function isStepValid(step) {
   if (step === 4) {
     const name = document.getElementById('builderName')?.value.trim();
-    const contact = document.getElementById('builderContact')?.value.trim();
-    return name && contact;
+    const phone = document.getElementById('builderPhone')?.value.trim();
+    const email = document.getElementById('builderEmail')?.value.trim();
+    return name && phone && email;
   }
   const field = getStepFieldName(step);
   return !!form.querySelector(`input[name="${field}"]:checked`);
@@ -2043,7 +2120,7 @@ if (form) {
     }
   });
   // Also listen to text input for step 4
-  ['builderName', 'builderContact'].forEach(id => {
+  ['builderName', 'builderPhone', 'builderEmail'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('input', () => { btnNext.disabled = !isStepValid(4); });
   });
@@ -2054,7 +2131,25 @@ btnNext?.addEventListener('click', () => {
     builderState.step++;
     updateBuilderUI();
   } else if (isStepValid(4)) {
-    // Submit
+    // Submit — send via WhatsApp
+    const venue = form.querySelector('input[name="venue"]:checked')?.value || '—';
+    const vibe = form.querySelector('input[name="vibe"]:checked')?.value || '—';
+    const scale = form.querySelector('input[name="scale"]:checked')?.value || '—';
+    const name = document.getElementById('builderName')?.value.trim() || '';
+    const org = document.getElementById('builderOrg')?.value.trim() || '';
+    const phone = document.getElementById('builderPhone')?.value.trim() || '';
+    const email = document.getElementById('builderEmail')?.value.trim() || '';
+    const notes = document.getElementById('builderNotes')?.value.trim() || '';
+    const msg = `*Nueva Solicitud — MAR Entertainment*%0A%0A` +
+      `*Venue:* ${encodeURIComponent(venue)}%0A` +
+      `*Experiencia:* ${encodeURIComponent(vibe)}%0A` +
+      `*Escala:* ${encodeURIComponent(scale)}%0A%0A` +
+      `*Nombre:* ${encodeURIComponent(name)}%0A` +
+      (org ? `*Organización:* ${encodeURIComponent(org)}%0A` : '') +
+      `*WhatsApp:* ${encodeURIComponent(phone)}%0A` +
+      `*Email:* ${encodeURIComponent(email)}%0A` +
+      (notes ? `%0A*Notas:* ${encodeURIComponent(notes)}` : '');
+    window.open(`https://wa.me/18295484316?text=${msg}`, '_blank');
     builderCard.classList.add('hidden');
     successBox.classList.remove('hidden');
     gsap.fromTo(successBox, { opacity: 0, scale: 0.95, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: 'back.out(1.2)' });
@@ -2137,6 +2232,154 @@ document.querySelectorAll('#formatButtons button').forEach(btn => {
     }
   });
 });
+
 </script>
+
+<!-- ===== STRUCTURED DATA (JSON-LD) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EntertainmentBusiness",
+  "name": "MAR Entertainment Group",
+  "alternateName": "MAR Entertainment",
+  "url": "https://marentertainmentgroup.com/",
+  "logo": "https://marentertainmentgroup.com/logo-mar.jpeg",
+  "image": "https://marentertainmentgroup.com/malevo.jpeg",
+  "description": "Compañía de producción, dirección artística y entretenimiento en vivo para hoteles, resorts, beach clubs y eventos corporativos en Punta Cana, República Dominicana.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Punta Cana",
+    "addressRegion": "La Altagracia",
+    "addressCountry": "DO"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 18.5601,
+    "longitude": -68.3725
+  },
+  "telephone": "+18295484316",
+  "email": "info@marentertainmentgroup.com",
+  "sameAs": [
+    "https://instagram.com/mar.engroup"
+  ],
+  "areaServed": {
+    "@type": "Place",
+    "name": "Punta Cana, Dominican Republic"
+  },
+  "priceRange": "$$$",
+  "knowsLanguage": ["es", "en"],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Entertainment Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Dinner Show Production",
+          "description": "Espectáculos completos con desarrollo escénico, belly dance, tango contemporáneo, danza aérea y percusión en vivo para hoteles y resorts."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Sunset & Beach Club Entertainment",
+          "description": "DJ sets, saxofonista en vivo, percusión y artistas itinerantes integrados al atardecer caribeño en beach clubs y terrazas."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Custom Production & Themed Parties",
+          "description": "Producciones a medida con concepto, casting, dirección artística, vestuario, coreografía y puesta en escena completa para eventos corporativos y fiestas temáticas."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Resident Entertainment Program",
+          "description": "Programación artística recurrente y permanente para hoteles all-inclusive: cartelera semanal con rotación de shows y artistas residentes."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Special Acts",
+          "description": "Intervenciones de alto impacto: MALEVO (malambo argentino con fuego), belly dance internacional, acróbatas aéreos, performers de fuego y zanqueros."
+        }
+      }
+    ]
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Con cuánta anticipación debo reservar entretenimiento en Punta Cana?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Recomendamos 3 a 6 semanas de antelación para producciones Custom y Full Show. Para Special Acts y Entertainment Experience, podemos coordinar con 1-2 semanas. En temporada alta (diciembre a mayo), reservá con la mayor anticipación posible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Pueden adaptar la producción a cualquier espacio de hotel o resort?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutamente. Diseñamos cada propuesta según el espacio, el público y la experiencia que se quiera crear. Auditorios, arena de playa, decks de piscina, salones boutique, terrazas — adaptamos escena, artistas y producción técnica a cada venue."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo funciona una Custom Production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Seguimos un pipeline completo: Concepto → Casting → Dirección Artística → Vestuario → Coreografía & Música → Producción → Puesta en Escena. Desde tu idea inicial hasta el telón, nuestro equipo desarrolla cada aspecto de la producción a medida."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Ofrecen programación de entretenimiento recurrente para hoteles all-inclusive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Nuestro formato Resident Entertainment ofrece programación artística permanente: cartelera semanal con rotación de shows, artistas residentes, y producción continua. Ideal para resorts y restaurantes que buscan entretenimiento consistente y profesional."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué requerimientos técnicos necesitan para montar un show?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Proporcionamos rider técnico adaptado a cada formato. Si tu venue no tiene equipo de sonido, iluminación o escenario, gestionamos la producción técnica integral. Nos encargamos de todo para que solo tengas que preocuparte por disfrutar."
+      }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "MAR Entertainment Group",
+  "url": "https://marentertainmentgroup.com/",
+  "inLanguage": ["es", "en"],
+  "description": "Entertainment company for hotels and resorts in Punta Cana, Dominican Republic. Dinner shows, sunset entertainment, custom productions, resident programming.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MAR Entertainment Group"
+  }
+}
+</script>
+
 </body>
 </html>
