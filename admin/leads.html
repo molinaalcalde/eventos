@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MAR Admin — Leads</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="icon" type="image/jpeg" href="../favicon.jpeg"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../styles.css"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #050505; min-height: 100vh; font-family: 'Inter', sans-serif; color: #fff; display: flex; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 260px; min-height: 100vh; background: #111116;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    display: flex; flex-direction: column; position: fixed; left: 0; top: 0; z-index: 40;
+    transition: transform 0.3s ease;
+  }
+  .sidebar-header { padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .sidebar-nav { flex: 1; padding: 1rem 0.75rem; }
+  .sidebar-link {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px;
+    color: #A1A1AA; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s;
+    margin-bottom: 2px;
+  }
+  .sidebar-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+  .sidebar-link.active { background: rgba(250,37,126,0.12); color: #FA257E; }
+  .sidebar-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .sidebar-footer { padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+
+  /* Main */
+  .main { margin-left: 260px; flex: 1; min-height: 100vh; }
+  .topbar {
+    position: sticky; top: 0; z-index: 30; padding: 1rem 1.5rem;
+    background: rgba(5,5,5,0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .content { padding: 1.5rem; max-width: 1280px; }
+
+  /* Stats */
+  .stat-card {
+    background: #111116; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 1.25rem; flex: 1; min-width: 140px;
+  }
+  .stat-value { font-size: 28px; font-weight: 700; font-family: 'Syne', sans-serif; }
+  .stat-label { font-size: 12px; color: #71717A; margin-top: 2px; }
+
+  /* Table */
+  .leads-table { width: 100%; border-collapse: collapse; }
+  .leads-table th {
+    text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 600;
+    color: #71717A; text-transform: uppercase; letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .leads-table td {
+    padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 13px; vertical-align: middle;
+  }
+  .leads-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .leads-table tr { cursor: pointer; }
+
+  /* Badges */
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  }
+  .badge-new { background: rgba(56,189,248,0.12); color: #38BDF8; }
+  .badge-contacted { background: rgba(250,204,21,0.12); color: #FACC15; }
+  .badge-qualified { background: rgba(52,211,153,0.12); color: #34D399; }
+  .badge-closed { background: rgba(148,163,184,0.12); color: #94A3B8; }
+  .badge-source { background: rgba(250,37,126,0.1); color: #FA257E; }
+
+  /* Filters */
+  .filter-btn {
+    padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.08); background: transparent; color: #A1A1AA;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: rgba(250,37,126,0.4); color: #fff; }
+  .filter-btn.active { background: #FA257E; color: #fff; border-color: #FA257E; }
+
+  .search-input {
+    padding: 8px 14px 8px 36px; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;
+    color: #fff; font-size: 13px; outline: none; width: 280px; transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: #FA257E; }
+  .search-input::placeholder { color: #71717A; }
+
+  /* Slide-out panel */
+  .detail-panel {
+    position: fixed; right: 0; top: 0; width: 420px; max-width: 100vw; height: 100vh;
+    background: #111116; border-left: 1px solid rgba(255,255,255,0.08);
+    z-index: 50; transform: translateX(100%); transition: transform 0.3s ease;
+    overflow-y: auto; display: flex; flex-direction: column;
+  }
+  .detail-panel.open { transform: translateX(0); }
+  .detail-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 45;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .detail-overlay.open { opacity: 1; pointer-events: auto; }
+
+  /* Action buttons */
+  .action-btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
+    border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.08); background: transparent;
+    color: #A1A1AA; transition: all 0.2s; text-decoration: none;
+  }
+  .action-btn:hover { border-color: rgba(255,255,255,0.2); color: #fff; }
+  .action-btn-wa { border-color: rgba(37,211,102,0.3); color: #25D366; }
+  .action-btn-wa:hover { background: rgba(37,211,102,0.1); }
+  .action-btn-danger { border-color: rgba(239,68,68,0.3); color: #EF4444; }
+  .action-btn-danger:hover { background: rgba(239,68,68,0.1); }
+
+  .status-select {
+    padding: 6px 12px; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
+    color: #fff; font-size: 13px; outline: none; cursor: pointer;
+  }
+  .status-select:focus { border-color: #FA257E; }
+
+  .notes-textarea {
+    width: 100%; padding: 10px; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
+    color: #fff; font-size: 13px; resize: vertical; min-height: 80px; outline: none;
+  }
+  .notes-textarea:focus { border-color: #FA257E; }
+
+  .save-btn {
+    padding: 6px 16px; background: #FA257E; color: #fff; border: none;
+    border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .save-btn:hover { opacity: 0.85; }
+
+  .export-btn {
+    padding: 8px 16px; background: transparent; color: #A1A1AA;
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
+    font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .export-btn:hover { border-color: rgba(255,255,255,0.2); color: #fff; }
+
+  /* Empty state */
+  .empty-state { text-align: center; padding: 4rem 2rem; color: #71717A; }
+
+  /* Mobile */
+  .menu-btn { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 8px; }
+  @media (max-width: 768px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .main { margin-left: 0; }
+    .menu-btn { display: flex; }
+    .search-input { width: 100%; }
+    .detail-panel { width: 100vw; }
+    .stat-card { min-width: 100px; }
+    .stat-value { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <img src="../logo-mar.jpeg" alt="MAR" style="height: 28px; border-radius: 4px; margin-bottom: 8px;"/>
+    <div style="font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px;">MAR Entertainment</div>
+    <div style="font-size: 11px; color: #71717A;">Panel de Gestión</div>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="/admin/leads.html" class="sidebar-link active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Leads
+    </a>
+    <a href="/" class="sidebar-link" style="margin-top: auto;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Ver sitio
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div id="adminEmail" style="font-size: 11px; color: #71717A; margin-bottom: 8px; overflow: hidden; text-overflow: ellipsis;"></div>
+    <button onclick="logout()" class="action-btn" style="width: 100%; justify-content: center; font-size: 11px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Cerrar sesión
+    </button>
+  </div>
+</aside>
+
+<!-- Detail overlay -->
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail()"></div>
+
+<!-- Detail panel -->
+<div class="detail-panel" id="detailPanel">
+  <div style="padding: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between;">
+    <h3 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px;" id="detailName">—</h3>
+    <button onclick="closeDetail()" style="background: none; border: none; color: #71717A; cursor: pointer; padding: 4px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div style="flex: 1; overflow-y: auto; padding: 1.25rem;" id="detailBody">
+    <!-- Filled by JS -->
+  </div>
+</div>
+
+<!-- Main content -->
+<div class="main">
+  <!-- Topbar -->
+  <div class="topbar">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <h2 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px;">Leads</h2>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <button class="export-btn" onclick="exportCSV()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Exportar CSV
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Stats -->
+    <div style="display: flex; gap: 12px; margin-bottom: 1.5rem; flex-wrap: wrap;" id="statsRow">
+      <div class="stat-card">
+        <div class="stat-value" id="statTotal">0</div>
+        <div class="stat-label">Total</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" style="color: #38BDF8;" id="statNew">0</div>
+        <div class="stat-label">Nuevos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" style="color: #FACC15;" id="statContacted">0</div>
+        <div class="stat-label">Contactados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" style="color: #34D399;" id="statQualified">0</div>
+        <div class="stat-label">Calificados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" style="color: #94A3B8;" id="statClosed">0</div>
+        <div class="stat-label">Cerrados</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 1.25rem;">
+      <div style="position: relative;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#71717A" stroke-width="2" style="position: absolute; left: 11px; top: 50%; transform: translateY(-50%);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="search-input" placeholder="Buscar nombre, email, teléfono..." id="searchInput" oninput="applyFilters()"/>
+      </div>
+      <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+        <button class="filter-btn active" data-status="all" onclick="setStatusFilter('all', this)">Todos</button>
+        <button class="filter-btn" data-status="new" onclick="setStatusFilter('new', this)">Nuevos</button>
+        <button class="filter-btn" data-status="contacted" onclick="setStatusFilter('contacted', this)">Contactados</button>
+        <button class="filter-btn" data-status="qualified" onclick="setStatusFilter('qualified', this)">Calificados</button>
+        <button class="filter-btn" data-status="closed" onclick="setStatusFilter('closed', this)">Cerrados</button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div style="background: #111116; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden;">
+      <div style="overflow-x: auto;">
+        <table class="leads-table">
+          <thead>
+            <tr>
+              <th>Contacto</th>
+              <th>Venue</th>
+              <th>Experiencia</th>
+              <th>Estado</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody id="leadsBody">
+            <!-- Filled by JS -->
+          </tbody>
+        </table>
+      </div>
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#71717A" stroke-width="1.5" style="margin: 0 auto 12px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <p style="font-size: 14px; color: #A1A1AA;">No hay leads aún</p>
+        <p style="font-size: 12px; margin-top: 4px;">Los leads del formulario web aparecerán aquí.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+// ===== CONFIG =====
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let allLeads = [];
+let filteredLeads = [];
+let currentFilter = 'all';
+let currentLeadId = null;
+
+// ===== AUTH CHECK =====
+async function checkAuth() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = '/admin/'; return null; }
+  const { data: role } = await sb.from('user_roles').select('role').eq('user_id', session.user.id).single();
+  if (!role || role.role !== 'admin') { window.location.href = '/admin/'; return null; }
+  document.getElementById('adminEmail').textContent = session.user.email;
+  return session;
+}
+
+async function logout() {
+  await sb.auth.signOut();
+  window.location.href = '/admin/';
+}
+
+// ===== LOAD LEADS =====
+async function loadLeads() {
+  const { data, error } = await sb.from('leads').select('*').order('created_at', { ascending: false });
+  if (error) { console.error('Error loading leads:', error); return; }
+  allLeads = data || [];
+  applyFilters();
+}
+
+// ===== FILTERS =====
+function setStatusFilter(status, btn) {
+  currentFilter = status;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function applyFilters() {
+  const search = document.getElementById('searchInput').value.toLowerCase().trim();
+  filteredLeads = allLeads.filter(lead => {
+    if (currentFilter !== 'all' && lead.status !== currentFilter) return false;
+    if (search) {
+      const haystack = [lead.name, lead.email, lead.phone].filter(Boolean).join(' ').toLowerCase();
+      if (!haystack.includes(search)) return false;
+    }
+    return true;
+  });
+  renderStats();
+  renderTable();
+}
+
+// ===== RENDER =====
+function renderStats() {
+  const leads = currentFilter === 'all' ? allLeads : allLeads; // Stats always show all
+  document.getElementById('statTotal').textContent = leads.length;
+  document.getElementById('statNew').textContent = leads.filter(l => l.status === 'new').length;
+  document.getElementById('statContacted').textContent = leads.filter(l => l.status === 'contacted').length;
+  document.getElementById('statQualified').textContent = leads.filter(l => l.status === 'qualified').length;
+  document.getElementById('statClosed').textContent = leads.filter(l => l.status === 'closed').length;
+}
+
+const statusLabels = { new: 'Nuevo', contacted: 'Contactado', qualified: 'Calificado', closed: 'Cerrado' };
+const statusClasses = { new: 'badge-new', contacted: 'badge-contacted', qualified: 'badge-qualified', closed: 'badge-closed' };
+
+function formatDate(dateStr) {
+  if (!dateStr) return '—';
+  const d = new Date(dateStr);
+  const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function renderTable() {
+  const tbody = document.getElementById('leadsBody');
+  const empty = document.getElementById('emptyState');
+
+  if (filteredLeads.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = filteredLeads.map(lead => `
+    <tr onclick="openDetail('${lead.id}')">
+      <td>
+        <div style="font-weight: 600; color: #fff;">${esc(lead.name || '—')}</div>
+        <div style="font-size: 11px; color: #71717A;">${esc(lead.email || '')}${lead.phone ? ' · ' + esc(lead.phone) : ''}</div>
+      </td>
+      <td>${lead.venue ? `<span class="badge badge-source">${esc(lead.venue)}</span>` : '<span style="color:#71717A;">—</span>'}</td>
+      <td>${lead.experience ? `<span style="color:#A1A1AA; font-size:12px;">${esc(lead.experience)}</span>` : '<span style="color:#71717A;">—</span>'}</td>
+      <td><span class="badge ${statusClasses[lead.status] || 'badge-new'}">${statusLabels[lead.status] || lead.status}</span></td>
+      <td style="color: #71717A; font-size: 12px; white-space: nowrap;">${formatDate(lead.created_at)}</td>
+    </tr>
+  `).join('');
+}
+
+function esc(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ===== DETAIL PANEL =====
+function openDetail(id) {
+  currentLeadId = id;
+  const lead = allLeads.find(l => l.id === id);
+  if (!lead) return;
+
+  document.getElementById('detailName').textContent = lead.name || 'Sin nombre';
+  document.getElementById('detailPanel').classList.add('open');
+  document.getElementById('detailOverlay').classList.add('open');
+  document.getElementById('sidebar').classList.remove('open');
+
+  const waMsg = encodeURIComponent(`Hola ${lead.name || ''}, soy de MAR Entertainment Group. Recibimos tu solicitud${lead.venue ? ' para ' + lead.venue : ''}. ¿Cómo podemos ayudarte?`);
+  const waLink = `https://wa.me/${(lead.phone || '').replace(/[^0-9]/g, '')}?text=${waMsg}`;
+  const emailLink = `mailto:${lead.email || ''}?subject=MAR Entertainment — Tu Solicitud`;
+  const telLink = `tel:${(lead.phone || '').replace(/[^0-9+]/g, '')}`;
+
+  document.getElementById('detailBody').innerHTML = `
+    <!-- Action buttons -->
+    <div style="display: flex; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap;">
+      ${lead.phone ? `<a href="${waLink}" target="_blank" class="action-btn action-btn-wa">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.626-1.467A11.932 11.932 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-2.115 0-4.12-.652-5.826-1.886l-.418-.297-2.747.871.873-2.685-.325-.444A9.706 9.706 0 0 1 2.25 12c0-5.385 4.365-9.75 9.75-9.75S21.75 6.615 21.75 12s-4.365 9.75-9.75 9.75z"/></svg>
+        WhatsApp
+      </a>` : ''}
+      ${lead.email ? `<a href="${emailLink}" class="action-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email
+      </a>` : ''}
+      ${lead.phone ? `<a href="${telLink}" class="action-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Llamar
+      </a>` : ''}
+    </div>
+
+    <!-- Status -->
+    <div style="margin-bottom: 1.25rem;">
+      <label style="font-size: 11px; color: #71717A; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">Estado</label>
+      <select class="status-select" onchange="updateStatus('${lead.id}', this.value)">
+        <option value="new" ${lead.status === 'new' ? 'selected' : ''}>Nuevo</option>
+        <option value="contacted" ${lead.status === 'contacted' ? 'selected' : ''}>Contactado</option>
+        <option value="qualified" ${lead.status === 'qualified' ? 'selected' : ''}>Calificado</option>
+        <option value="closed" ${lead.status === 'closed' ? 'selected' : ''}>Cerrado</option>
+      </select>
+    </div>
+
+    <!-- Info -->
+    <div style="margin-bottom: 1.25rem;">
+      <label style="font-size: 11px; color: #71717A; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 8px;">Información de contacto</label>
+      <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px;">
+        ${lead.email ? `<div><span style="color: #71717A;">Email:</span> <span style="color: #fff;">${esc(lead.email)}</span></div>` : ''}
+        ${lead.phone ? `<div><span style="color: #71717A;">Teléfono:</span> <span style="color: #fff;">${esc(lead.phone)}</span></div>` : ''}
+        ${lead.organization ? `<div><span style="color: #71717A;">Organización:</span> <span style="color: #fff;">${esc(lead.organization)}</span></div>` : ''}
+        ${lead.venue ? `<div><span style="color: #71717A;">Venue:</span> <span style="color: #fff;">${esc(lead.venue)}</span></div>` : ''}
+        ${lead.experience ? `<div><span style="color: #71717A;">Experiencia:</span> <span style="color: #fff;">${esc(lead.experience)}</span></div>` : ''}
+        ${lead.scale ? `<div><span style="color: #71717A;">Escala:</span> <span style="color: #fff;">${esc(lead.scale)}</span></div>` : ''}
+        <div><span style="color: #71717A;">Fuente:</span> <span class="badge badge-source">${esc(lead.source)}</span></div>
+        <div><span style="color: #71717A;">Fecha:</span> <span style="color: #fff;">${formatDate(lead.created_at)}</span></div>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div style="margin-bottom: 1.25rem;">
+      <label style="font-size: 11px; color: #71717A; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">Notas</label>
+      <textarea class="notes-textarea" id="notesTextarea" placeholder="Agregar notas sobre este lead...">${esc(lead.notes || '')}</textarea>
+      <button class="save-btn" style="margin-top: 8px;" onclick="saveNotes('${lead.id}')">Guardar notas</button>
+    </div>
+
+    <!-- Delete -->
+    <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.25rem; margin-top: auto;">
+      <button class="action-btn action-btn-danger" style="width: 100%; justify-content: center;" onclick="deleteLead('${lead.id}')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        Eliminar lead
+      </button>
+    </div>
+  `;
+}
+
+function closeDetail() {
+  document.getElementById('detailPanel').classList.remove('open');
+  document.getElementById('detailOverlay').classList.remove('open');
+  currentLeadId = null;
+}
+
+// ===== ACTIONS =====
+async function updateStatus(id, status) {
+  const { error } = await sb.from('leads').update({ status, updated_at: new Date().toISOString() }).eq('id', id);
+  if (error) { alert('Error actualizando estado: ' + error.message); return; }
+  const lead = allLeads.find(l => l.id === id);
+  if (lead) lead.status = status;
+  applyFilters();
+}
+
+async function saveNotes(id) {
+  const notes = document.getElementById('notesTextarea').value;
+  const { error } = await sb.from('leads').update({ notes, updated_at: new Date().toISOString() }).eq('id', id);
+  if (error) { alert('Error guardando notas: ' + error.message); return; }
+  const lead = allLeads.find(l => l.id === id);
+  if (lead) lead.notes = notes;
+  // Visual feedback
+  const btn = event.target;
+  const original = btn.textContent;
+  btn.textContent = '✓ Guardado';
+  setTimeout(() => { btn.textContent = original; }, 1500);
+}
+
+async function deleteLead(id) {
+  if (!confirm('¿Estás seguro de eliminar este lead? Esta acción no se puede deshacer.')) return;
+  const { error } = await sb.from('leads').delete().eq('id', id);
+  if (error) { alert('Error eliminando: ' + error.message); return; }
+  allLeads = allLeads.filter(l => l.id !== id);
+  closeDetail();
+  applyFilters();
+}
+
+// ===== EXPORT CSV =====
+function exportCSV() {
+  if (filteredLeads.length === 0) { alert('No hay leads para exportar.'); return; }
+  const headers = ['Nombre','Email','Teléfono','Organización','Venue','Experiencia','Escala','Estado','Fuente','Notas','Fecha'];
+  const rows = filteredLeads.map(l => [
+    l.name || '', l.email || '', l.phone || '', l.organization || '',
+    l.venue || '', l.experience || '', l.scale || '',
+    statusLabels[l.status] || l.status, l.source || '', l.notes || '',
+    l.created_at ? new Date(l.created_at).toISOString().split('T')[0] : ''
+  ]);
+  const csv = [headers, ...rows].map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',')).join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `mar-leads-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ===== INIT =====
+(async () => {
+  const session = await checkAuth();
+  if (!session) return;
+  await loadLeads();
+})();
+</script>
+
+</body>
+</html>
