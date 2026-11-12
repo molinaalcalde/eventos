@@ -354,12 +354,12 @@ tailwind.config = {
 <section class="relative min-h-screen flex items-center overflow-hidden" id="hero">
   <!-- Fullscreen YouTube Video Background -->
   <div class="absolute inset-0 z-0 overflow-hidden">
-    <div id="heroVideoWrap" class="absolute" style="top: 50%; left: 50%; width: max(177.78vh, 100vw); height: max(100vh, 56.25vw); transform: translate(-50%, -50%); overflow: hidden;">
-      <div id="heroVideo" style="position:absolute; top:-2%; left:-2%; width:104%; height:104%;"></div>
+    <div id="heroVideoWrap" class="absolute" style="top: 50%; left: 50%; width: calc(max(177.78vh, 100vw) + 40px); height: calc(max(100vh, 56.25vw) + 40px); transform: translate(-50%, -50%); overflow: hidden;">
+      <div id="heroVideo" style="position:absolute; top:-5%; left:-5%; width:110%; height:110%;"></div>
     </div>
   </div>
-  <!-- Black mask to hide YT loading/play button — fades out once video is playing -->
-  <div class="absolute inset-0 z-[1] bg-surface-black transition-opacity duration-1000" id="videoMask"></div>
+  <!-- Black mask — covers EVERYTHING including YT title/info until video plays -->
+  <div class="absolute inset-0 z-[5] bg-surface-black transition-opacity duration-1000 pointer-events-none" id="videoMask"></div>
   <!-- Dark overlays for readability -->
   <div class="absolute inset-0 bg-surface-black/50 z-[2]"></div>
   <div class="absolute inset-0 bg-gradient-to-t from-surface-black via-transparent to-surface-black/40 z-[2]"></div>
