@@ -195,6 +195,9 @@ tailwind.config = {
 
   /* Stagger fade */
   [data-animate] { opacity: 0; transform: translateY(40px); }
+  @media (max-width: 768px) {
+    [data-animate] { opacity: 1 !important; transform: none !important; }
+  }
 
   /* Floating nav pill */
   .nav-pill {
@@ -1418,12 +1421,14 @@ if (!isMobile) {
 }
 
 // ===== SCROLL PROGRESS BAR =====
+try {
 gsap.to('#scrollProgress', {
   scaleX: 1,
   ease: 'none',
   scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 0.3 }
 });
-document.getElementById('scrollProgress').style.transform = 'scaleX(0)';
+const scrollProg = document.getElementById('scrollProgress');
+if (scrollProg) scrollProg.style.transform = 'scaleX(0)';
 
 // ===== CUSTOM CURSOR =====
 const dot = document.getElementById('cursorDot');
@@ -1484,16 +1489,18 @@ if (document.fonts && document.fonts.ready) {
   document.fonts.ready.then(fitHeroText);
 }
 
-// ===== SCROLL-TRIGGERED ANIMATIONS =====
-gsap.utils.toArray('[data-animate]').forEach(el => {
-  gsap.to(el, {
-    opacity: 1,
-    y: 0,
-    duration: 0.8,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+// ===== SCROLL-TRIGGERED ANIMATIONS (desktop only) =====
+if (!isMobile) {
+  gsap.utils.toArray('[data-animate]').forEach(el => {
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+    });
   });
-});
+}
 
 // ===== COUNTER ANIMATION =====
 gsap.utils.toArray('.counter').forEach(counter => {
@@ -1527,15 +1534,17 @@ gsap.utils.toArray('.parallax-fast').forEach(el => {
 });
 
 // ===== EXPERIENCE CARDS STAGGER ANIMATION =====
-gsap.utils.toArray('.exp-card').forEach((card, i) => {
-  gsap.fromTo(card, { opacity: 0, y: 40 }, {
-    opacity: 1, y: 0,
-    duration: 0.8,
-    ease: 'power3.out',
-    delay: i * 0.12,
-    scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none none' }
+if (!isMobile) {
+  gsap.utils.toArray('.exp-card').forEach((card, i) => {
+    gsap.fromTo(card, { opacity: 0, y: 40 }, {
+      opacity: 1, y: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      delay: i * 0.12,
+      scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none none' }
+    });
   });
-});
+}
 
 // ===== MAGNETIC BUTTONS =====
 document.querySelectorAll('.magnetic-btn').forEach(btn => {
@@ -1560,6 +1569,8 @@ document.querySelectorAll('.tilt-card').forEach(card => {
     card.style.transform = 'perspective(800px) rotateY(0) rotateX(0) scale(1)';
   });
 });
+
+} catch(animErr) { console.warn('Animation init error:', animErr); }
 
 // ===== FLOATING NAV: Active section tracking =====
 const sections = document.querySelectorAll('section[id]');
