@@ -46,43 +46,8 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<!-- GSAP + ScrollTrigger + Lenis -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
-tailwind.config = {
-  darkMode: "class",
-  theme: {
-    extend: {
-      colors: {
-        "neon-magenta": "#FA257E",
-        "stage-gold": "#E5A93C",
-        "stage-amber": "#F59E0B",
-        "surface-black": "#050505",
-        "surface-elevated": "#111116",
-        "surface-container": "#1f1f23",
-        "surface-container-high": "#2a292e",
-        "surface-container-lowest": "#0e0e12",
-        "surface-glass": "rgba(17, 17, 22, 0.72)",
-        "text-primary": "#FFFFFF",
-        "text-secondary": "#A1A1AA",
-        "text-muted": "#71717A",
-        "border-subtle": "rgba(255, 255, 255, 0.08)",
-        "border-glow": "rgba(250, 37, 126, 0.4)",
-        "primary": "#ffb1c4",
-        "primary-container": "#ff4b8b",
-      },
-      fontFamily: {
-        "display": ["Syne", "sans-serif"],
-        "body": ["Inter", "sans-serif"],
-      },
-    }
-  }
-}
-</script>
+<!-- Tailwind CSS (compiled) -->
+<link rel="stylesheet" href="styles.css"/>
 <style>
   /* Lenis */
   html.lenis, html.lenis body { height: auto; }
@@ -199,6 +164,7 @@ tailwind.config = {
     [data-animate] { opacity: 1 !important; transform: none !important; }
     .reveal-line span { transform: none !important; }
     .parallax-slow, .parallax-fast { transform: none !important; will-change: auto !important; }
+    #heroVideoWrap, #videoMask { display: none !important; }
   }
 
   /* Floating nav pill */
@@ -427,12 +393,6 @@ tailwind.config = {
       </div>
     </div>
   </div>
-
-  <!-- Mute toggle — bottom right -->
-  <button class="absolute bottom-20 sm:bottom-8 right-4 sm:right-8 w-11 h-11 rounded-full bg-surface-black/50 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/70 hover:text-neon-magenta hover:border-neon-magenta/40 transition-all z-30" id="muteToggle" title="Activar sonido">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="muteIcon"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="unmuteIcon" class="hidden"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-  </button>
 
   <!-- Scroll indicator -->
   <div class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 z-30" data-animate>
@@ -1397,6 +1357,10 @@ tailwind.config = {
 </footer>
 
 <!-- ==================== SCRIPTS ==================== -->
+<!-- GSAP + ScrollTrigger + Lenis — loaded at bottom for faster first paint -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 // ===== LENIS SMOOTH SCROLL — desktop only =====
 // On mobile, Lenis intercepts touch events and breaks native scroll entirely.
@@ -1421,9 +1385,6 @@ if (!isMobile) {
     raf: () => {}
   };
 }
-
-// ===== GSAP INIT =====
-gsap.registerPlugin(ScrollTrigger);
 
 // ===== FIT HERO TEXT — auto-size to container width =====
 function fitHeroText() {
@@ -1464,6 +1425,7 @@ if (isMobile) {
 
 // ===== DESKTOP-ONLY: all GSAP ScrollTrigger features =====
 if (!isMobile) {
+  gsap.registerPlugin(ScrollTrigger);
   try {
   // Scroll progress bar
   gsap.to('#scrollProgress', {
@@ -1650,105 +1612,69 @@ document.querySelectorAll('.mobile-nav-link').forEach(link => {
   });
 });
 
-// ===== HERO VIDEO: YT Player API — loop 4s to 1:37, black mask until playing =====
-let heroPlayer;
-const VIDEO_START = 4;
-const VIDEO_END = 97;
-const videoMask = document.getElementById('videoMask');
-let maskRemoved = false;
+// ===== HERO VIDEO: YT Player API — desktop only =====
+if (!isMobile) {
+  let heroPlayer;
+  const VIDEO_START = 4;
+  const VIDEO_END = 97;
+  const videoMask = document.getElementById('videoMask');
+  let maskRemoved = false;
 
-// Fallback: remove mask after 3s even if video doesn't autoplay (mobile)
-setTimeout(() => {
-  if (!maskRemoved && videoMask) {
-    maskRemoved = true;
-    videoMask.style.opacity = '0';
-    setTimeout(() => { if (videoMask) videoMask.style.display = 'none'; }, 1000);
-  }
-}, 3000);
+  // Fallback: remove mask after 3s even if video doesn't autoplay
+  setTimeout(() => {
+    if (!maskRemoved && videoMask) {
+      maskRemoved = true;
+      videoMask.style.opacity = '0';
+      setTimeout(() => { if (videoMask) videoMask.style.display = 'none'; }, 1000);
+    }
+  }, 3000);
 
-window.onYouTubeIframeAPIReady = function() {
-  heroPlayer = new YT.Player('heroVideo', {
-    videoId: 'HMk7x9cX_eU',
-    playerVars: {
-      autoplay: 1,
-      mute: 1,
-      controls: 0,
-      showinfo: 0,
-      modestbranding: 1,
-      rel: 0,
-      playsinline: 1,
-      start: VIDEO_START,
-      end: VIDEO_END,
-      loop: 0,
-      disablekb: 1,
-      fs: 0,
-      iv_load_policy: 3,
-    },
-    events: {
-      onReady: (e) => {
-        e.target.seekTo(VIDEO_START, true);
-        e.target.playVideo();
-        // Make iframe fill container
-        const iframe = document.querySelector('#heroVideoWrap iframe');
-        if (iframe) {
-          iframe.style.width = '100%';
-          iframe.style.height = '100%';
-          iframe.style.position = 'absolute';
-          iframe.style.top = '0';
-          iframe.style.left = '0';
-          iframe.style.pointerEvents = 'none';
-        }
+  window.onYouTubeIframeAPIReady = function() {
+    heroPlayer = new YT.Player('heroVideo', {
+      videoId: 'HMk7x9cX_eU',
+      playerVars: {
+        autoplay: 1, mute: 1, controls: 0, showinfo: 0, modestbranding: 1,
+        rel: 0, playsinline: 1, start: VIDEO_START, end: VIDEO_END,
+        loop: 0, disablekb: 1, fs: 0, iv_load_policy: 3,
       },
-      onStateChange: (e) => {
-        // Fade out mask once video is actually playing
-        if (e.data === YT.PlayerState.PLAYING && !maskRemoved) {
-          maskRemoved = true;
-          setTimeout(() => {
-            if (videoMask) videoMask.style.opacity = '0';
-            setTimeout(() => { if (videoMask) videoMask.style.display = 'none'; }, 1000);
-          }, 300);
-        }
-        // If video ends or pauses at end, loop back
-        if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
-          heroPlayer.seekTo(VIDEO_START, true);
-          heroPlayer.playVideo();
+      events: {
+        onReady: (e) => {
+          e.target.seekTo(VIDEO_START, true);
+          e.target.playVideo();
+          const iframe = document.querySelector('#heroVideoWrap iframe');
+          if (iframe) {
+            iframe.style.width = '100%'; iframe.style.height = '100%';
+            iframe.style.position = 'absolute'; iframe.style.top = '0';
+            iframe.style.left = '0'; iframe.style.pointerEvents = 'none';
+          }
+        },
+        onStateChange: (e) => {
+          if (e.data === YT.PlayerState.PLAYING && !maskRemoved) {
+            maskRemoved = true;
+            setTimeout(() => {
+              if (videoMask) videoMask.style.opacity = '0';
+              setTimeout(() => { if (videoMask) videoMask.style.display = 'none'; }, 1000);
+            }, 300);
+          }
+          if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
+            heroPlayer.seekTo(VIDEO_START, true);
+            heroPlayer.playVideo();
+          }
         }
       }
-    }
-  });
-  // Backup loop check every 500ms
-  setInterval(() => {
-    if (heroPlayer && heroPlayer.getCurrentTime && heroPlayer.getCurrentTime() >= VIDEO_END) {
-      heroPlayer.seekTo(VIDEO_START, true);
-      heroPlayer.playVideo();
-    }
-  }, 500);
-}
-// Load YT API
-const ytScript = document.createElement('script');
-ytScript.src = 'https://www.youtube.com/iframe_api';
-document.head.appendChild(ytScript);
-
-// Mute toggle
-const muteToggle = document.getElementById('muteToggle');
-const muteIcon = document.getElementById('muteIcon');
-const unmuteIcon = document.getElementById('unmuteIcon');
-let isMuted = true;
-if (muteToggle) {
-  muteToggle.addEventListener('click', () => {
-    if (!heroPlayer) return;
-    isMuted = !isMuted;
-    if (isMuted) {
-      heroPlayer.mute();
-      muteIcon.classList.remove('hidden');
-      unmuteIcon.classList.add('hidden');
-    } else {
-      heroPlayer.unMute();
-      muteIcon.classList.add('hidden');
-      unmuteIcon.classList.remove('hidden');
-    }
-  });
-}
+    });
+    setInterval(() => {
+      if (heroPlayer && heroPlayer.getCurrentTime && heroPlayer.getCurrentTime() >= VIDEO_END) {
+        heroPlayer.seekTo(VIDEO_START, true);
+        heroPlayer.playVideo();
+      }
+    }, 500);
+  }
+  // Load YT API
+  const ytScript = document.createElement('script');
+  ytScript.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(ytScript);
+} // end !isMobile (YouTube)
 
 // ===== LANGUAGE TOGGLE — FULL i18n SYSTEM =====
 let currentLang = 'es';
