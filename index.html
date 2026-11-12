@@ -258,11 +258,12 @@ tailwind.config = {
   .hamburger-open #hamburgerLine2 { opacity: 0; }
   .hamburger-open #hamburgerLine3 { transform: rotate(-45deg) translate(5px, -5px); }
 
+  /* Global overflow guard — prevents any element from creating horizontal scroll */
+  html, body { overflow-x: hidden; max-width: 100%; }
+
   /* Responsive */
   @media (max-width: 768px) {
     .cursor-dot, .cursor-ring { display: none; }
-    /* Prevent any horizontal overflow */
-    body { overflow-x: hidden; }
     /* Safe area insets for notched iPhones */
     header.fixed, nav.fixed { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
   }
@@ -753,7 +754,7 @@ tailwind.config = {
 </section>
 
 <!-- ==================== CALCULADORA / EVENT BUILDER — MULTI-STEP GAMIFIED ==================== -->
-<section class="py-16 lg:py-32 bg-surface-black relative" id="calculadora">
+<section class="py-16 lg:py-32 bg-surface-black relative overflow-hidden" id="calculadora">
   <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-magenta/6 rounded-full blur-[200px] pointer-events-none"></div>
   <div class="absolute right-0 top-0 w-[400px] h-[400px] bg-stage-gold/5 rounded-full blur-[150px] pointer-events-none"></div>
   <div class="max-w-3xl mx-auto px-6 lg:px-12">
@@ -1463,6 +1464,10 @@ function fitHeroText() {
 }
 fitHeroText();
 window.addEventListener('resize', fitHeroText);
+// Re-run once fonts are loaded to get accurate measurements
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(fitHeroText);
+}
 
 // ===== SCROLL-TRIGGERED ANIMATIONS =====
 gsap.utils.toArray('[data-animate]').forEach(el => {
@@ -1564,8 +1569,12 @@ function updateNav(id) {
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', (e) => {
     e.preventDefault();
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) lenis.scrollTo(target, { offset: -50 });
+    const href = a.getAttribute('href');
+    if (!href || href === '#') { lenis.scrollTo(0); return; }
+    try {
+      const target = document.querySelector(href);
+      if (target) lenis.scrollTo(target, { offset: -50 });
+    } catch(err) { /* invalid selector — ignore */ }
   });
 });
 
@@ -1596,8 +1605,12 @@ document.querySelectorAll('.mobile-nav-link').forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
     if (menuOpen) toggleMobileMenu();
-    const target = document.querySelector(link.getAttribute('href'));
-    if (target) setTimeout(() => lenis.scrollTo(target, { offset: -50 }), 100);
+    const href = link.getAttribute('href');
+    if (!href || href === '#') { setTimeout(() => lenis.scrollTo(0), 100); return; }
+    try {
+      const target = document.querySelector(href);
+      if (target) setTimeout(() => lenis.scrollTo(target, { offset: -50 }), 100);
+    } catch(err) { /* invalid selector — ignore */ }
   });
 });
 
