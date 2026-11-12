@@ -1393,14 +1393,29 @@ tailwind.config = {
 
 <!-- ==================== SCRIPTS ==================== -->
 <script>
-// ===== LENIS SMOOTH SCROLL =====
-const lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  smoothWheel: true,
-});
-gsap.ticker.add((time) => lenis.raf(time * 1000));
-gsap.ticker.lagSmoothing(0);
+// ===== LENIS SMOOTH SCROLL — desktop only =====
+// On mobile, Lenis intercepts touch events and breaks native scroll entirely.
+const isMobile = window.innerWidth <= 768;
+let lenis;
+if (!isMobile) {
+  lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  });
+  gsap.ticker.add((time) => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+} else {
+  // Stub so all lenis.scrollTo() calls work safely on mobile
+  lenis = {
+    scrollTo: (target, opts) => {
+      if (target === 0) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+      const el = typeof target === 'string' ? document.querySelector(target) : target;
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    },
+    raf: () => {}
+  };
+}
 
 // ===== SCROLL PROGRESS BAR =====
 gsap.to('#scrollProgress', {
