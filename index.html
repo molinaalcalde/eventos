@@ -42,13 +42,25 @@
 <link rel="icon" type="image/jpeg" href="favicon.jpeg"/>
 <link rel="apple-touch-icon" href="favicon.jpeg"/>
 
+<!-- Preconnect to all external origins -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS (compiled) -->
+<link crossorigin="" href="https://cdnjs.cloudflare.com" rel="preconnect"/>
+<link crossorigin="" href="https://unpkg.com" rel="preconnect"/>
+<!-- Preload GSAP (needed for site init) -->
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" as="script" crossorigin=""/>
+<!-- Tailwind CSS (compiled) — only render-blocking resource -->
 <link rel="stylesheet" href="styles.css"/>
+<!-- Google Fonts — non-render-blocking with swap fallback -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/></noscript>
+<!-- Material Symbols — non-render-blocking -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/></noscript>
 <style>
+  /* System font fallbacks while Google Fonts load */
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  .font-display, [class*="font-display"] { font-family: 'Syne', 'Inter', -apple-system, sans-serif; }
   /* Lenis */
   html.lenis, html.lenis body { height: auto; }
   .lenis.lenis-smooth { scroll-behavior: auto !important; }
@@ -158,13 +170,17 @@
     z-index: 1;
   }
 
-  /* Stagger fade */
-  [data-animate] { opacity: 0; transform: translateY(40px); }
+  /* Stagger fade — desktop only. Mobile content must NEVER be hidden. */
+  @media (min-width: 769px) {
+    [data-animate] { opacity: 0; transform: translateY(40px); }
+  }
   @media (max-width: 768px) {
     [data-animate] { opacity: 1 !important; transform: none !important; }
-    .reveal-line span { transform: none !important; }
+    .reveal-line span { transform: none !important; opacity: 1 !important; }
     .parallax-slow, .parallax-fast { transform: none !important; will-change: auto !important; }
     #heroVideoWrap, #videoMask { display: none !important; }
+    .exp-card { opacity: 1 !important; transform: none !important; }
+    .counter { opacity: 1 !important; }
   }
 
   /* Floating nav pill */
@@ -569,7 +585,7 @@
       <!-- Visual -->
       <div class="lg:col-span-6 relative" data-animate>
         <div class="relative rounded-2xl overflow-hidden border border-border-glow shadow-2xl glass-panel group">
-          <img src="malevo.jpeg" alt="MALEVO — Malambo argentino con fuego y percusión" class="w-full aspect-[4/3] object-cover object-top"/>
+          <img src="malevo.jpeg" alt="MALEVO — Malambo argentino con fuego y percusión" class="w-full aspect-[4/3] object-cover object-top" loading="lazy"/>
           <div class="absolute inset-0 bg-gradient-to-t from-surface-black via-transparent to-transparent opacity-60"></div>
         </div>
         <div class="absolute -top-4 -left-4 px-4 py-2 rounded-xl bg-neon-magenta text-text-primary text-[11px] font-display font-bold uppercase tracking-[0.14em] glow-magenta flex items-center gap-2 z-10">
@@ -1357,56 +1373,86 @@
 </footer>
 
 <!-- ==================== SCRIPTS ==================== -->
-<!-- Supabase client for lead capture -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<!-- Supabase — loaded on demand when form is submitted -->
 <script>
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-</script>
-<!-- GSAP + ScrollTrigger + Lenis — loaded at bottom for faster first paint -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<script>
-// ===== LENIS SMOOTH SCROLL — desktop only =====
-// On mobile, Lenis intercepts touch events and breaks native scroll entirely.
-const isMobile = window.innerWidth <= 768;
-let lenis;
-if (!isMobile) {
-  lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
+let supabaseClient = null;
+function getSupabase() {
+  if (supabaseClient) return Promise.resolve(supabaseClient);
+  return new Promise((resolve) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+    s.onload = () => {
+      try {
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        resolve(supabaseClient);
+      } catch(e) { console.warn('Supabase init error:', e); resolve(null); }
+    };
+    s.onerror = () => { console.warn('Supabase load error'); resolve(null); };
+    document.head.appendChild(s);
   });
-  gsap.ticker.add((time) => lenis.raf(time * 1000));
-  gsap.ticker.lagSmoothing(0);
-} else {
-  // Stub so all lenis.scrollTo() calls work safely on mobile
-  lenis = {
-    scrollTo: (target, opts) => {
-      if (target === 0) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
-      const el = typeof target === 'string' ? document.querySelector(target) : target;
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    },
-    raf: () => {}
-  };
+}
+</script>
+<script>
+// ===== SCRIPT LOADER — load libs then init =====
+const isMobile = window.innerWidth <= 768;
+
+// Lenis stub (always available, replaced on desktop if Lenis loads)
+let lenis = {
+  scrollTo: (target, opts) => {
+    if (target === 0) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    const el = typeof target === 'string' ? document.querySelector(target) : target;
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  },
+  raf: () => {}
+};
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src; s.onload = resolve; s.onerror = reject;
+    document.head.appendChild(s);
+  });
 }
 
-// ===== FIT HERO TEXT — auto-size to container width =====
+// Load scripts: mobile=GSAP only, desktop=GSAP+ScrollTrigger+Lenis
+(async function() {
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js');
+  if (!isMobile) {
+    await Promise.all([
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'),
+      loadScript('https://unpkg.com/lenis@1.1.13/dist/lenis.min.js')
+    ]);
+    // Init Lenis on desktop
+    lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+  // All scripts loaded — init animations that need GSAP
+  initGsapFeatures();
+})();
+
+// ===== IMMEDIATE UI — runs NOW, no library needed =====
+
+// FIT HERO TEXT
 function fitHeroText() {
   const headline = document.querySelector('.hero-headline');
   if (!headline) return;
+  if (isMobile) {
+    headline.querySelectorAll('.reveal-line span').forEach(span => { span.style.fontSize = ''; });
+    return;
+  }
   const containerWidth = headline.parentElement.offsetWidth;
-  const spans = headline.querySelectorAll('.reveal-line span');
-  spans.forEach(span => {
-    let size = 120;
-    span.style.fontSize = size + 'px';
-    while (span.scrollWidth > containerWidth && size > 20) {
-      size -= 1;
-      span.style.fontSize = size + 'px';
+  headline.querySelectorAll('.reveal-line span').forEach(span => {
+    let lo = 20, hi = 120;
+    span.style.fontSize = hi + 'px';
+    while (hi - lo > 1) {
+      const mid = Math.floor((lo + hi) / 2);
+      span.style.fontSize = mid + 'px';
+      if (span.scrollWidth > containerWidth) hi = mid; else lo = mid;
     }
-    if (size > 80) span.style.fontSize = '80px';
+    span.style.fontSize = Math.min(lo, 80) + 'px';
   });
 }
 fitHeroText();
@@ -1415,21 +1461,19 @@ if (document.fonts && document.fonts.ready) {
   document.fonts.ready.then(fitHeroText);
 }
 
-// ===== MOBILE: show counters immediately, no GSAP/ScrollTrigger =====
+// MOBILE: show counters + cards immediately
 if (isMobile) {
-  // Force all reveal-line spans visible (CSS handles it too, but belt-and-suspenders)
   document.querySelectorAll('.reveal-line span').forEach(span => { span.style.transform = 'none'; });
-  // Show counters with their final values immediately
   document.querySelectorAll('.counter').forEach(counter => {
     const target = parseInt(counter.dataset.count);
     const prefix = target >= 1000 ? '+' : '';
     const suffix = (target > 5 && target < 1000) ? '+' : '';
     counter.textContent = prefix + target.toLocaleString() + suffix;
   });
-  // Force all exp-cards visible
   document.querySelectorAll('.exp-card').forEach(card => { card.style.opacity = '1'; card.style.transform = 'none'; });
 }
 
+function initGsapFeatures() {
 // ===== DESKTOP-ONLY: all GSAP ScrollTrigger features =====
 if (!isMobile) {
   gsap.registerPlugin(ScrollTrigger);
@@ -1569,6 +1613,7 @@ function updateNav(id) {
     link.className = `nav-link px-4 py-2 rounded-full text-[11px] font-display font-bold uppercase tracking-[0.14em] transition-all ${isActive ? 'text-neon-magenta bg-neon-magenta/10' : 'text-text-secondary hover:text-text-primary'}`;
   });
 }
+} // end initGsapFeatures — everything below runs immediately
 
 // Smooth scroll for nav links
 document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -2030,7 +2075,8 @@ function updateBuilderUI() {
   document.querySelectorAll('.builder-step').forEach((el, i) => {
     if (i + 1 === step) {
       el.classList.remove('hidden');
-      gsap.fromTo(el, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.4, ease: 'power2.out' });
+      if (typeof gsap !== 'undefined') gsap.fromTo(el, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.4, ease: 'power2.out' });
+      else { el.style.opacity = '1'; el.style.transform = 'none'; }
     } else {
       el.classList.add('hidden');
     }
@@ -2040,7 +2086,8 @@ function updateBuilderUI() {
   const tpl = (typeof t === 'function') ? t('step_label_tpl') : `Paso ${step} de ${total}`;
   stepLabel.textContent = tpl.replace('{step}', step).replace('{total}', total);
   stepPercent.textContent = `${pct}%`;
-  gsap.to(progressBar, { width: pct + '%', duration: 0.5, ease: 'power2.out' });
+  if (typeof gsap !== 'undefined') gsap.to(progressBar, { width: pct + '%', duration: 0.5, ease: 'power2.out' });
+  else progressBar.style.width = pct + '%';
   // Dots
   stepDots.forEach((dot, i) => {
     const dotCircle = dot.querySelector('div');
@@ -2118,14 +2165,15 @@ btnNext?.addEventListener('click', () => {
     const notes = document.getElementById('builderNotes')?.value.trim() || '';
 
     // Save lead to Supabase (fire-and-forget, doesn't block WhatsApp)
-    try {
-      supabaseClient.from('leads').insert({
+    getSupabase().then(sb => {
+      if (!sb) return;
+      sb.from('leads').insert({
         name, email, phone, source: 'web_form',
         venue, experience: vibe, scale,
         organization: org, notes,
         metadata: { form_language: currentLang }
-      }).then(() => {}).catch(e => console.warn('Lead save error:', e));
-    } catch(e) { console.warn('Lead save error:', e); }
+      }).catch(e => console.warn('Lead save error:', e));
+    }).catch(e => console.warn('Supabase load error:', e));
 
     // WhatsApp message
     const msg = `*Nueva Solicitud — MAR Entertainment*%0A%0A` +
@@ -2140,7 +2188,8 @@ btnNext?.addEventListener('click', () => {
     window.open(`https://wa.me/18295484316?text=${msg}`, '_blank');
     builderCard.classList.add('hidden');
     successBox.classList.remove('hidden');
-    gsap.fromTo(successBox, { opacity: 0, scale: 0.95, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: 'back.out(1.2)' });
+    if (typeof gsap !== 'undefined') gsap.fromTo(successBox, { opacity: 0, scale: 0.95, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: 'back.out(1.2)' });
+    else { successBox.style.opacity = '1'; successBox.style.transform = 'none'; }
     lenis.scrollTo(successBox, { offset: -100 });
   }
 });
@@ -2220,6 +2269,7 @@ document.querySelectorAll('#formatButtons button').forEach(btn => {
     }
   });
 });
+
 
 </script>
 
