@@ -1391,7 +1391,7 @@
       </div>
     </div>
     <div class="pt-6 border-t border-border-subtle flex flex-col sm:flex-row justify-between items-center gap-4 text-text-muted text-[12px] sm:text-[13px]">
-      <p data-i18n="footer_copyright">© 2025 MAR Entertainment Group. Todos los derechos reservados.</p><a href="/admin/" style="opacity:0;font-size:8px;margin-left:4px;transition:opacity 0.3s;" onmouseover="this.style.opacity='0.3'" onmouseout="this.style.opacity='0'">●</a>
+      <p data-i18n="footer_copyright"><span id="adminTrigger" style="cursor:default">©</span> 2025 MAR Entertainment Group. Todos los derechos reservados.</p>
       <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
         <a class="hover:text-neon-magenta transition-colors" href="tel:+18295484316">+1 829 548 4316</a>
         <a class="hover:text-neon-magenta transition-colors break-all sm:break-normal" href="mailto:info@marentertainmentgroup.com">info@marentertainmentgroup.com</a>
@@ -2335,6 +2335,18 @@ document.querySelectorAll('#formatButtons button').forEach(btn => {
   });
 });
 
+// Admin access: triple-tap on © symbol
+(function() {
+  const trigger = document.getElementById('adminTrigger');
+  if (!trigger) return;
+  let taps = 0, timer;
+  trigger.addEventListener('click', () => {
+    taps++;
+    clearTimeout(timer);
+    if (taps >= 3) { taps = 0; window.location.href = '/admin/'; }
+    timer = setTimeout(() => { taps = 0; }, 800);
+  });
+})();
 
 </script>
 
