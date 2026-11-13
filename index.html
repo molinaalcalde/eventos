@@ -891,6 +891,26 @@
                   </div>
                 </div>
               </label>
+              <label class="cursor-pointer group col-span-2">
+                <input class="peer sr-only" name="venue" type="radio" value="Otro Venue"/>
+                <div class="relative p-3.5 sm:p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 hover:bg-surface-container/50">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl bg-surface-container flex-shrink-0 flex items-center justify-center">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-secondary group-hover:text-neon-magenta transition-colors"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/><line x1="12" y1="7" x2="12" y2="13"/><line x1="9" y1="10" x2="15" y2="10"/></svg>
+                    </div>
+                    <div>
+                      <p class="text-[13px] font-display font-bold text-text-primary" data-i18n="venue_other">Otro Venue</p>
+                      <p class="text-[11px] text-text-muted mt-0.5" data-i18n="venue_other_sub">Restaurante, villa, club nocturno, etc.</p>
+                    </div>
+                  </div>
+                  <div class="absolute top-3 right-3 w-5 h-5 rounded-full border-2 border-border-subtle flex items-center justify-center transition-all opacity-0 peer-checked:opacity-100 peer-checked:border-neon-magenta peer-checked:bg-neon-magenta">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div class="mt-3 hidden" id="venueOtherWrap">
+              <input class="w-full px-4 py-3 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[14px] placeholder:text-text-muted/60 transition-all" id="venueOtherInput" placeholder="Describí tu venue (ej: restaurante, villa privada...)" data-i18n-placeholder="venue_other_placeholder" type="text"/>
             </div>
           </div>
 
@@ -905,7 +925,7 @@
                 <input class="peer sr-only" name="vibe" type="radio" value="MALEVO — Malambo & Percusión"/>
                 <div class="relative p-4 sm:p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 flex items-center gap-3.5 sm:gap-5">
                   <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-surface-container flex-shrink-0 flex items-center justify-center">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-neon-magenta"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-neon-magenta"><path d="M12 12c0-4 2.5-7.5 6-9-1.5 3-2 6.5-2 9s.5 6 2 9c-3.5-1.5-6-5-6-9z"/><path d="M12 12c0-4-2.5-7.5-6-9 1.5 3 2 6.5 2 9s-.5 6-2 9c3.5-1.5 6-5 6-9z"/><circle cx="12" cy="19" r="2"/></svg>
                   </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex items-center gap-2">
@@ -938,7 +958,7 @@
                 <input class="peer sr-only" name="vibe" type="radio" value="Dinner Show Sensorial"/>
                 <div class="relative p-4 sm:p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 flex items-center gap-3.5 sm:gap-5">
                   <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-surface-container flex-shrink-0 flex items-center justify-center">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M8 3c0 0-3 4-3 7a5 5 0 0 0 10 0c0-3-3-7-3-7"/><path d="M12 15v5"/><path d="M9 20h6"/><circle cx="12" cy="10" r="1" fill="currentColor"/></svg>
                   </div>
                   <div class="flex-1 min-w-0">
                     <p class="text-[14px] font-display font-bold text-text-primary">Dinner Show Teatral</p>
@@ -953,7 +973,7 @@
                 <input class="peer sr-only" name="vibe" type="radio" value="Carnaval & Acróbatas"/>
                 <div class="relative p-4 sm:p-5 rounded-2xl bg-surface-elevated/80 border border-border-subtle peer-checked:border-neon-magenta peer-checked:bg-neon-magenta/8 transition-all duration-300 hover:border-neon-magenta/30 flex items-center gap-3.5 sm:gap-5">
                   <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-surface-container flex-shrink-0 flex items-center justify-center">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-stage-amber"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-stage-amber"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z"/><path d="M5 16l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z"/><path d="M19 14l.75 2.25L22 17l-2.25.75L19 20l-.75-2.25L16 17l2.25-.75L19 14z"/></svg>
                   </div>
                   <div class="flex-1 min-w-0">
                     <p class="text-[14px] font-display font-bold text-text-primary">Carnaval & Acróbatas</p>
@@ -979,6 +999,9 @@
                   </div>
                 </div>
               </label>
+            </div>
+            <div class="mt-3 hidden" id="vibeOtherWrap">
+              <textarea class="w-full px-4 py-3 rounded-xl bg-surface-elevated/80 border border-border-subtle focus:border-neon-magenta focus:ring-1 focus:ring-neon-magenta/30 text-text-primary text-[14px] placeholder:text-text-muted/60 transition-all resize-none" id="vibeOtherInput" placeholder="Describí la experiencia que tenés en mente..." data-i18n-placeholder="vibe_other_placeholder" rows="2"></textarea>
             </div>
           </div>
 
@@ -1817,6 +1840,10 @@ const translations = {
     venue_wedding_sub: "Destino exclusivo",
     venue_gala: "Gala Privada",
     venue_gala_sub: "Corporativo & Premium",
+    venue_other: "Otro Venue",
+    venue_other_sub: "Restaurante, villa, club nocturno, etc.",
+    venue_other_placeholder: "Describí tu venue (ej: restaurante, villa privada...)",
+    vibe_other_placeholder: "Describí la experiencia que tenés en mente...",
     vibe_malevo_desc: "Malambo, bombos, boleadoras y zapateo. La sensaci\u00f3n argentina que ha recorrido el mundo.",
     vibe_sunset_desc: "Sax en vivo, deep house, golden hour. Atardecer caribe\u00f1o m\u00e1gico.",
     vibe_dinner_desc: "Belly dance internacional, tango contempor\u00e1neo, danza a\u00e9rea. Percusionistas en vivo.",
@@ -1942,6 +1969,10 @@ const translations = {
     venue_wedding_sub: "Exclusive destination",
     venue_gala: "Private Gala",
     venue_gala_sub: "Corporate & Premium",
+    venue_other: "Other Venue",
+    venue_other_sub: "Restaurant, villa, nightclub, etc.",
+    venue_other_placeholder: "Describe your venue (e.g.: restaurant, private villa...)",
+    vibe_other_placeholder: "Describe the experience you have in mind...",
     vibe_malevo_desc: "Malambo, drums, boleadoras, and footwork. The Argentine sensation that has toured the world.",
     vibe_sunset_desc: "Live sax, deep house, golden hour. Magical Caribbean sunset.",
     vibe_dinner_desc: "International belly dance, contemporary tango, aerial dance. Live percussionists.",
@@ -2128,11 +2159,15 @@ function updateBuilderUI() {
   }
   // Update summary on step 4
   if (step === 4) {
-    const venue = form.querySelector('input[name="venue"]:checked')?.value || '—';
-    const vibe = form.querySelector('input[name="vibe"]:checked')?.value || '—';
+    let venue = form.querySelector('input[name="venue"]:checked')?.value || '—';
+    let vibe = form.querySelector('input[name="vibe"]:checked')?.value || '—';
     const scale = form.querySelector('input[name="scale"]:checked')?.value || '—';
-    document.getElementById('summaryVenue').textContent = venue.split(' ')[0] || venue;
-    document.getElementById('summaryVibe').textContent = vibe.split(' — ')[0] || vibe.substring(0, 15);
+    const venueOther = document.getElementById('venueOtherInput')?.value.trim();
+    const vibeOther = document.getElementById('vibeOtherInput')?.value.trim();
+    if (venue === 'Otro Venue') venue = venueOther || 'Otro';
+    if (vibe.startsWith('Otro')) vibe = vibeOther || 'Otro';
+    document.getElementById('summaryVenue').textContent = venue.length > 18 ? venue.substring(0, 16) + '...' : venue;
+    document.getElementById('summaryVibe').textContent = vibe.length > 18 ? vibe.substring(0, 16) + '...' : vibe;
     document.getElementById('summaryScale').textContent = scale.split(' (')[0] || scale;
   }
 }
@@ -2142,6 +2177,19 @@ if (form) {
   form.addEventListener('change', (e) => {
     if (e.target.type === 'radio') {
       btnNext.disabled = false;
+      // Show/hide "Otro" text fields
+      const venueWrap = document.getElementById('venueOtherWrap');
+      const vibeWrap = document.getElementById('vibeOtherWrap');
+      if (e.target.name === 'venue') {
+        const isOther = e.target.value === 'Otro Venue';
+        if (venueWrap) venueWrap.classList.toggle('hidden', !isOther);
+        if (isOther) { document.getElementById('venueOtherInput')?.focus(); return; }
+      }
+      if (e.target.name === 'vibe') {
+        const isOther = e.target.value.startsWith('Otro');
+        if (vibeWrap) vibeWrap.classList.toggle('hidden', !isOther);
+        if (isOther) { document.getElementById('vibeOtherInput')?.focus(); return; }
+      }
       // Small delay then auto-advance
       setTimeout(() => {
         if (builderState.step < 4) {
@@ -2168,9 +2216,13 @@ btnNext?.addEventListener('click', () => {
     updateBuilderUI();
   } else if (isStepValid(4)) {
     // Submit — save to DB + send via WhatsApp
-    const venue = form.querySelector('input[name="venue"]:checked')?.value || '—';
-    const vibe = form.querySelector('input[name="vibe"]:checked')?.value || '—';
+    let venue = form.querySelector('input[name="venue"]:checked')?.value || '—';
+    let vibe = form.querySelector('input[name="vibe"]:checked')?.value || '—';
     const scale = form.querySelector('input[name="scale"]:checked')?.value || '—';
+    const venueOther = document.getElementById('venueOtherInput')?.value.trim() || '';
+    const vibeOther = document.getElementById('vibeOtherInput')?.value.trim() || '';
+    if (venue === 'Otro Venue' && venueOther) venue = `Otro: ${venueOther}`;
+    if (vibe.startsWith('Otro') && vibeOther) vibe = `Otro: ${vibeOther}`;
     const name = document.getElementById('builderName')?.value.trim() || '';
     const org = document.getElementById('builderOrg')?.value.trim() || '';
     const phone = document.getElementById('builderPhone')?.value.trim() || '';
