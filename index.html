@@ -182,8 +182,10 @@
     .exp-card { opacity: 1 !important; transform: none !important; }
     .counter { opacity: 1 !important; }
     /* Kill GPU-heavy decorative blur glows on mobile — they crash the renderer */
-    .pointer-events-none[class*="blur-["] { display: none !important; }
-    .pointer-events-none[class*="blur-"] { display: none !important; }
+    .ambient-glow { display: none !important; }
+    /* Prevent hero text overflow */
+    .hero-headline { overflow: hidden; }
+    .hero-headline .reveal-line span { display: block; max-width: 100%; word-break: break-all; }
   }
 
   /* Floating nav pill */
@@ -472,7 +474,7 @@
 <!-- ==================== EXPERIENCIAS — FULL-WIDTH IMMERSIVE ==================== -->
 <section class="py-20 lg:py-32 bg-surface-container-lowest relative overflow-hidden" id="experiencias">
   <!-- Ambient glow -->
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[600px] bg-neon-magenta/6 blur-[250px] pointer-events-none"></div>
+  <div class="ambient-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[600px] bg-neon-magenta/6 blur-[250px] pointer-events-none"></div>
 
   <!-- Section Header — centered -->
   <div class="text-center mb-12 lg:mb-16 px-6">
@@ -582,7 +584,7 @@
 
 <!-- ==================== MALEVO SECTION ==================== -->
 <section class="py-16 lg:py-32 bg-surface-black relative overflow-hidden" id="malevo">
-  <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-magenta/15 blur-[180px] pointer-events-none parallax-slow"></div>
+  <div class="ambient-glow absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-magenta/15 blur-[180px] pointer-events-none parallax-slow"></div>
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
       <!-- Visual -->
@@ -739,8 +741,8 @@
 
 <!-- ==================== CALCULADORA / EVENT BUILDER — MULTI-STEP GAMIFIED ==================== -->
 <section class="py-16 lg:py-32 bg-surface-black relative overflow-hidden" id="calculadora">
-  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-magenta/6 rounded-full blur-[200px] pointer-events-none"></div>
-  <div class="absolute right-0 top-0 w-[400px] h-[400px] bg-stage-gold/5 rounded-full blur-[150px] pointer-events-none"></div>
+  <div class="ambient-glow absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-magenta/6 rounded-full blur-[200px] pointer-events-none"></div>
+  <div class="ambient-glow absolute right-0 top-0 w-[400px] h-[400px] bg-stage-gold/5 rounded-full blur-[150px] pointer-events-none"></div>
   <div class="max-w-3xl mx-auto px-6 lg:px-12">
     <!-- Header -->
     <div class="text-center mb-10 lg:mb-14">
@@ -1219,7 +1221,7 @@
 <!-- ==================== FAQs ==================== -->
 <section class="py-20 lg:py-32 bg-surface-black relative overflow-hidden">
   <!-- Ambient glow -->
-  <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-neon-magenta/5 blur-[200px] pointer-events-none"></div>
+  <div class="ambient-glow absolute top-0 right-0 w-[500px] h-[500px] bg-neon-magenta/5 blur-[200px] pointer-events-none"></div>
 
   <div class="max-w-5xl mx-auto px-6 lg:px-12">
     <!-- Header with 2-column layout on desktop -->
@@ -1443,7 +1445,14 @@ function fitHeroText() {
   const headline = document.querySelector('.hero-headline');
   if (!headline) return;
   if (isMobile) {
-    headline.querySelectorAll('.reveal-line span').forEach(span => { span.style.fontSize = ''; });
+    // Fit text to screen width on mobile
+    const containerWidth = headline.parentElement.offsetWidth;
+    headline.querySelectorAll('.reveal-line span').forEach(span => {
+      span.style.fontSize = '50px';
+      while (span.scrollWidth > containerWidth && parseInt(span.style.fontSize) > 20) {
+        span.style.fontSize = (parseInt(span.style.fontSize) - 2) + 'px';
+      }
+    });
     return;
   }
   const containerWidth = headline.parentElement.offsetWidth;
