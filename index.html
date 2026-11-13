@@ -185,7 +185,7 @@
     .ambient-glow { display: none !important; }
     /* Prevent hero text overflow */
     .hero-headline { overflow: hidden; }
-    .hero-headline .reveal-line span { display: block; max-width: 100%; word-break: break-all; }
+    .hero-headline .reveal-line span { display: block; max-width: 100%; }
   }
 
   /* Floating nav pill */
@@ -415,8 +415,8 @@
     </div>
   </div>
 
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 z-30" data-animate>
+  <!-- Scroll indicator — desktop only -->
+  <div class="hidden sm:flex absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-white/50 z-30" data-animate>
     <span class="text-[11px] font-display font-bold uppercase tracking-widest" data-i18n="scroll">Scroll</span>
     <div class="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
       <div class="w-1 h-2 rounded-full bg-neon-magenta animate-bounce"></div>
@@ -1444,18 +1444,19 @@ function loadScript(src) {
 function fitHeroText() {
   const headline = document.querySelector('.hero-headline');
   if (!headline) return;
+  const containerWidth = headline.parentElement.offsetWidth;
   if (isMobile) {
-    // Fit text to screen width on mobile
-    const containerWidth = headline.parentElement.offsetWidth;
     headline.querySelectorAll('.reveal-line span').forEach(span => {
-      span.style.fontSize = '50px';
-      while (span.scrollWidth > containerWidth && parseInt(span.style.fontSize) > 20) {
-        span.style.fontSize = (parseInt(span.style.fontSize) - 2) + 'px';
+      // Start from a size relative to screen width, then fine-tune
+      let size = Math.floor(containerWidth / 5);
+      span.style.fontSize = size + 'px';
+      while (span.scrollWidth > containerWidth && size > 16) {
+        size -= 1;
+        span.style.fontSize = size + 'px';
       }
     });
     return;
   }
-  const containerWidth = headline.parentElement.offsetWidth;
   headline.querySelectorAll('.reveal-line span').forEach(span => {
     let lo = 20, hi = 120;
     span.style.fontSize = hi + 'px';
