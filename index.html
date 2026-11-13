@@ -181,6 +181,9 @@
     #heroVideoWrap, #videoMask { display: none !important; }
     .exp-card { opacity: 1 !important; transform: none !important; }
     .counter { opacity: 1 !important; }
+    /* Kill GPU-heavy decorative blur glows on mobile — they crash the renderer */
+    .pointer-events-none[class*="blur-["] { display: none !important; }
+    .pointer-events-none[class*="blur-"] { display: none !important; }
   }
 
   /* Floating nav pill */
