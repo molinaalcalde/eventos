@@ -510,7 +510,8 @@ let services = [
     id: genId(),
     name: 'MALEVO — Malambo & Percusion en Vivo',
     image: '../malevo.jpeg',
-    description: 'Espectaculo de malambo argentino con percusion en vivo, boleadoras y fuego. Energia cruda y coreografias de alto impacto que transforman cualquier escenario.',
+    duration: '25-40 min',
+    description: 'Show de malambo argentino con percusion en vivo, boleadoras luminosas y fuego. Hasta 8 artistas en escena ejecutando coreografias de alto impacto sincronizadas con musica original. Incluye direccion artistica, vestuario profesional, sistema de sonido dedicado y coordinacion tecnica completa. Ideal como momento central de galas, cenas de gala y eventos corporativos premium.',
     price: '',
     enabled: true
   },
@@ -518,7 +519,8 @@ let services = [
     id: genId(),
     name: 'Sunset Sessions — DJ & Musica en Vivo',
     image: '../danza-fuego.jpeg',
-    description: 'DJ sets, saxofonista en vivo, percusion y artistas itinerantes integrados al atardecer caribeno. Musica y performances que elevan la atmosfera sin interrumpir.',
+    duration: '2-4 hs',
+    description: 'Ambientacion musical en vivo para atardeceres y cocktails. Incluye DJ profesional, saxofonista, percusionista y artistas itinerantes que se integran organicamente al espacio. Curaduria musical personalizada segun el perfil del evento. Sistema de sonido profesional con ingenieria acustica adaptada al venue. Performers rotando entre invitados para crear momentos unicos sin interrumpir la experiencia social.',
     price: '',
     enabled: true
   },
@@ -526,7 +528,8 @@ let services = [
     id: genId(),
     name: 'Dinner Show — Espectaculo con Desarrollo Escenico',
     image: '../tango.jpeg',
-    description: 'Belly dance internacional, tango contemporaneo, danza aerea, percusionistas en vivo. Vestuarios de alta costura y elementos escenicos que transforman la cena en teatro.',
+    duration: '45-60 min',
+    description: 'Produccion escenica completa integrada al servicio de cena. Combina disciplinas como tango contemporaneo, belly dance internacional, danza aerea en telas y percusion en vivo. Vestuarios de alta costura, coreografias originales y elementos escenico-luminicos que transforman el salon en un escenario inmersivo. Incluye direccion artistica, ensayo tecnico previo y coordinacion con el equipo del venue.',
     price: '',
     enabled: true
   },
@@ -534,7 +537,8 @@ let services = [
     id: genId(),
     name: 'Fiestas Tematicas — Produccion a Medida',
     image: '../fiesta-tematica.jpeg',
-    description: 'Producciones a medida con concepto, casting, direccion artistica, vestuario, coreografia, musica original y puesta en escena completa.',
+    duration: 'Segun evento',
+    description: 'Produccion integral de fiestas con concepto tematico personalizado. Incluye desarrollo creativo del concepto, casting de artistas y performers, diseno de vestuario, coreografia original, seleccion musical y puesta en escena completa. Desde carnavales caribenos hasta galas de epoca, cada detalle se disena a medida del cliente. Coordinacion con proveedores de decoracion, iluminacion y catering para una experiencia 360.',
     price: '',
     enabled: true
   },
@@ -542,7 +546,8 @@ let services = [
     id: genId(),
     name: 'DJ & Bailarines — Ambientacion Premium',
     image: '../dj-bailarines.jpeg',
-    description: 'DJ profesional con bailarines y performers que mantienen la energia durante toda la noche. Ideal para after parties y eventos sociales.',
+    duration: '3-5 hs',
+    description: 'DJ profesional acompanado de bailarines y performers que mantienen la energia durante toda la noche. Repertorio adaptable desde house y electronica hasta reggaeton y musica latina. Bailarines con cambios de vestuario, accesorios luminicos y elementos de interaccion con el publico. Incluye rider tecnico, sistema de sonido e iluminacion basica. Ideal para after parties, pool parties y eventos sociales de alto nivel.',
     price: '',
     enabled: true
   },
@@ -550,7 +555,8 @@ let services = [
     id: genId(),
     name: 'Produccion Integral — Direccion Artistica 360',
     image: '../logo-mar.jpeg',
-    description: 'Servicio completo de produccion: concepto creativo, casting, logistica, sonido, iluminacion, vestuario y coordinacion de artistas. Tu evento, nuestra direccion.',
+    duration: 'Segun evento',
+    description: 'Servicio completo de direccion artistica y produccion ejecutiva para eventos de cualquier escala. Desde el concepto creativo inicial hasta la ejecucion final: casting de artistas, diseno de vestuario, coreografia, composicion musical original, coordinacion tecnica de sonido e iluminacion, y supervision en sitio el dia del evento. Un unico interlocutor para toda la produccion artistica de tu evento.',
     price: '',
     enabled: true
   }
@@ -599,7 +605,7 @@ function renderServices() {
           <input type="file" id="imgInput_${svc.id}" accept="image/*" style="display:none;" onchange="handleImageUpload('${svc.id}', this)"/>
         </div>
         <div class="service-fields">
-          <div style="font-size:10px;color:#52525B;margin-top:-6px;margin-bottom:2px;">Ideal: 1600 × 900 px (16:9)</div>
+          <div style="font-size:10px;color:#52525B;margin-top:-6px;margin-bottom:2px;">Imagen ideal: 1600 × 900 px (16:9)</div>
           <div>
             <label class="field-label">Nombre del servicio</label>
             <input type="text" class="field-input" value="${esc(svc.name)}" onchange="updateService('${svc.id}', 'name', this.value)"/>
@@ -608,12 +614,18 @@ function renderServices() {
             <label class="field-label">Descripcion</label>
             <textarea class="field-input" rows="3" onchange="updateService('${svc.id}', 'description', this.value)">${esc(svc.description)}</textarea>
           </div>
-          <div>
-            <label class="field-label">Precio (USD)</label>
-            <div class="service-price-wrap">
-              <span class="service-price-prefix">$</span>
-              <input type="number" class="service-price-input" placeholder="0.00" min="0" step="any"
-                value="${svc.price}" oninput="updateService('${svc.id}', 'price', this.value)"/>
+          <div style="display:flex;gap:10px;">
+            <div style="flex:1;">
+              <label class="field-label">Duracion</label>
+              <input type="text" class="field-input" value="${esc(svc.duration || '')}" placeholder="Ej: 30-45 min" onchange="updateService('${svc.id}', 'duration', this.value)"/>
+            </div>
+            <div style="flex:1;">
+              <label class="field-label">Precio del servicio (USD)</label>
+              <div class="service-price-wrap" style="max-width:100%;">
+                <span class="service-price-prefix">$</span>
+                <input type="number" class="service-price-input" placeholder="0.00" min="0" step="any"
+                  value="${svc.price}" oninput="updateService('${svc.id}', 'price', this.value)"/>
+              </div>
             </div>
           </div>
         </div>
@@ -675,6 +687,7 @@ function addService() {
     id: genId(),
     name: 'Nuevo Servicio',
     image: '',
+    duration: '',
     description: '',
     price: '',
     enabled: true
@@ -796,11 +809,23 @@ function buildPdfHtml() {
     html += pageBreak;
     html += `
       <div style="${pageStyle}">
-        <div style="padding:3rem;height:1123px;display:flex;flex-direction:column;">
-          ${svc.image ? `<img src="${absImg(svc.image)}" style="width:100%;height:420px;object-fit:cover;object-position:center center;border-radius:12px;margin-bottom:2rem;display:block;" crossorigin="anonymous"/>` : `<div style="width:100%;height:420px;background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:12px;margin-bottom:2rem;"></div>`}
-          <div style="font-family:Syne,sans-serif;font-weight:800;font-size:28px;margin-bottom:1rem;color:#fff;">${esc(svc.name)}</div>
-          <div style="font-size:15px;line-height:1.8;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;max-width:680px;">${esc(svc.description)}</div>
-          ${svc.price ? `<div style="font-size:22px;font-weight:700;color:#FA257E;text-align:right;margin-top:auto;">${formatUSD(parseFloat(svc.price))}</div>` : ''}
+        <!-- Full-width image top half -->
+        ${svc.image ? `<div style="width:100%;height:500px;overflow:hidden;position:relative;">
+          <img src="${absImg(svc.image)}" style="width:100%;height:100%;object-fit:cover;object-position:center center;display:block;" crossorigin="anonymous"/>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to top,#0a0a0f,transparent);"></div>
+        </div>` : `<div style="width:100%;height:500px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0a0f 100%);"></div>`}
+        <!-- Content bottom half -->
+        <div style="padding:2.5rem 3rem;flex:1;display:flex;flex-direction:column;">
+          <div style="font-family:Syne,sans-serif;font-weight:800;font-size:28px;margin-bottom:0.75rem;color:#fff;line-height:1.2;">${esc(svc.name)}</div>
+          <div style="width:40px;height:2px;background:#FA257E;margin-bottom:1.25rem;border-radius:1px;"></div>
+          ${svc.duration ? `<div style="display:inline-block;padding:5px 14px;background:rgba(250,37,126,0.1);border:1px solid rgba(250,37,126,0.25);border-radius:20px;font-size:12px;font-weight:600;color:#FA257E;margin-bottom:1.25rem;width:fit-content;">Duracion: ${esc(svc.duration)}</div>` : ''}
+          <div style="font-size:14px;line-height:1.9;color:rgba(255,255,255,0.65);margin-bottom:1.5rem;">${esc(svc.description)}</div>
+          ${svc.price ? `
+            <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.06);">
+              <span style="font-size:12px;font-weight:600;color:#71717A;text-transform:uppercase;letter-spacing:0.05em;">Precio del servicio</span>
+              <span style="font-size:24px;font-weight:800;font-family:Syne,sans-serif;color:#FA257E;">${formatUSD(parseFloat(svc.price))}</span>
+            </div>
+          ` : ''}
         </div>
       </div>
     `;
@@ -816,6 +841,7 @@ function buildPdfHtml() {
           <thead>
             <tr>
               <th style="text-align:left;padding:12px 16px;font-size:11px;font-weight:600;color:#71717A;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid rgba(255,255,255,0.1);">Servicio</th>
+              <th style="text-align:center;padding:12px 16px;font-size:11px;font-weight:600;color:#71717A;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid rgba(255,255,255,0.1);">Duracion</th>
               <th style="text-align:right;padding:12px 16px;font-size:11px;font-weight:600;color:#71717A;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid rgba(255,255,255,0.1);">Precio</th>
             </tr>
           </thead>
@@ -823,6 +849,7 @@ function buildPdfHtml() {
             ${active.map(svc => `
               <tr>
                 <td style="padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:14px;color:rgba(255,255,255,0.8);">${esc(svc.name)}</td>
+                <td style="padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;color:rgba(255,255,255,0.5);text-align:center;">${esc(svc.duration || '—')}</td>
                 <td style="padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:14px;font-weight:600;color:#fff;text-align:right;">${svc.price ? formatUSD(parseFloat(svc.price)) : '—'}</td>
               </tr>
             `).join('')}
