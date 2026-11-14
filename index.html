@@ -2468,21 +2468,28 @@ if (isMobile) {
   });
 }
 
-// Admin access: triple-tap on © symbol
+// Admin access: long-press (2s) OR 5 rapid taps on copyright
 (function() {
   const trigger = document.getElementById('adminTrigger');
   if (!trigger) return;
-  let taps = 0, timer;
-  trigger.addEventListener('click', (e) => {
-    e.preventDefault();
-    taps++;
-    clearTimeout(timer);
-    if (taps >= 3) { taps = 0; window.location.href = '/admin/'; }
-    timer = setTimeout(() => { taps = 0; }, 1500);
-  });
+  let taps = 0, tapTimer, pressTimer;
   trigger.style.userSelect = 'none';
   trigger.style.webkitUserSelect = 'none';
   trigger.style.webkitTapHighlightColor = 'transparent';
+  // Long press (2 seconds)
+  trigger.addEventListener('mousedown', () => { pressTimer = setTimeout(() => { window.location.href = '/admin/'; }, 2000); });
+  trigger.addEventListener('touchstart', (e) => { e.preventDefault(); pressTimer = setTimeout(() => { window.location.href = '/admin/'; }, 2000); }, { passive: false });
+  trigger.addEventListener('mouseup', () => clearTimeout(pressTimer));
+  trigger.addEventListener('mouseleave', () => clearTimeout(pressTimer));
+  trigger.addEventListener('touchend', () => clearTimeout(pressTimer));
+  trigger.addEventListener('touchcancel', () => clearTimeout(pressTimer));
+  // Also 5 rapid taps as fallback
+  trigger.addEventListener('click', () => {
+    taps++;
+    clearTimeout(tapTimer);
+    if (taps >= 5) { taps = 0; window.location.href = '/admin/'; }
+    tapTimer = setTimeout(() => { taps = 0; }, 2000);
+  });
 })();
 
 </script>
