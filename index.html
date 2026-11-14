@@ -1507,7 +1507,7 @@
       </div>
     </div>
     <div class="pt-6 border-t border-border-subtle flex flex-col sm:flex-row justify-between items-center gap-4 text-text-muted text-[12px] sm:text-[13px]">
-      <p id="adminTrigger" style="cursor:default" data-i18n="footer_copyright">© 2027 MAR Entertainment Group. Todos los derechos reservados.</p>
+      <p style="cursor:default"><a id="adminTrigger" href="/admin/" style="text-decoration:none;color:inherit;cursor:default;-webkit-tap-highlight-color:transparent;">©</a> <span data-i18n="footer_copyright_text">2027 MAR Entertainment Group. Todos los derechos reservados.</span></p>
       <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
         <a class="hover:text-neon-magenta transition-colors" href="tel:+18295484316">+1 829 548 4316</a>
         <a class="hover:text-neon-magenta transition-colors break-all sm:break-normal" href="mailto:info@marentertainmentgroup.com">info@marentertainmentgroup.com</a>
@@ -2011,6 +2011,7 @@ const translations = {
     contact_ig_label: "Instagram",
     footer_tagline: "Punta Cana, Dominican Republic \u00b7 Entertainment \u00b7 Direcci\u00f3n Art\u00edstica \u00b7 Producci\u00f3n",
     footer_copyright: "\u00a9 2027 MAR Entertainment Group. Todos los derechos reservados.",
+    footer_copyright_text: "2027 MAR Entertainment Group. Todos los derechos reservados.",
     step_label_tpl: "Paso {step} de {total}",
   },
   en: {
@@ -2140,6 +2141,7 @@ const translations = {
     contact_ig_label: "Instagram",
     footer_tagline: "Punta Cana, Dominican Republic \u00b7 Entertainment \u00b7 Artistic Direction \u00b7 Production",
     footer_copyright: "\u00a9 2027 MAR Entertainment Group. All rights reserved.",
+    footer_copyright_text: "2027 MAR Entertainment Group. All rights reserved.",
     step_label_tpl: "Step {step} of {total}",
   }
 };
@@ -2469,29 +2471,7 @@ if (isMobile) {
   });
 }
 
-// Admin access: long-press (2s) OR 5 rapid taps on copyright
-(function() {
-  const trigger = document.getElementById('adminTrigger');
-  if (!trigger) return;
-  let taps = 0, tapTimer, pressTimer;
-  trigger.style.userSelect = 'none';
-  trigger.style.webkitUserSelect = 'none';
-  trigger.style.webkitTapHighlightColor = 'transparent';
-  // Long press (2 seconds)
-  trigger.addEventListener('mousedown', () => { pressTimer = setTimeout(() => { window.location.href = '/admin/'; }, 2000); });
-  trigger.addEventListener('touchstart', (e) => { e.preventDefault(); pressTimer = setTimeout(() => { window.location.href = '/admin/'; }, 2000); }, { passive: false });
-  trigger.addEventListener('mouseup', () => clearTimeout(pressTimer));
-  trigger.addEventListener('mouseleave', () => clearTimeout(pressTimer));
-  trigger.addEventListener('touchend', () => clearTimeout(pressTimer));
-  trigger.addEventListener('touchcancel', () => clearTimeout(pressTimer));
-  // Also 5 rapid taps as fallback
-  trigger.addEventListener('click', () => {
-    taps++;
-    clearTimeout(tapTimer);
-    if (taps >= 5) { taps = 0; window.location.href = '/admin/'; }
-    tapTimer = setTimeout(() => { taps = 0; }, 2000);
-  });
-})();
+// Admin access: tap © symbol (it's an <a> link, no JS needed)
 
 </script>
 
