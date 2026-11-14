@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MAR Admin — Catálogo</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="icon" type="image/jpeg" href="../favicon.jpeg"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../styles.css"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #050505; min-height: 100vh; font-family: 'Inter', sans-serif; color: #fff; display: flex; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 260px; min-height: 100vh; background: #111116;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    display: flex; flex-direction: column; position: fixed; left: 0; top: 0; z-index: 40;
+    transition: transform 0.3s ease;
+  }
+  .sidebar-header { padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .sidebar-nav { flex: 1; padding: 1rem 0.75rem; display: flex; flex-direction: column; }
+  .sidebar-link {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px;
+    color: #A1A1AA; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s;
+    margin-bottom: 2px;
+  }
+  .sidebar-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+  .sidebar-link.active { background: rgba(250,37,126,0.12); color: #FA257E; }
+  .sidebar-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .sidebar-footer { padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+
+  /* Main */
+  .main { margin-left: 260px; flex: 1; min-height: 100vh; }
+  .topbar {
+    position: sticky; top: 0; z-index: 30; padding: 1rem 1.5rem;
+    background: rgba(5,5,5,0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .content { padding: 1.5rem; max-width: 1280px; }
+
+  /* Inputs */
+  .field-label {
+    display: block; font-size: 11px; color: #71717A; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;
+  }
+  .field-input {
+    width: 100%; padding: 10px 14px; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;
+    color: #fff; font-size: 13px; font-family: 'Inter', sans-serif; outline: none;
+    transition: border-color 0.2s;
+  }
+  .field-input:focus { border-color: #FA257E; }
+  .field-input::placeholder { color: #52525B; }
+  textarea.field-input { resize: vertical; min-height: 60px; }
+
+  /* Client info */
+  .client-section {
+    background: #111116; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;
+  }
+  .client-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+
+  /* Service cards */
+  .service-card {
+    background: #111116; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; overflow: hidden; margin-bottom: 1rem;
+    transition: border-color 0.2s, opacity 0.3s;
+  }
+  .service-card.disabled { opacity: 0.45; }
+  .service-card-header {
+    display: flex; align-items: center; gap: 12px; padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .service-card-body {
+    display: flex; gap: 1.25rem; padding: 1.25rem;
+  }
+  .service-img-wrap {
+    width: 160px; height: 120px; flex-shrink: 0; border-radius: 8px;
+    overflow: hidden; background: linear-gradient(135deg, #1a1a2e, #16213e);
+  }
+  .service-img-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .service-fields { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+  .service-price-wrap {
+    display: flex; align-items: center; gap: 0;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; overflow: hidden; max-width: 200px;
+  }
+  .service-price-prefix {
+    padding: 10px 12px; background: rgba(255,255,255,0.05);
+    color: #71717A; font-size: 13px; font-weight: 600;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .service-price-input {
+    flex: 1; padding: 10px 12px; background: transparent; border: none;
+    color: #fff; font-size: 13px; font-family: 'Inter', sans-serif;
+    outline: none; width: 100%;
+  }
+  .service-price-input::placeholder { color: #52525B; }
+
+  /* Toggle switch */
+  .toggle { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute; inset: 0; background: #27272A; border-radius: 22px;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .toggle-slider::before {
+    content: ''; position: absolute; left: 3px; top: 3px;
+    width: 16px; height: 16px; background: #fff; border-radius: 50%;
+    transition: transform 0.2s;
+  }
+  .toggle input:checked + .toggle-slider { background: #FA257E; }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
+
+  /* Reorder buttons */
+  .reorder-btn {
+    background: none; border: none; color: #52525B; cursor: pointer;
+    padding: 4px; display: flex; align-items: center; transition: color 0.2s;
+  }
+  .reorder-btn:hover { color: #FA257E; }
+
+  /* Action buttons */
+  .action-btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
+    border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.08); background: transparent;
+    color: #A1A1AA; transition: all 0.2s; text-decoration: none;
+  }
+  .action-btn:hover { border-color: rgba(255,255,255,0.2); color: #fff; }
+  .btn-primary {
+    background: #FA257E; border-color: #FA257E; color: #fff;
+  }
+  .btn-primary:hover { opacity: 0.85; border-color: #FA257E; color: #fff; }
+  .btn-add {
+    width: 100%; justify-content: center; padding: 14px;
+    border-style: dashed; border-color: rgba(255,255,255,0.12);
+    color: #71717A; font-size: 13px; border-radius: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .btn-add:hover { border-color: #FA257E; color: #FA257E; }
+  .btn-danger { border-color: rgba(239,68,68,0.3); color: #EF4444; }
+  .btn-danger:hover { background: rgba(239,68,68,0.1); }
+
+  /* Totals */
+  .totals-section {
+    background: #111116; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;
+  }
+  .totals-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0; font-size: 14px;
+  }
+  .totals-row.total {
+    border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px; margin-top: 4px;
+    font-size: 18px; font-weight: 700; font-family: 'Syne', sans-serif;
+  }
+  .discount-wrap {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .discount-input {
+    width: 100px; padding: 6px 10px; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
+    color: #fff; font-size: 13px; outline: none; text-align: right;
+  }
+  .discount-input:focus { border-color: #FA257E; }
+  .discount-type-btn {
+    padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.1); background: transparent;
+    color: #71717A; cursor: pointer; transition: all 0.2s;
+  }
+  .discount-type-btn.active { background: #FA257E; border-color: #FA257E; color: #fff; }
+
+  /* Modal / Preview overlay */
+  .preview-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+    z-index: 100; display: none; align-items: flex-start; justify-content: center;
+    overflow-y: auto; padding: 2rem;
+  }
+  .preview-overlay.open { display: flex; }
+  .preview-container {
+    background: #0a0a0f; border-radius: 12px; max-width: 800px; width: 100%;
+    overflow: hidden; position: relative;
+  }
+  .preview-close {
+    position: fixed; top: 1rem; right: 1rem; z-index: 110;
+    background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; color: #fff; cursor: pointer; padding: 8px 12px;
+    font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px;
+  }
+  .preview-close:hover { background: rgba(255,255,255,0.1); }
+
+  /* Mobile hamburger */
+  .menu-btn { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 8px; }
+
+  @media (max-width: 1024px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .main { margin-left: 0; }
+    .menu-btn { display: flex; }
+  }
+  @media (max-width: 768px) {
+    .content { padding: 1rem; }
+    .topbar { padding: 0.75rem 1rem; }
+    .client-grid { grid-template-columns: 1fr; }
+    .service-card-body { flex-direction: column; }
+    .service-img-wrap { width: 100%; height: 160px; }
+    .service-price-wrap { max-width: 100%; }
+  }
+  @media (max-width: 480px) {
+    .topbar-actions { flex-wrap: wrap; }
+  }
+
+  /* ===== PDF TEMPLATE STYLES ===== */
+  .pdf-template { display: none; }
+
+  .pdf-page {
+    width: 794px; min-height: 1123px; background: #0a0a0f; color: #fff;
+    font-family: 'Inter', sans-serif; overflow: hidden; position: relative;
+    page-break-after: always;
+  }
+
+  /* Cover */
+  .pdf-cover {
+    width: 100%; min-height: 1123px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    background: linear-gradient(180deg, #0a0a0f 0%, #111128 50%, #0a0a0f 100%);
+    position: relative; padding: 4rem 3rem;
+  }
+  .pdf-cover::before {
+    content: ''; position: absolute; top: 50%; left: 50%;
+    width: 600px; height: 600px; transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(250,37,126,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .pdf-cover-logo { width: 120px; height: 120px; border-radius: 16px; object-fit: cover; margin-bottom: 3rem; position: relative; z-index: 1; }
+  .pdf-cover-title {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 42px;
+    letter-spacing: 0.1em; color: #fff; margin-bottom: 1rem; position: relative; z-index: 1;
+  }
+  .pdf-cover-line {
+    width: 60px; height: 3px; background: #FA257E; margin: 0 auto 2.5rem; border-radius: 2px;
+    position: relative; z-index: 1;
+  }
+  .pdf-cover-client {
+    font-size: 22px; font-weight: 300; color: rgba(255,255,255,0.8);
+    margin-bottom: 0.5rem; position: relative; z-index: 1;
+  }
+  .pdf-cover-company {
+    font-size: 16px; color: rgba(255,255,255,0.5); margin-bottom: 2rem;
+    position: relative; z-index: 1;
+  }
+  .pdf-cover-meta {
+    font-size: 13px; color: rgba(255,255,255,0.4); position: relative; z-index: 1;
+    line-height: 1.8;
+  }
+  .pdf-cover-footer {
+    position: absolute; bottom: 3rem; left: 0; right: 0; text-align: center;
+    font-size: 11px; color: rgba(255,255,255,0.25);
+  }
+
+  /* Service pages */
+  .pdf-service {
+    padding: 3rem; page-break-inside: avoid; margin-bottom: 0;
+  }
+  .pdf-service-img {
+    width: 100%; height: 320px; object-fit: cover; border-radius: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .pdf-service-name {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 26px;
+    margin-bottom: 0.75rem; color: #fff;
+  }
+  .pdf-service-desc {
+    font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.7);
+    margin-bottom: 1rem; max-width: 640px;
+  }
+  .pdf-service-price {
+    font-size: 20px; font-weight: 700; color: #FA257E; text-align: right;
+  }
+  .pdf-service-divider {
+    width: 40px; height: 2px; background: rgba(250,37,126,0.4);
+    margin: 2rem 0; border-radius: 1px;
+  }
+
+  /* Summary page */
+  .pdf-summary { padding: 3rem; min-height: 1123px; display: flex; flex-direction: column; }
+  .pdf-summary-title {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 28px;
+    margin-bottom: 2rem; color: #fff;
+  }
+  .pdf-summary-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+  .pdf-summary-table th {
+    text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600;
+    color: #71717A; text-transform: uppercase; letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .pdf-summary-table th:last-child { text-align: right; }
+  .pdf-summary-table td {
+    padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 14px; color: rgba(255,255,255,0.8);
+  }
+  .pdf-summary-table td:last-child { text-align: right; font-weight: 600; color: #fff; }
+
+  .pdf-totals { margin-left: auto; width: 320px; margin-bottom: 2rem; }
+  .pdf-totals-row {
+    display: flex; justify-content: space-between; padding: 8px 0;
+    font-size: 14px; color: rgba(255,255,255,0.7);
+  }
+  .pdf-totals-row.total-row {
+    border-top: 2px solid #FA257E; padding-top: 12px; margin-top: 8px;
+    font-size: 22px; font-weight: 800; font-family: 'Syne', sans-serif; color: #fff;
+  }
+
+  .pdf-conditions {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px; padding: 1.25rem; margin-bottom: 2rem;
+  }
+  .pdf-conditions-title {
+    font-size: 12px; font-weight: 600; color: #71717A; text-transform: uppercase;
+    letter-spacing: 0.05em; margin-bottom: 8px;
+  }
+  .pdf-conditions-text {
+    font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; white-space: pre-line;
+  }
+
+  .pdf-contact {
+    margin-top: auto; padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.06); text-align: center;
+  }
+  .pdf-contact-name {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px;
+    color: #FA257E; margin-bottom: 8px;
+  }
+  .pdf-contact-info { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.8; }
+  .pdf-validity {
+    font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 1.5rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <img src="../logo-mar.jpeg" alt="MAR" style="height: 28px; border-radius: 4px; margin-bottom: 8px;"/>
+    <div style="font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px;">MAR Entertainment</div>
+    <div style="font-size: 11px; color: #71717A;">Panel de Gestion</div>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="/admin/leads.html" class="sidebar-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Leads
+    </a>
+    <a href="/admin/catalogo.html" class="sidebar-link active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Catalogo
+    </a>
+    <a href="/" class="sidebar-link" style="margin-top: auto;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Ver sitio
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div id="adminEmail" style="font-size: 11px; color: #71717A; margin-bottom: 8px; overflow: hidden; text-overflow: ellipsis;"></div>
+    <button onclick="logout()" class="action-btn" style="width: 100%; justify-content: center; font-size: 11px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Cerrar sesion
+    </button>
+  </div>
+</aside>
+
+<!-- Preview overlay -->
+<div class="preview-overlay" id="previewOverlay">
+  <button class="preview-close" onclick="closePreview()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    Cerrar
+  </button>
+  <div class="preview-container" id="previewContainer"></div>
+</div>
+
+<!-- Main content -->
+<div class="main">
+  <!-- Topbar -->
+  <div class="topbar">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <h2 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px;">Propuesta Comercial</h2>
+    </div>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;" class="topbar-actions">
+      <button class="action-btn" onclick="showPreview()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Vista previa
+      </button>
+      <button class="action-btn btn-primary" onclick="downloadPDF()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descargar PDF
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Client info -->
+    <div class="client-section">
+      <h3 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 1rem; color: #A1A1AA;">Datos del cliente</h3>
+      <div class="client-grid">
+        <div>
+          <label class="field-label">Nombre del cliente</label>
+          <input type="text" class="field-input" id="clientName" placeholder="Nombre completo"/>
+        </div>
+        <div>
+          <label class="field-label">Empresa / Organizacion</label>
+          <input type="text" class="field-input" id="clientCompany" placeholder="Nombre de la empresa"/>
+        </div>
+        <div>
+          <label class="field-label">Tipo de evento</label>
+          <input type="text" class="field-input" id="eventType" placeholder="Boda, corporativo, gala..."/>
+        </div>
+        <div>
+          <label class="field-label">Fecha del evento</label>
+          <input type="date" class="field-input" id="eventDate"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services list -->
+    <h3 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 1rem; color: #A1A1AA;">Servicios</h3>
+    <div id="servicesList"></div>
+
+    <!-- Add service button -->
+    <button class="action-btn btn-add" onclick="addService()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Agregar servicio
+    </button>
+
+    <!-- Totals -->
+    <div class="totals-section">
+      <h3 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 1rem; color: #A1A1AA;">Resumen</h3>
+      <div class="totals-row">
+        <span style="color: #71717A;">Subtotal</span>
+        <span id="subtotalDisplay">$0.00</span>
+      </div>
+      <div class="totals-row" style="align-items: center;">
+        <span style="color: #71717A;">Descuento</span>
+        <div class="discount-wrap">
+          <div style="display: flex; gap: 4px;">
+            <button class="discount-type-btn active" id="discountPercent" onclick="setDiscountType('%')">%</button>
+            <button class="discount-type-btn" id="discountFixed" onclick="setDiscountType('$')">$</button>
+          </div>
+          <input type="number" class="discount-input" id="discountValue" placeholder="0" min="0" step="any" oninput="recalcTotals()"/>
+        </div>
+      </div>
+      <div class="totals-row" style="color: #71717A; font-size: 13px;">
+        <span>Descuento aplicado</span>
+        <span id="discountDisplay">-$0.00</span>
+      </div>
+      <div class="totals-row total">
+        <span>Total</span>
+        <span id="totalDisplay" style="color: #FA257E;">$0.00</span>
+      </div>
+      <div style="margin-top: 1rem;">
+        <label class="field-label">Notas / Condiciones</label>
+        <textarea class="field-input" id="notesField" rows="3" placeholder="Condiciones de pago, observaciones, etc."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden PDF template -->
+<div class="pdf-template" id="pdfTemplate"></div>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<!-- html2pdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+// ===== CONFIG =====
+const SUPABASE_URL = 'https://ohacxlnmsjpwridmuwhw.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_1xZLQoSfX_-cY6bVPdxrPg_aVtWkbv7';
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// ===== AUTH CHECK =====
+async function checkAuth() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = '/admin/'; return null; }
+  const { data: role } = await sb.from('user_roles').select('role').eq('user_id', session.user.id).single();
+  if (!role || role.role !== 'admin') { window.location.href = '/admin/'; return null; }
+  document.getElementById('adminEmail').textContent = session.user.email;
+  return session;
+}
+
+async function logout() {
+  await sb.auth.signOut();
+  window.location.href = '/admin/';
+}
+
+// ===== SERVICES DATA =====
+let services = [
+  {
+    id: genId(),
+    name: 'MALEVO — Malambo & Percusion en Vivo',
+    image: '../malevo.jpeg',
+    description: 'Espectaculo de malambo argentino con percusion en vivo, boleadoras y fuego. Energia cruda y coreografias de alto impacto que transforman cualquier escenario.',
+    price: '',
+    enabled: true
+  },
+  {
+    id: genId(),
+    name: 'Sunset Sessions — DJ & Musica en Vivo',
+    image: '../danza-fuego.jpeg',
+    description: 'DJ sets, saxofonista en vivo, percusion y artistas itinerantes integrados al atardecer caribeno. Musica y performances que elevan la atmosfera sin interrumpir.',
+    price: '',
+    enabled: true
+  },
+  {
+    id: genId(),
+    name: 'Dinner Show — Espectaculo con Desarrollo Escenico',
+    image: '../tango.jpeg',
+    description: 'Belly dance internacional, tango contemporaneo, danza aerea, percusionistas en vivo. Vestuarios de alta costura y elementos escenicos que transforman la cena en teatro.',
+    price: '',
+    enabled: true
+  },
+  {
+    id: genId(),
+    name: 'Fiestas Tematicas — Produccion a Medida',
+    image: '../fiesta-tematica.jpeg',
+    description: 'Producciones a medida con concepto, casting, direccion artistica, vestuario, coreografia, musica original y puesta en escena completa.',
+    price: '',
+    enabled: true
+  },
+  {
+    id: genId(),
+    name: 'DJ & Bailarines — Ambientacion Premium',
+    image: '../dj-bailarines.jpeg',
+    description: 'DJ profesional con bailarines y performers que mantienen la energia durante toda la noche. Ideal para after parties y eventos sociales.',
+    price: '',
+    enabled: true
+  },
+  {
+    id: genId(),
+    name: 'Produccion Integral — Direccion Artistica 360',
+    image: '../logo-mar.jpeg',
+    description: 'Servicio completo de produccion: concepto creativo, casting, logistica, sonido, iluminacion, vestuario y coordinacion de artistas. Tu evento, nuestra direccion.',
+    price: '',
+    enabled: true
+  }
+];
+
+let discountType = '%';
+
+function genId() { return 'svc_' + Math.random().toString(36).substr(2, 9); }
+
+function esc(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ===== RENDER SERVICES =====
+function renderServices() {
+  const container = document.getElementById('servicesList');
+  container.innerHTML = services.map((svc, idx) => `
+    <div class="service-card ${svc.enabled ? '' : 'disabled'}" data-id="${svc.id}">
+      <div class="service-card-header">
+        <label class="toggle">
+          <input type="checkbox" ${svc.enabled ? 'checked' : ''} onchange="toggleService('${svc.id}', this.checked)"/>
+          <span class="toggle-slider"></span>
+        </label>
+        <span style="flex: 1; font-weight: 600; font-size: 13px; color: ${svc.enabled ? '#fff' : '#52525B'};">${esc(svc.name)}</span>
+        <div style="display: flex; gap: 2px;">
+          <button class="reorder-btn" onclick="moveService('${svc.id}', -1)" title="Subir" ${idx === 0 ? 'disabled style="opacity:0.2;cursor:default;"' : ''}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+          </button>
+          <button class="reorder-btn" onclick="moveService('${svc.id}', 1)" title="Bajar" ${idx === services.length - 1 ? 'disabled style="opacity:0.2;cursor:default;"' : ''}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <button class="reorder-btn btn-danger" onclick="removeService('${svc.id}')" title="Eliminar" style="margin-left: 8px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="service-card-body">
+        <div class="service-img-wrap">
+          ${svc.image ? `<img src="${esc(svc.image)}" alt="${esc(svc.name)}" onerror="this.style.display='none'"/>` : ''}
+        </div>
+        <div class="service-fields">
+          <div>
+            <label class="field-label">Nombre del servicio</label>
+            <input type="text" class="field-input" value="${esc(svc.name)}" onchange="updateService('${svc.id}', 'name', this.value)"/>
+          </div>
+          <div>
+            <label class="field-label">Descripcion</label>
+            <textarea class="field-input" rows="3" onchange="updateService('${svc.id}', 'description', this.value)">${esc(svc.description)}</textarea>
+          </div>
+          <div>
+            <label class="field-label">Precio (USD)</label>
+            <div class="service-price-wrap">
+              <span class="service-price-prefix">$</span>
+              <input type="number" class="service-price-input" placeholder="0.00" min="0" step="any"
+                value="${svc.price}" oninput="updateService('${svc.id}', 'price', this.value)"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  recalcTotals();
+}
+
+// ===== SERVICE ACTIONS =====
+function toggleService(id, checked) {
+  const svc = services.find(s => s.id === id);
+  if (svc) { svc.enabled = checked; renderServices(); }
+}
+
+function updateService(id, field, value) {
+  const svc = services.find(s => s.id === id);
+  if (svc) {
+    svc[field] = value;
+    // Update header text live when name changes
+    if (field === 'name') {
+      const card = document.querySelector(`[data-id="${id}"]`);
+      if (card) {
+        const headerSpan = card.querySelector('.service-card-header span');
+        if (headerSpan) headerSpan.textContent = value;
+      }
+    }
+    recalcTotals();
+  }
+}
+
+function moveService(id, dir) {
+  const idx = services.findIndex(s => s.id === id);
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= services.length) return;
+  [services[idx], services[newIdx]] = [services[newIdx], services[idx]];
+  renderServices();
+}
+
+function removeService(id) {
+  if (!confirm('Eliminar este servicio de la propuesta?')) return;
+  services = services.filter(s => s.id !== id);
+  renderServices();
+}
+
+function addService() {
+  services.push({
+    id: genId(),
+    name: 'Nuevo Servicio',
+    image: '',
+    description: '',
+    price: '',
+    enabled: true
+  });
+  renderServices();
+  // Scroll to bottom
+  const list = document.getElementById('servicesList');
+  const lastCard = list.lastElementChild;
+  if (lastCard) lastCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ===== TOTALS =====
+function setDiscountType(type) {
+  discountType = type;
+  document.getElementById('discountPercent').classList.toggle('active', type === '%');
+  document.getElementById('discountFixed').classList.toggle('active', type === '$');
+  recalcTotals();
+}
+
+function recalcTotals() {
+  const subtotal = services
+    .filter(s => s.enabled && s.price)
+    .reduce((sum, s) => sum + parseFloat(s.price || 0), 0);
+
+  const discountVal = parseFloat(document.getElementById('discountValue').value || 0);
+  let discountAmount = 0;
+  if (discountType === '%') {
+    discountAmount = subtotal * (discountVal / 100);
+  } else {
+    discountAmount = discountVal;
+  }
+  discountAmount = Math.min(discountAmount, subtotal);
+  const total = subtotal - discountAmount;
+
+  document.getElementById('subtotalDisplay').textContent = formatUSD(subtotal);
+  document.getElementById('discountDisplay').textContent = '-' + formatUSD(discountAmount);
+  document.getElementById('totalDisplay').textContent = formatUSD(total);
+}
+
+function formatUSD(amount) {
+  return '$' + (amount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// ===== PDF GENERATION =====
+function getActiveServices() {
+  return services.filter(s => s.enabled);
+}
+
+function getClientData() {
+  return {
+    name: document.getElementById('clientName').value.trim(),
+    company: document.getElementById('clientCompany').value.trim(),
+    eventType: document.getElementById('eventType').value.trim(),
+    eventDate: document.getElementById('eventDate').value,
+    notes: document.getElementById('notesField').value.trim()
+  };
+}
+
+function formatDateDisplay(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr + 'T12:00:00');
+  const months = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  return `${d.getDate()} de ${months[d.getMonth()]} de ${d.getFullYear()}`;
+}
+
+function buildPdfHtml() {
+  const client = getClientData();
+  const active = getActiveServices();
+  const subtotal = active.reduce((sum, s) => sum + parseFloat(s.price || 0), 0);
+  const discountVal = parseFloat(document.getElementById('discountValue').value || 0);
+  let discountAmount = 0;
+  if (discountType === '%') {
+    discountAmount = subtotal * (discountVal / 100);
+  } else {
+    discountAmount = discountVal;
+  }
+  discountAmount = Math.min(discountAmount, subtotal);
+  const total = subtotal - discountAmount;
+
+  // Convert relative image paths to absolute for PDF rendering
+  function absImg(src) {
+    if (!src) return '';
+    if (src.startsWith('http')) return src;
+    const a = document.createElement('a');
+    a.href = src;
+    return a.href;
+  }
+
+  let html = '';
+
+  // Cover page
+  html += `
+    <div class="pdf-page">
+      <div class="pdf-cover">
+        <img src="${absImg('../logo-mar.jpeg')}" class="pdf-cover-logo" crossorigin="anonymous"/>
+        <div class="pdf-cover-title">PROPUESTA COMERCIAL</div>
+        <div class="pdf-cover-line"></div>
+        ${client.name ? `<div class="pdf-cover-client">${esc(client.name)}</div>` : ''}
+        ${client.company ? `<div class="pdf-cover-company">${esc(client.company)}</div>` : ''}
+        <div class="pdf-cover-meta">
+          ${client.eventType ? `${esc(client.eventType)}<br/>` : ''}
+          ${client.eventDate ? `${formatDateDisplay(client.eventDate)}<br/>` : ''}
+        </div>
+        <div class="pdf-cover-footer">
+          ${client.name ? `Preparado exclusivamente para ${esc(client.name)}` : 'MAR Entertainment Group'}
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Service pages (2 per page)
+  for (let i = 0; i < active.length; i++) {
+    const svc = active[i];
+    html += `
+      <div class="pdf-page" style="padding: 0;">
+        <div class="pdf-service">
+          ${svc.image ? `<img src="${absImg(svc.image)}" class="pdf-service-img" crossorigin="anonymous"/>` : `<div class="pdf-service-img" style="background: linear-gradient(135deg, #1a1a2e, #16213e);"></div>`}
+          <div class="pdf-service-name">${esc(svc.name)}</div>
+          <div class="pdf-service-desc">${esc(svc.description)}</div>
+          ${svc.price ? `<div class="pdf-service-price">${formatUSD(parseFloat(svc.price))}</div>` : ''}
+          ${i < active.length - 1 ? '<div class="pdf-service-divider"></div>' : ''}
+        </div>
+      </div>
+    `;
+  }
+
+  // Summary page
+  html += `
+    <div class="pdf-page">
+      <div class="pdf-summary">
+        <div class="pdf-summary-title">Resumen de Inversion</div>
+        <table class="pdf-summary-table">
+          <thead>
+            <tr>
+              <th>Servicio</th>
+              <th>Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${active.map(svc => `
+              <tr>
+                <td>${esc(svc.name)}</td>
+                <td>${svc.price ? formatUSD(parseFloat(svc.price)) : '—'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+
+        <div class="pdf-totals">
+          <div class="pdf-totals-row">
+            <span>Subtotal</span>
+            <span>${formatUSD(subtotal)}</span>
+          </div>
+          ${discountAmount > 0 ? `
+            <div class="pdf-totals-row">
+              <span>Descuento${discountType === '%' ? ` (${discountVal}%)` : ''}</span>
+              <span style="color: #34D399;">-${formatUSD(discountAmount)}</span>
+            </div>
+          ` : ''}
+          <div class="pdf-totals-row total-row">
+            <span>Total</span>
+            <span style="color: #FA257E;">${formatUSD(total)}</span>
+          </div>
+        </div>
+
+        ${client.notes ? `
+          <div class="pdf-conditions">
+            <div class="pdf-conditions-title">Condiciones</div>
+            <div class="pdf-conditions-text">${esc(client.notes)}</div>
+          </div>
+        ` : ''}
+
+        <div class="pdf-contact">
+          <div class="pdf-contact-name">MAR Entertainment Group</div>
+          <div class="pdf-contact-info">
+            +1 829 548 4316<br/>
+            info@marentertainmentgroup.com<br/>
+            marentertainmentgroup.com
+          </div>
+          <div class="pdf-validity">Esta propuesta es valida por 30 dias</div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  return html;
+}
+
+function showPreview() {
+  const container = document.getElementById('previewContainer');
+  const pdfHtml = buildPdfHtml();
+  container.innerHTML = pdfHtml;
+  // Make visible for preview
+  container.querySelectorAll('.pdf-page').forEach(p => {
+    p.style.marginBottom = '2rem';
+    p.style.borderRadius = '8px';
+    p.style.overflow = 'hidden';
+  });
+  document.getElementById('previewOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePreview() {
+  document.getElementById('previewOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+async function downloadPDF() {
+  const btn = event.target.closest('button');
+  const originalHTML = btn.innerHTML;
+  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 0.6s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Generando...';
+  btn.disabled = true;
+
+  try {
+    const template = document.getElementById('pdfTemplate');
+    template.innerHTML = buildPdfHtml();
+    template.style.display = 'block';
+    template.style.position = 'fixed';
+    template.style.left = '-9999px';
+    template.style.top = '0';
+
+    const client = getClientData();
+    const fileName = client.name
+      ? `MAR-Propuesta-${client.name.replace(/\s+/g, '-')}.pdf`
+      : 'MAR-Propuesta-Comercial.pdf';
+
+    const opt = {
+      margin: 0,
+      filename: fileName,
+      image: { type: 'jpeg', quality: 0.95 },
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#0a0a0f',
+        logging: false
+      },
+      jsPDF: {
+        unit: 'mm',
+        format: 'a4',
+        orientation: 'portrait'
+      },
+      pagebreak: { mode: ['css', 'legacy'], before: '.pdf-page' }
+    };
+
+    await html2pdf().set(opt).from(template).save();
+
+    template.style.display = 'none';
+    template.innerHTML = '';
+  } catch (err) {
+    console.error('Error generating PDF:', err);
+    alert('Error al generar el PDF. Revisa la consola para mas detalles.');
+  }
+
+  btn.innerHTML = originalHTML;
+  btn.disabled = false;
+}
+
+// Close preview on escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closePreview();
+});
+
+// ===== INIT =====
+(async () => {
+  const session = await checkAuth();
+  if (!session) return;
+  renderServices();
+})();
+</script>
+
+</body>
+</html>
