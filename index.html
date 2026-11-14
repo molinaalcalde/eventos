@@ -139,6 +139,59 @@
     .exp-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px -10px rgba(250, 37, 126, 0.25); }
   }
 
+  /* Mobile card flip for experience cards */
+  @media (max-width: 768px) {
+    .exp-card-flip {
+      perspective: 1200px;
+      -webkit-perspective: 1200px;
+    }
+    .exp-card-flip .exp-card-inner {
+      position: relative;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+    }
+    .exp-card-flip.flipped .exp-card-inner {
+      transform: rotateY(180deg);
+    }
+    .exp-card-flip .exp-card-front,
+    .exp-card-flip .exp-card-back {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .exp-card-flip .exp-card-back {
+      position: absolute;
+      inset: 0;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(145deg, rgba(17,17,22,0.97), rgba(5,5,5,0.99));
+      border: 1px solid rgba(250,37,126,0.2);
+      border-radius: inherit;
+    }
+    .exp-card-flip .tap-hint {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.35);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      z-index: 10;
+    }
+  }
+  @media (min-width: 769px) {
+    .exp-card-flip .exp-card-back { display: none !important; }
+    .exp-card-flip .tap-hint { display: none !important; }
+  }
+
   /* FAQ active state */
   .faq-item { transition: background 0.3s ease; }
   .faq-active { background: rgba(250, 37, 126, 0.03); border-radius: 12px; margin: -1px -12px; padding: 0 12px; }
@@ -178,7 +231,8 @@
     [data-animate] { opacity: 1 !important; transform: none !important; }
     .reveal-line span { transform: none !important; opacity: 1 !important; }
     .parallax-slow, .parallax-fast { transform: none !important; will-change: auto !important; }
-    #heroVideoWrap, #videoMask { display: none !important; }
+    #heroVideoWrap { width: 100vw !important; height: 100vh !important; top: 0 !important; left: 0 !important; transform: none !important; }
+    #heroVideoWrap iframe, #heroVideo { width: 100% !important; height: 100% !important; }
     .exp-card { opacity: 1 !important; transform: none !important; }
     .counter { opacity: 1 !important; }
     /* Kill GPU-heavy decorative blur glows on mobile — they crash the renderer */
@@ -495,80 +549,127 @@
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-0 px-4 md:px-6 lg:px-0">
 
     <!-- Card 1: SUNSET -->
-    <div class="exp-card group relative overflow-hidden flex flex-col rounded-2xl lg:rounded-none">
-      <div class="relative overflow-hidden" style="aspect-ratio:3/4;">
-        <img src="danza-fuego.jpeg" alt="Danza con fuego — Sunset Experience MAR Entertainment" class="exp-card-img absolute inset-0 w-full h-full object-cover" loading="lazy"/>
-        <!-- Full gradient overlay -->
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-500"></div>
-        <!-- Badge -->
-        <span class="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-surface-black/60 backdrop-blur-md border border-white/10 text-[10px] font-display font-bold text-stage-gold uppercase tracking-[0.15em]">
-          Entertainment Experience
-        </span>
-        <!-- Content overlay -->
-        <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-          <h3 class="font-display font-[800] text-[clamp(28px,3vw,42px)] text-white uppercase tracking-wide leading-none">SUNSET</h3>
-          <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-2" data-i18n="exp_sunset_sub">Golden Hour · Beach Clubs · Terrazas</p>
-          <p class="text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_sunset_desc">
-            DJ sets, saxofonista en vivo, percusión, artistas itinerantes y actuaciones integradas al atardecer caribeño. Música y performances que elevan la atmósfera sin interrumpir — fluyen con el momento.
-          </p>
-          <div class="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
+    <div class="exp-card exp-card-flip group relative overflow-hidden flex flex-col rounded-2xl lg:rounded-none">
+      <div class="exp-card-inner">
+        <div class="exp-card-front relative overflow-hidden" style="aspect-ratio:3/4;">
+          <img src="danza-fuego.jpeg" alt="Danza con fuego — Sunset Experience MAR Entertainment" class="exp-card-img absolute inset-0 w-full h-full object-cover" loading="lazy"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <span class="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-surface-black/60 backdrop-blur-md border border-white/10 text-[10px] font-display font-bold text-stage-gold uppercase tracking-[0.15em]">
+            Entertainment Experience
+          </span>
+          <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+            <h3 class="font-display font-[800] text-[clamp(28px,3vw,42px)] text-white uppercase tracking-wide leading-none">SUNSET</h3>
+            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-2" data-i18n="exp_sunset_sub">Golden Hour · Beach Clubs · Terrazas</p>
+            <p class="text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_sunset_desc">
+              DJ sets, saxofonista en vivo, percusión, artistas itinerantes y actuaciones integradas al atardecer caribeño. Música y performances que elevan la atmósfera sin interrumpir — fluyen con el momento.
+            </p>
+            <div class="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
+              <span class="text-[10px] font-display font-bold text-white/40 uppercase tracking-wider" data-i18n="exp_footer_sunset">2h - 5h · Outdoor</span>
+              <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-3 transition-all" href="#calculadora">
+                <span data-i18n="cotizar">Cotizar</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+          <span class="tap-hint"><span class="material-symbols-outlined text-[14px]">touch_app</span> Ver más</span>
+        </div>
+        <div class="exp-card-back rounded-2xl">
+          <span class="px-3 py-1.5 rounded-full bg-surface-black/60 border border-stage-gold/30 text-[10px] font-display font-bold text-stage-gold uppercase tracking-[0.15em] self-start mb-4">Entertainment Experience</span>
+          <h3 class="font-display font-[800] text-[28px] text-white uppercase leading-none mb-2">SUNSET</h3>
+          <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mb-4" data-i18n="exp_sunset_sub">Golden Hour · Beach Clubs · Terrazas</p>
+          <p class="text-[14px] text-white/75 leading-relaxed mb-6" data-i18n="exp_sunset_desc">DJ sets, saxofonista en vivo, percusión, artistas itinerantes y actuaciones integradas al atardecer caribeño. Música y performances que elevan la atmósfera sin interrumpir — fluyen con el momento.</p>
+          <div class="flex items-center justify-between pt-4 border-t border-white/10 mt-auto">
             <span class="text-[10px] font-display font-bold text-white/40 uppercase tracking-wider" data-i18n="exp_footer_sunset">2h - 5h · Outdoor</span>
-            <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-3 transition-all" href="#calculadora">
+            <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" href="#calculadora">
               <span data-i18n="cotizar">Cotizar</span>
               <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
           </div>
+          <span class="tap-hint"><span class="material-symbols-outlined text-[14px]">undo</span> Volver</span>
         </div>
       </div>
     </div>
 
     <!-- Card 2: DINNER SHOW — featured center -->
-    <div class="exp-card group relative overflow-hidden flex flex-col rounded-2xl lg:rounded-none md:col-span-2 lg:col-span-1" style="border-left: 1px solid rgba(250,37,126,0.15); border-right: 1px solid rgba(250,37,126,0.15);">
-      <div class="relative overflow-hidden" style="aspect-ratio:3/4;">
-        <img src="tango.jpeg" alt="Dinner Show — Tango MAR Entertainment" class="exp-card-img absolute inset-0 w-full h-full object-cover" loading="lazy"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-500"></div>
-        <!-- Featured badge -->
-        <span class="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-neon-magenta/15 backdrop-blur-md border border-neon-magenta/40 text-[10px] font-display font-bold text-neon-magenta uppercase tracking-[0.15em] glow-magenta-subtle">
-          Full Show
-        </span>
-        <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-          <h3 class="font-display font-[800] text-[clamp(28px,3vw,42px)] text-white uppercase tracking-wide leading-none">DINNER SHOW</h3>
-          <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-2" data-i18n="exp_dinner_sub">Espectáculos con Desarrollo Escénico Completo</p>
-          <p class="text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_dinner_desc">
-            Belly dance internacional con coreografías originales y animación que interactúa con los invitados. Tango contemporáneo, danza aérea, percusionistas en vivo con darbuka. Vestuarios de alta costura y elementos escénicos que transforman la cena en teatro.
-          </p>
-          <div class="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
+    <div class="exp-card exp-card-flip group relative overflow-hidden flex flex-col rounded-2xl lg:rounded-none md:col-span-2 lg:col-span-1" style="border-left: 1px solid rgba(250,37,126,0.15); border-right: 1px solid rgba(250,37,126,0.15);">
+      <div class="exp-card-inner">
+        <div class="exp-card-front relative overflow-hidden" style="aspect-ratio:3/4;">
+          <img src="tango.jpeg" alt="Dinner Show — Tango MAR Entertainment" class="exp-card-img absolute inset-0 w-full h-full object-cover" loading="lazy"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <span class="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-neon-magenta/15 backdrop-blur-md border border-neon-magenta/40 text-[10px] font-display font-bold text-neon-magenta uppercase tracking-[0.15em] glow-magenta-subtle">
+            Full Show
+          </span>
+          <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+            <h3 class="font-display font-[800] text-[clamp(28px,3vw,42px)] text-white uppercase tracking-wide leading-none">DINNER SHOW</h3>
+            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-2" data-i18n="exp_dinner_sub">Espectáculos con Desarrollo Escénico Completo</p>
+            <p class="text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_dinner_desc">
+              Belly dance internacional con coreografías originales y animación que interactúa con los invitados. Tango contemporáneo, danza aérea, percusionistas en vivo con darbuka. Vestuarios de alta costura y elementos escénicos que transforman la cena en teatro.
+            </p>
+            <div class="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
+              <span class="text-[10px] font-display font-bold text-white/40 uppercase tracking-wider" data-i18n="exp_footer_dinner">Teatral · Sensorial · Inmersivo</span>
+              <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-3 transition-all" href="#calculadora">
+                <span data-i18n="cotizar">Cotizar</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+          <span class="tap-hint"><span class="material-symbols-outlined text-[14px]">touch_app</span> Ver más</span>
+        </div>
+        <div class="exp-card-back rounded-2xl">
+          <span class="px-3 py-1.5 rounded-full bg-neon-magenta/15 border border-neon-magenta/40 text-[10px] font-display font-bold text-neon-magenta uppercase tracking-[0.15em] self-start mb-4">Full Show</span>
+          <h3 class="font-display font-[800] text-[28px] text-white uppercase leading-none mb-2">DINNER SHOW</h3>
+          <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mb-4" data-i18n="exp_dinner_sub">Espectáculos con Desarrollo Escénico Completo</p>
+          <p class="text-[14px] text-white/75 leading-relaxed mb-6" data-i18n="exp_dinner_desc">Belly dance internacional con coreografías originales y animación que interactúa con los invitados. Tango contemporáneo, danza aérea, percusionistas en vivo con darbuka. Vestuarios de alta costura y elementos escénicos que transforman la cena en teatro.</p>
+          <div class="flex items-center justify-between pt-4 border-t border-white/10 mt-auto">
             <span class="text-[10px] font-display font-bold text-white/40 uppercase tracking-wider" data-i18n="exp_footer_dinner">Teatral · Sensorial · Inmersivo</span>
-            <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-3 transition-all" href="#calculadora">
+            <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" href="#calculadora">
               <span data-i18n="cotizar">Cotizar</span>
               <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
           </div>
+          <span class="tap-hint"><span class="material-symbols-outlined text-[14px]">undo</span> Volver</span>
         </div>
       </div>
     </div>
 
     <!-- Card 3: FIESTAS TEMÁTICAS -->
-    <div class="exp-card group relative overflow-hidden flex flex-col rounded-2xl lg:rounded-none md:col-span-2 lg:col-span-1">
-      <div class="relative overflow-hidden" style="aspect-ratio:3/4;">
-        <img src="fiesta-tematica.jpeg" alt="Fiesta Temática — MAR Entertainment" class="exp-card-img absolute inset-0 w-full h-full object-cover" loading="lazy"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-500"></div>
-        <span class="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-surface-black/60 backdrop-blur-md border border-white/10 text-[10px] font-display font-bold text-stage-gold uppercase tracking-[0.15em]">
-          Custom Production
-        </span>
-        <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-          <h3 class="font-display font-[800] text-[clamp(28px,3vw,42px)] text-white uppercase tracking-wide leading-none" data-i18n="exp_fiestas_title">FIESTAS TEMÁTICAS</h3>
-          <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-2" data-i18n="exp_fiestas_sub">Creadas desde Cero para Tu Marca</p>
-          <p class="text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_fiestas_desc">
-            Producciones a medida con concepto, casting, dirección artística, vestuario, coreografía, música original y puesta en escena completa. Bailarines, acróbatas aéreos, comparsas de plumas, fuego, zanqueros, DJs y ambientación escénica integral.
-          </p>
-          <div class="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
+    <div class="exp-card exp-card-flip group relative overflow-hidden flex flex-col rounded-2xl lg:rounded-none md:col-span-2 lg:col-span-1">
+      <div class="exp-card-inner">
+        <div class="exp-card-front relative overflow-hidden" style="aspect-ratio:3/4;">
+          <img src="fiesta-tematica.jpeg" alt="Fiesta Temática — MAR Entertainment" class="exp-card-img absolute inset-0 w-full h-full object-cover" loading="lazy"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <span class="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-surface-black/60 backdrop-blur-md border border-white/10 text-[10px] font-display font-bold text-stage-gold uppercase tracking-[0.15em]">
+            Custom Production
+          </span>
+          <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+            <h3 class="font-display font-[800] text-[clamp(28px,3vw,42px)] text-white uppercase tracking-wide leading-none" data-i18n="exp_fiestas_title">FIESTAS TEMÁTICAS</h3>
+            <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-2" data-i18n="exp_fiestas_sub">Creadas desde Cero para Tu Marca</p>
+            <p class="text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_fiestas_desc">
+              Producciones a medida con concepto, casting, dirección artística, vestuario, coreografía, música original y puesta en escena completa. Bailarines, acróbatas aéreos, comparsas de plumas, fuego, zanqueros, DJs y ambientación escénica integral.
+            </p>
+            <div class="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
+              <span class="text-[10px] font-display font-bold text-white/40 uppercase tracking-wider" data-i18n="exp_footer_fiestas">Grandes Formatos · 360°</span>
+              <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-3 transition-all" href="#calculadora">
+                <span data-i18n="cotizar">Cotizar</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+          <span class="tap-hint"><span class="material-symbols-outlined text-[14px]">touch_app</span> Ver más</span>
+        </div>
+        <div class="exp-card-back rounded-2xl">
+          <span class="px-3 py-1.5 rounded-full bg-surface-black/60 border border-stage-gold/30 text-[10px] font-display font-bold text-stage-gold uppercase tracking-[0.15em] self-start mb-4">Custom Production</span>
+          <h3 class="font-display font-[800] text-[28px] text-white uppercase leading-none mb-2" data-i18n="exp_fiestas_title">FIESTAS TEMÁTICAS</h3>
+          <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mb-4" data-i18n="exp_fiestas_sub">Creadas desde Cero para Tu Marca</p>
+          <p class="text-[14px] text-white/75 leading-relaxed mb-6" data-i18n="exp_fiestas_desc">Producciones a medida con concepto, casting, dirección artística, vestuario, coreografía, música original y puesta en escena completa. Bailarines, acróbatas aéreos, comparsas de plumas, fuego, zanqueros, DJs y ambientación escénica integral.</p>
+          <div class="flex items-center justify-between pt-4 border-t border-white/10 mt-auto">
             <span class="text-[10px] font-display font-bold text-white/40 uppercase tracking-wider" data-i18n="exp_footer_fiestas">Grandes Formatos · 360°</span>
-            <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-3 transition-all" href="#calculadora">
+            <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em]" href="#calculadora">
               <span data-i18n="cotizar">Cotizar</span>
               <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
           </div>
+          <span class="tap-hint"><span class="material-symbols-outlined text-[14px]">undo</span> Volver</span>
         </div>
       </div>
     </div>
@@ -1692,8 +1793,8 @@ document.querySelectorAll('.mobile-nav-link').forEach(link => {
   });
 });
 
-// ===== HERO VIDEO: YT Player API — desktop only =====
-if (!isMobile) {
+// ===== HERO VIDEO: YT Player API =====
+{
   let heroPlayer;
   const VIDEO_START = 4;
   const VIDEO_END = 97;
@@ -1754,7 +1855,7 @@ if (!isMobile) {
   const ytScript = document.createElement('script');
   ytScript.src = 'https://www.youtube.com/iframe_api';
   document.head.appendChild(ytScript);
-} // end !isMobile (YouTube)
+} // end hero video
 
 // ===== LANGUAGE TOGGLE — FULL i18n SYSTEM =====
 let currentLang = 'es';
@@ -2326,6 +2427,16 @@ document.querySelectorAll('#formatButtons button').forEach(btn => {
     }
   });
 });
+
+// ===== MOBILE CARD FLIP =====
+if (isMobile) {
+  document.querySelectorAll('.exp-card-flip').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return; // don't flip on CTA click
+      card.classList.toggle('flipped');
+    });
+  });
+}
 
 // Admin access: triple-tap on © symbol
 (function() {
