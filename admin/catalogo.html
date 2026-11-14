@@ -591,10 +591,15 @@ function renderServices() {
         </div>
       </div>
       <div class="service-card-body">
-        <div class="service-img-wrap">
+        <div class="service-img-wrap" style="cursor:pointer;position:relative;" onclick="document.getElementById('imgInput_${svc.id}').click()" title="Clic para cambiar imagen">
           ${svc.image ? `<img src="${esc(svc.image)}" alt="${esc(svc.name)}" onerror="this.style.display='none'"/>` : ''}
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,${svc.image ? '0' : '0.3'});transition:background 0.2s;border-radius:8px;" onmouseover="this.style.background='rgba(0,0,0,0.5)'" onmouseout="this.style.background='rgba(0,0,0,${svc.image ? '0' : '0.3'})'">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <input type="file" id="imgInput_${svc.id}" accept="image/*" style="display:none;" onchange="handleImageUpload('${svc.id}', this)"/>
         </div>
         <div class="service-fields">
+          <div style="font-size:10px;color:#52525B;margin-top:-6px;margin-bottom:2px;">Ideal: 1600 × 900 px (16:9)</div>
           <div>
             <label class="field-label">Nombre del servicio</label>
             <input type="text" class="field-input" value="${esc(svc.name)}" onchange="updateService('${svc.id}', 'name', this.value)"/>
@@ -652,6 +657,17 @@ function removeService(id) {
   if (!confirm('Eliminar este servicio de la propuesta?')) return;
   services = services.filter(s => s.id !== id);
   renderServices();
+}
+
+function handleImageUpload(id, input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    updateService(id, 'image', e.target.result);
+    renderServices();
+  };
+  reader.readAsDataURL(file);
 }
 
 function addService() {
