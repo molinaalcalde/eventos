@@ -139,56 +139,80 @@
     .exp-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px -10px rgba(250, 37, 126, 0.25); }
   }
 
-  /* Mobile card reveal overlay */
+  /* Mobile card 3D flip */
   @media (max-width: 768px) {
-    .exp-card-flip .exp-card-back {
+    .exp-card-flip { perspective: 1200px; }
+    .exp-card-inner {
+      position: relative;
+      width: 100%;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-style: preserve-3d;
+    }
+    .exp-card-flip.flipped .exp-card-inner { transform: rotateY(180deg); }
+    .exp-card-front, .exp-card-back {
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+    .exp-card-front { position: relative; z-index: 2; }
+    .exp-card-back {
       position: absolute;
       inset: 0;
+      transform: rotateY(180deg);
+      background: #0a0a0f;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding: 28px 24px;
-      background: linear-gradient(to top, rgba(5,5,5,0.98) 70%, rgba(5,5,5,0.85) 85%, transparent 100%);
+      justify-content: center;
+      padding: 32px 24px;
       border-radius: inherit;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      pointer-events: none;
-      z-index: 15;
+      z-index: 1;
     }
-    .exp-card-flip.revealed .exp-card-back {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-    .exp-card-flip.revealed .exp-card-front > div:last-of-type {
-      opacity: 0 !important;
-    }
-    .exp-card-flip .tap-hint {
-      position: absolute;
-      bottom: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
+    /* Hide desktop hover description on mobile — it sticks after touch */
+    .exp-card-front .desc-hover { display: none !important; }
+    /* "Ver más" button — mobile only */
+    .flip-btn {
+      display: inline-flex;
       align-items: center;
-      gap: 5px;
-      font-size: 10px;
-      color: rgba(255,255,255,0.4);
+      gap: 6px;
+      margin-top: 12px;
+      padding: 8px 18px;
+      background: rgba(250, 37, 126, 0.12);
+      border: 1px solid rgba(250, 37, 126, 0.3);
+      border-radius: 24px;
+      color: #FA257E;
       font-family: 'Syne', sans-serif;
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      z-index: 20;
-      background: rgba(0,0,0,0.5);
-      padding: 6px 14px;
-      border-radius: 20px;
-      backdrop-filter: blur(4px);
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      transition: background 0.3s, border-color 0.3s;
     }
-    .exp-card-flip.revealed .tap-hint-front { opacity: 0; pointer-events: none; }
+    .flip-btn:active { background: rgba(250, 37, 126, 0.25); }
+    /* "Volver" button on back */
+    .flip-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      align-self: flex-start;
+      margin-top: 16px;
+      padding: 8px 18px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      color: rgba(255, 255, 255, 0.5);
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .flip-back-btn:active { background: rgba(255, 255, 255, 0.12); }
   }
   @media (min-width: 769px) {
     .exp-card-flip .exp-card-back { display: none !important; }
-    .exp-card-flip .tap-hint { display: none !important; }
+    .flip-btn, .flip-back-btn { display: none !important; }
   }
 
   /* FAQ active state */
@@ -559,9 +583,10 @@
           <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
             <h3 class="font-display font-[800] text-[clamp(28px,3vw,42px)] text-white uppercase tracking-wide leading-none">SUNSET</h3>
             <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-2" data-i18n="exp_sunset_sub">Golden Hour · Beach Clubs · Terrazas</p>
-            <p class="text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_sunset_desc">
+            <p class="desc-hover text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_sunset_desc">
               DJ sets, saxofonista en vivo, percusión, artistas itinerantes y actuaciones integradas al atardecer caribeño. Música y performances que elevan la atmósfera sin interrumpir — fluyen con el momento.
             </p>
+            <button class="flip-btn" data-flip="open"><span class="material-symbols-outlined text-[14px]">touch_app</span> Ver más</button>
             <div class="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
               <span class="text-[10px] font-display font-bold text-white/40 uppercase tracking-wider" data-i18n="exp_footer_sunset">2h - 5h · Outdoor</span>
               <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-3 transition-all" href="#calculadora">
@@ -570,7 +595,6 @@
               </a>
             </div>
           </div>
-          <span class="tap-hint tap-hint-front"><span class="material-symbols-outlined text-[14px]">touch_app</span> Ver más</span>
         </div>
         <div class="exp-card-back rounded-2xl">
           <span class="px-3 py-1.5 rounded-full bg-surface-black/60 border border-stage-gold/30 text-[10px] font-display font-bold text-stage-gold uppercase tracking-[0.15em] self-start mb-4">Entertainment Experience</span>
@@ -584,7 +608,7 @@
               <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
           </div>
-          <span class="tap-hint"><span class="material-symbols-outlined text-[14px]">undo</span> Volver</span>
+          <button class="flip-back-btn" data-flip="close"><span class="material-symbols-outlined text-[14px]">undo</span> Volver</button>
         </div>
       </div>
     </div>
@@ -601,9 +625,10 @@
           <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
             <h3 class="font-display font-[800] text-[clamp(28px,3vw,42px)] text-white uppercase tracking-wide leading-none">DINNER SHOW</h3>
             <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-2" data-i18n="exp_dinner_sub">Espectáculos con Desarrollo Escénico Completo</p>
-            <p class="text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_dinner_desc">
+            <p class="desc-hover text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_dinner_desc">
               Belly dance internacional con coreografías originales y animación que interactúa con los invitados. Tango contemporáneo, danza aérea, percusionistas en vivo con darbuka. Vestuarios de alta costura y elementos escénicos que transforman la cena en teatro.
             </p>
+            <button class="flip-btn" data-flip="open"><span class="material-symbols-outlined text-[14px]">touch_app</span> Ver más</button>
             <div class="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
               <span class="text-[10px] font-display font-bold text-white/40 uppercase tracking-wider" data-i18n="exp_footer_dinner">Teatral · Sensorial · Inmersivo</span>
               <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-3 transition-all" href="#calculadora">
@@ -612,7 +637,6 @@
               </a>
             </div>
           </div>
-          <span class="tap-hint tap-hint-front"><span class="material-symbols-outlined text-[14px]">touch_app</span> Ver más</span>
         </div>
         <div class="exp-card-back rounded-2xl">
           <span class="px-3 py-1.5 rounded-full bg-neon-magenta/15 border border-neon-magenta/40 text-[10px] font-display font-bold text-neon-magenta uppercase tracking-[0.15em] self-start mb-4">Full Show</span>
@@ -626,7 +650,7 @@
               <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
           </div>
-          <span class="tap-hint"><span class="material-symbols-outlined text-[14px]">undo</span> Volver</span>
+          <button class="flip-back-btn" data-flip="close"><span class="material-symbols-outlined text-[14px]">undo</span> Volver</button>
         </div>
       </div>
     </div>
@@ -643,9 +667,10 @@
           <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
             <h3 class="font-display font-[800] text-[clamp(28px,3vw,42px)] text-white uppercase tracking-wide leading-none" data-i18n="exp_fiestas_title">FIESTAS TEMÁTICAS</h3>
             <p class="text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] mt-2" data-i18n="exp_fiestas_sub">Creadas desde Cero para Tu Marca</p>
-            <p class="text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_fiestas_desc">
+            <p class="desc-hover text-[13px] lg:text-[14px] text-white/70 leading-relaxed mt-4 max-w-md opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500" data-i18n="exp_fiestas_desc">
               Producciones a medida con concepto, casting, dirección artística, vestuario, coreografía, música original y puesta en escena completa. Bailarines, acróbatas aéreos, comparsas de plumas, fuego, zanqueros, DJs y ambientación escénica integral.
             </p>
+            <button class="flip-btn" data-flip="open"><span class="material-symbols-outlined text-[14px]">touch_app</span> Ver más</button>
             <div class="flex items-center justify-between mt-5 pt-4 border-t border-white/10">
               <span class="text-[10px] font-display font-bold text-white/40 uppercase tracking-wider" data-i18n="exp_footer_fiestas">Grandes Formatos · 360°</span>
               <a class="inline-flex items-center gap-1.5 text-[11px] font-display font-bold text-neon-magenta uppercase tracking-[0.14em] group-hover:gap-3 transition-all" href="#calculadora">
@@ -654,7 +679,6 @@
               </a>
             </div>
           </div>
-          <span class="tap-hint tap-hint-front"><span class="material-symbols-outlined text-[14px]">touch_app</span> Ver más</span>
         </div>
         <div class="exp-card-back rounded-2xl">
           <span class="px-3 py-1.5 rounded-full bg-surface-black/60 border border-stage-gold/30 text-[10px] font-display font-bold text-stage-gold uppercase tracking-[0.15em] self-start mb-4">Custom Production</span>
@@ -668,7 +692,7 @@
               <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
           </div>
-          <span class="tap-hint"><span class="material-symbols-outlined text-[14px]">undo</span> Volver</span>
+          <button class="flip-back-btn" data-flip="close"><span class="material-symbols-outlined text-[14px]">undo</span> Volver</button>
         </div>
       </div>
     </div>
@@ -2431,8 +2455,11 @@ document.querySelectorAll('#formatButtons button').forEach(btn => {
 if (isMobile) {
   document.querySelectorAll('.exp-card-flip').forEach(card => {
     card.addEventListener('click', (e) => {
-      if (e.target.closest('a')) return; // don't flip on CTA click
-      card.classList.toggle('revealed');
+      const flipBtn = e.target.closest('[data-flip]');
+      if (!flipBtn) return;
+      e.preventDefault();
+      if (flipBtn.dataset.flip === 'open') card.classList.add('flipped');
+      else card.classList.remove('flipped');
     });
   });
 }
