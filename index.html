@@ -870,7 +870,7 @@
         DE LA IDEA<br><span class="text-neon-magenta">AL ESCENARIO</span>
       </h2>
       <p class="text-[15px] text-text-secondary max-w-lg mx-auto mt-4 leading-relaxed" data-animate data-i18n="calc_desc">
-        4 pasos. 60 segundos. Nuestro equipo de dirección artística diseña una propuesta a medida según tu espacio, público y experiencia deseada.
+        Completá el formulario y nuestro equipo de dirección artística diseña una propuesta a medida según tu espacio, público y experiencia deseada.
       </p>
     </div>
 
@@ -1935,7 +1935,7 @@ const translations = {
     fmt_visual_label: "Talento & Performances",
     fmt_visual_desc: "Bailarines, cantantes, m\u00fasicos, DJs, acr\u00f3batas a\u00e9reos, zanqueros, performers de fuego y m\u00e1s.",
     calc_title_html: "DE LA IDEA<br><span class='text-neon-magenta'>AL ESCENARIO</span>",
-    calc_desc: "4 pasos. 60 segundos. Nuestro equipo de direcci\u00f3n art\u00edstica dise\u00f1a una propuesta a medida seg\u00fan tu espacio, p\u00fablico y experiencia deseada.",
+    calc_desc: "Complet\u00e1 el formulario y nuestro equipo de direcci\u00f3n art\u00edstica dise\u00f1a una propuesta a medida seg\u00fan tu espacio, p\u00fablico y experiencia deseada.",
     step_lugar: "Lugar",
     step_show: "Show",
     step_escala: "Escala",
@@ -2064,7 +2064,7 @@ const translations = {
     fmt_visual_label: "Talent & Performances",
     fmt_visual_desc: "Dancers, singers, musicians, DJs, aerial acrobats, stilt walkers, fire performers, and more.",
     calc_title_html: "FROM AN IDEA<br><span class='text-neon-magenta'>TO THE STAGE</span>",
-    calc_desc: "4 steps. 60 seconds. Our artistic direction team designs a custom proposal based on your space, audience, and desired experience.",
+    calc_desc: "Fill out the form and our artistic direction team will design a custom proposal based on your space, audience, and desired experience.",
     step_lugar: "Venue",
     step_show: "Show",
     step_escala: "Scale",
@@ -2375,7 +2375,8 @@ btnNext?.addEventListener('click', async () => {
     successBox.classList.remove('hidden');
     if (typeof gsap !== 'undefined') gsap.fromTo(successBox, { opacity: 0, scale: 0.95, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: 'back.out(1.2)' });
     else { successBox.style.opacity = '1'; successBox.style.transform = 'none'; }
-    lenis.scrollTo(successBox, { offset: -100 });
+    const calcSection = document.getElementById('calculadora');
+    if (calcSection) calcSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 });
 

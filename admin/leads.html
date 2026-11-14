@@ -150,17 +150,29 @@
   /* Empty state */
   .empty-state { text-align: center; padding: 4rem 2rem; color: #71717A; }
 
-  /* Mobile */
+  /* Mobile & tablet */
   .menu-btn { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 8px; }
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     .sidebar { transform: translateX(-100%); }
     .sidebar.open { transform: translateX(0); }
     .main { margin-left: 0; }
     .menu-btn { display: flex; }
+  }
+  @media (max-width: 768px) {
     .search-input { width: 100%; }
     .detail-panel { width: 100vw; }
-    .stat-card { min-width: 100px; }
+    .stat-card { min-width: calc(50% - 8px); }
     .stat-value { font-size: 22px; }
+    .content { padding: 1rem; }
+    .topbar { padding: 0.75rem 1rem; }
+    .leads-table th:nth-child(3), .leads-table td:nth-child(3) { display: none; }
+    .leads-table th:nth-child(5), .leads-table td:nth-child(5) { display: none; }
+    .filter-btn { padding: 5px 10px; font-size: 11px; }
+  }
+  @media (max-width: 480px) {
+    .stat-card { min-width: calc(50% - 6px); }
+    .leads-table th:nth-child(2), .leads-table td:nth-child(2) { display: none; }
+    .action-btn { padding: 6px 12px; font-size: 11px; }
   }
 </style>
 </head>
@@ -462,11 +474,25 @@ function openDetail(id) {
       </div>
     </div>
 
-    <!-- Notes -->
+    <!-- Client notes (read-only) -->
+    ${lead.notes ? `<div style="margin-bottom: 1.25rem;">
+      <label style="font-size: 11px; color: #71717A; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">Mensaje del cliente</label>
+      <div style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; font-size: 13px; color: #A1A1AA; line-height: 1.5;">${esc(lead.notes)}</div>
+    </div>` : ''}
+
+    <!-- Admin notes -->
     <div style="margin-bottom: 1.25rem;">
-      <label style="font-size: 11px; color: #71717A; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">Notas</label>
-      <textarea class="notes-textarea" id="notesTextarea" placeholder="Agregar notas sobre este lead...">${esc(lead.notes || '')}</textarea>
-      <button class="save-btn" style="margin-top: 8px;" onclick="saveNotes('${lead.id}')">Guardar notas</button>
+      <label style="font-size: 11px; color: #71717A; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">Notas internas</label>
+      <textarea class="notes-textarea" id="adminNotesTextarea" placeholder="Agregar notas internas sobre este lead...">${esc((lead.metadata && lead.metadata.admin_notes) || '')}</textarea>
+      <button class="save-btn" style="margin-top: 8px;" onclick="saveAdminNotes('${lead.id}')">Guardar notas</button>
+    </div>
+
+    <!-- Activity log -->
+    <div style="margin-bottom: 1.25rem;">
+      <label style="font-size: 11px; color: #71717A; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">Historial de actividad</label>
+      <div id="activityLog" style="max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px;">
+        ${renderActivityLog(lead)}
+      </div>
     </div>
 
     <!-- Delete -->
@@ -487,24 +513,50 @@ function closeDetail() {
 
 // ===== ACTIONS =====
 async function updateStatus(id, status) {
-  const { error } = await sb.from('leads').update({ status, updated_at: new Date().toISOString() }).eq('id', id);
-  if (error) { alert('Error actualizando estado: ' + error.message); return; }
   const lead = allLeads.find(l => l.id === id);
-  if (lead) lead.status = status;
+  if (!lead) return;
+  const oldStatus = statusLabels[lead.status] || lead.status;
+  const newStatus = statusLabels[status] || status;
+  const meta = lead.metadata || {};
+  meta.activity = meta.activity || [];
+  meta.activity.push({ action: `Estado: ${oldStatus} → ${newStatus}`, date: new Date().toISOString() });
+  const { error } = await sb.from('leads').update({ status, metadata: meta, updated_at: new Date().toISOString() }).eq('id', id);
+  if (error) { alert('Error actualizando estado: ' + error.message); return; }
+  lead.status = status;
+  lead.metadata = meta;
   applyFilters();
+  if (currentLeadId === id) openDetail(id);
 }
 
-async function saveNotes(id) {
-  const notes = document.getElementById('notesTextarea').value;
-  const { error } = await sb.from('leads').update({ notes, updated_at: new Date().toISOString() }).eq('id', id);
-  if (error) { alert('Error guardando notas: ' + error.message); return; }
+async function saveAdminNotes(id) {
+  const adminNotes = document.getElementById('adminNotesTextarea').value;
   const lead = allLeads.find(l => l.id === id);
-  if (lead) lead.notes = notes;
-  // Visual feedback
+  if (!lead) return;
+  const meta = lead.metadata || {};
+  meta.admin_notes = adminNotes;
+  meta.activity = meta.activity || [];
+  meta.activity.push({ action: 'Nota actualizada', date: new Date().toISOString() });
+  const { error } = await sb.from('leads').update({ metadata: meta, updated_at: new Date().toISOString() }).eq('id', id);
+  if (error) { alert('Error guardando notas: ' + error.message); return; }
+  lead.metadata = meta;
   const btn = event.target;
   const original = btn.textContent;
-  btn.textContent = '✓ Guardado';
+  btn.textContent = 'Guardado';
   setTimeout(() => { btn.textContent = original; }, 1500);
+}
+
+function renderActivityLog(lead) {
+  const meta = lead.metadata || {};
+  const activity = meta.activity || [];
+  if (activity.length === 0) {
+    return '<div style="font-size: 12px; color: #52525B; padding: 8px 0;">Sin actividad registrada</div>';
+  }
+  return activity.slice().reverse().map(a =>
+    `<div style="display: flex; align-items: flex-start; gap: 8px; font-size: 12px; padding: 6px 10px; background: rgba(255,255,255,0.02); border-radius: 6px;">
+      <span style="color: #71717A; white-space: nowrap;">${formatDate(a.date)}</span>
+      <span style="color: #A1A1AA;">${esc(a.action)}</span>
+    </div>`
+  ).join('');
 }
 
 async function deleteLead(id) {
