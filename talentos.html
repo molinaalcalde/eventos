@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Catálogo de Talentos | MAR Entertainment Group — Punta Cana</title>
+<meta content="Catálogo completo de shows y talentos para eventos en Punta Cana: fuego, acrobacias aéreas, danza, música en vivo, hora loca y más. MAR Entertainment Group." name="description"/>
+<meta name="author" content="MAR Entertainment Group"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Catálogo de Talentos | MAR Entertainment Group"/>
+<meta property="og:description" content="Shows de fuego, acrobacias aéreas, danza, DJ, hora loca y más para tu evento en Punta Cana."/>
+<meta property="og:url" content="https://marentertainmentgroup.com/talentos.html"/>
+<meta property="og:image" content="https://marentertainmentgroup.com/logo-mar.jpeg"/>
+<meta property="og:locale" content="es_DO"/>
+
+<!-- Favicon -->
+<link rel="icon" type="image/jpeg" href="favicon.jpeg"/>
+<link rel="apple-touch-icon" href="favicon.jpeg"/>
+
+<!-- Preconnect -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+
+<!-- Tailwind compiled -->
+<link rel="stylesheet" href="styles.css"/>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<style>
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #050505;
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.font-display { font-family: 'Syne', 'Inter', sans-serif; }
+
+/* ── Navbar ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+  height: 72px;
+  background: rgba(5,5,5,0.6);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.3s;
+}
+.nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-logo img { height: 38px; border-radius: 6px; }
+.nav-logo span { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: #fff; }
+.nav-back {
+  font-size: 0.875rem; color: rgba(255,255,255,0.6); text-decoration: none;
+  display: flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: #FA257E; }
+.nav-back svg { width: 16px; height: 16px; }
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 160px 1.5rem 80px;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(250,37,126,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-title {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  margin-top: 1.25rem;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: rgba(255,255,255,0.55);
+  max-width: 580px;
+  line-height: 1.6;
+}
+
+/* ── Category Filter ── */
+.filter-wrap {
+  position: sticky; top: 72px; z-index: 90;
+  background: rgba(5,5,5,0.85);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 16px 0;
+  transition: box-shadow 0.3s;
+}
+.filter-wrap.stuck { box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+.filter-scroll {
+  display: flex; gap: 10px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+  scrollbar-width: none;
+}
+.filter-scroll::-webkit-scrollbar { display: none; }
+.pill {
+  flex-shrink: 0;
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 0.8125rem; font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+.pill:hover { color: #fff; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); }
+.pill.active {
+  color: #fff;
+  background: rgba(250,37,126,0.15);
+  border-color: #FA257E;
+  box-shadow: 0 0 20px rgba(250,37,126,0.25);
+}
+
+/* ── Grid ── */
+.catalog-section {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 48px clamp(1rem, 4vw, 3rem) 80px;
+}
+.talent-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 640px) { .talent-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .talent-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ── Card ── */
+.talent-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111116;
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: cardIn 0.5s ease forwards;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.talent-card:hover {
+  transform: translateY(-4px) scale(1.025);
+  border-color: rgba(250,37,126,0.4);
+  box-shadow: 0 8px 40px rgba(250,37,126,0.15), 0 0 0 1px rgba(250,37,126,0.2);
+}
+@keyframes cardIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+.card-visual {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+.card-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.talent-card:hover .card-img { transform: scale(1.06); }
+.card-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; opacity: 0.15;
+}
+.card-gradient {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 65%;
+  background: linear-gradient(to top, #111116 0%, rgba(17,17,22,0.85) 40%, transparent 100%);
+  pointer-events: none;
+}
+.card-badge {
+  position: absolute; top: 14px; left: 14px;
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-size: 0.6875rem; font-weight: 600;
+  color: #fff;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  z-index: 2;
+}
+.card-content {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 20px;
+  z-index: 2;
+}
+.card-name {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  color: #fff;
+}
+.card-meta {
+  display: flex; gap: 16px;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+}
+.card-meta span { display: flex; align-items: center; gap: 4px; }
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay.open { opacity: 1; visibility: visible; }
+.modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #111116;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  transform: translateY(40px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-overlay.open .modal-card { transform: translateY(0); }
+.modal-card::-webkit-scrollbar { width: 4px; }
+.modal-card::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+.modal-close {
+  position: absolute; top: 16px; right: 16px; z-index: 10;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.modal-close:hover { background: rgba(250,37,126,0.3); }
+.modal-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 20px 20px 0 0;
+}
+.modal-image-placeholder {
+  width: 100%;
+  aspect-ratio: 16/9;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem; opacity: 0.1;
+  border-radius: 20px 20px 0 0;
+}
+.modal-body { padding: 28px 28px 32px; }
+.modal-category-badge {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 0.75rem; font-weight: 600;
+  color: #fff;
+  margin-bottom: 14px;
+}
+.modal-name {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 1.75rem;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.modal-tags {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 20px;
+}
+.modal-tag {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem; font-weight: 500;
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.modal-desc {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 24px;
+}
+.modal-price {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 1.3rem;
+  color: #FA257E;
+  margin-bottom: 24px;
+}
+.modal-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 32px;
+  border-radius: 100px;
+  background: #FA257E;
+  color: #fff;
+  font-size: 0.9375rem; font-weight: 600;
+  text-decoration: none;
+  border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.modal-cta:hover {
+  background: #e01e6f;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(250,37,126,0.35);
+}
+.modal-cta svg { width: 20px; height: 20px; }
+
+/* ── Footer ── */
+.footer {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 32px clamp(1rem, 4vw, 3rem);
+  text-align: center;
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ── Utilities ── */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+  color: rgba(255,255,255,0.4);
+  font-size: 1rem;
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="nav" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo-mar.jpeg" alt="MAR Entertainment Group" width="38" height="38"/>
+    <span>MAR Entertainment</span>
+  </a>
+  <a href="index.html" class="nav-back">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+    Volver al sitio
+  </a>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <h1 class="hero-title font-display">Catálogo de Talentos</h1>
+  <p class="hero-sub">Shows, artistas y experiencias de primer nivel para transformar tu evento en algo extraordinario.</p>
+</section>
+
+<!-- ── Category Filter ── -->
+<div class="filter-wrap" id="filterBar">
+  <div class="filter-scroll" id="filterScroll">
+    <button class="pill active" data-cat="all">Todos</button>
+    <button class="pill" data-cat="fuego">Shows de Fuego</button>
+    <button class="pill" data-cat="aereos">Acrobacias Aéreas</button>
+    <button class="pill" data-cat="danza">Danza &amp; Performance</button>
+    <button class="pill" data-cat="actores">Actores &amp; Entretenimiento</button>
+    <button class="pill" data-cat="musica">DJ &amp; Música en Vivo</button>
+    <button class="pill" data-cat="animacion">Animación</button>
+    <button class="pill" data-cat="hora_loca">Hora Loca &amp; Carnaval</button>
+    <button class="pill" data-cat="especiales">Artistas Especiales</button>
+  </div>
+</div>
+
+<!-- ── Grid ── -->
+<section class="catalog-section">
+  <div class="talent-grid" id="talentGrid"></div>
+</section>
+
+<!-- ── Detail Modal ── -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-card" id="modalCard">
+    <button class="modal-close" id="modalClose" aria-label="Cerrar">&times;</button>
+    <div id="modalImageWrap"></div>
+    <div class="modal-body">
+      <div id="modalBadge" class="modal-category-badge"></div>
+      <h2 id="modalName" class="modal-name"></h2>
+      <div class="modal-tags">
+        <span class="modal-tag" id="modalDuration"></span>
+        <span class="modal-tag" id="modalPrice"></span>
+      </div>
+      <p id="modalDesc" class="modal-desc"></p>
+      <div class="modal-price" id="modalPriceLarge"></div>
+      <a id="modalCta" class="modal-cta" href="#" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.106-1.138L7.5 18.638l-2.164.643.643-2.164-.224-.394A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/></svg>
+        Solicitar este talento
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  &copy; 2026 MAR Entertainment Group — Punta Cana, República Dominicana. Todos los derechos reservados.
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+   DATA & CONFIG
+   ═══════════════════════════════════════════ */
+
+const SUPABASE_URL = 'https://ohacxlnmsjpwridmuwhw.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_1xZLQoSfX_-cY6bVPdxrPg_aVtWkbv7';
+const WA_NUMBER = '18295484316';
+
+const CATEGORIES = {
+  fuego:     { label: 'Shows de Fuego',           color: '#FF6B35' },
+  aereos:    { label: 'Acrobacias Aéreas',         color: '#7B61FF' },
+  danza:     { label: 'Danza & Performance',       color: '#FA257E' },
+  actores:   { label: 'Actores & Entretenimiento', color: '#34D399' },
+  musica:    { label: 'DJ & Música en Vivo',       color: '#3B82F6' },
+  animacion: { label: 'Animación',                 color: '#FBBF24' },
+  hora_loca: { label: 'Hora Loca & Carnaval',      color: '#EC4899' },
+  especiales:{ label: 'Artistas Especiales',        color: '#06B6D4' }
+};
+
+const CATEGORY_ICONS = {
+  fuego: '🔥', aereos: '🎪', danza: '💃', actores: '🎭',
+  musica: '🎵', animacion: '🎉', hora_loca: '🪩', especiales: '✨'
+};
+
+const defaultTalents = [
+  // Shows de Fuego
+  { id:'f1', category:'fuego', name:'Fuegueros Profesionales', description:'Show de fuego con artistas especializados en manipulación de llamas, bastones de fuego, abanicos encendidos y efectos pirotécnicos corporales. Coreografías sincronizadas que transforman la noche en un espectáculo visual inolvidable. Incluye seguro de responsabilidad y medidas de seguridad.', duration:'20-35 min', price:'$800 - $1,500', image:'', enabled:true },
+  { id:'f2', category:'fuego', name:'Fire Poi & Abanicos de Fuego', description:'Performance hipnótica de poi y abanicos en llamas con coreografía fluida. Artistas con años de experiencia en eventos premium. Ideal como complemento de cenas al aire libre o ceremonias.', duration:'15-25 min', price:'$600 - $1,200', image:'', enabled:true },
+  { id:'f3', category:'fuego', name:'Traga Fuegos Premium', description:'Acto clásico de manipulación y deglución de fuego con giros contemporáneos. Show de alto impacto visual ideal para momentos de apertura o cierre de evento.', duration:'10-20 min', price:'$500 - $900', image:'', enabled:true },
+
+  // Acrobacias Aéreas
+  { id:'a1', category:'aereos', name:'Tela Aérea — Solo', description:'Artista aéreo ejecutando acrobacias y figuras en tela suspendida a gran altura. Combinación de fuerza, flexibilidad y gracia que cautiva al público. Incluye estructura, rigging profesional y seguro.', duration:'15-25 min', price:'$700 - $1,200', image:'', enabled:true },
+  { id:'a2', category:'aereos', name:'Aro Aéreo — Solo', description:'Performance elegante en aro (lyra) aéreo con figuras estáticas y dinámicas. Estética visual sofisticada ideal para galas y eventos corporativos premium.', duration:'15-25 min', price:'$700 - $1,200', image:'', enabled:true },
+  { id:'a3', category:'aereos', name:'Dúo Acrobático Aéreo', description:'Pareja de artistas ejecutando rutinas sincronizadas en tela, aro o trapecio. Mayor impacto escénico y posibilidades coreográficas. Incluye estructura y rigging profesional.', duration:'20-30 min', price:'$1,200 - $2,000', image:'', enabled:true },
+  { id:'a4', category:'aereos', name:'Show Aéreo Grupal', description:'Espectáculo con 3 a 5 artistas aéreos en diferentes aparatos (tela, aro, cintas). Producción escénica completa con iluminación, música original y vestuario temático.', duration:'25-40 min', price:'$2,500 - $4,500', image:'', enabled:true },
+
+  // Danza & Performance
+  { id:'d1', category:'danza', name:'Tango Show — Pareja', description:'Pareja de tango profesional con coreografía original que combina tango clásico y contemporáneo. Vestuario de alta costura y musicalización seleccionada.', duration:'15-25 min', price:'$800 - $1,500', image:'', enabled:true },
+  { id:'d2', category:'danza', name:'Belly Dance Internacional', description:'Artista de belly dance con fusión contemporánea, elementos LED opcionales y vestuario premium. Performance sensual y elegante para todo tipo de eventos.', duration:'15-25 min', price:'$600 - $1,200', image:'', enabled:true },
+  { id:'d3', category:'danza', name:'Danza Contemporánea', description:'Piezas de danza contemporánea con coreografía original creada específicamente para tu evento. Artistas formados en compañías internacionales.', duration:'15-30 min', price:'$700 - $1,300', image:'', enabled:true },
+  { id:'d4', category:'danza', name:'MALEVO — Malambo Argentino', description:'Show insignia de MAR Entertainment. Hasta 8 artistas ejecutando malambo, percusión en vivo, boleadoras luminosas y fuego. Espectáculo de alto impacto que transforma cualquier escenario.', duration:'25-40 min', price:'$2,500 - $5,000', image:'', enabled:true },
+
+  // Actores & Entretenimiento
+  { id:'ac1', category:'actores', name:'Anfitriones Temáticos', description:'Actores profesionales caracterizados según la temática de tu evento. Reciben invitados, interactúan en personaje y crean una experiencia inmersiva desde la llegada.', duration:'2-4 hs', price:'$400 - $800', image:'', enabled:true },
+  { id:'ac2', category:'actores', name:'Actores Interactivos', description:'Performers que se integran entre los invitados con sketch improvisado, comedia situacional o personajes sorpresa. Crean momentos memorables e inesperados.', duration:'1-3 hs', price:'$500 - $900', image:'', enabled:true },
+  { id:'ac3', category:'actores', name:'Show de Comedia Stand Up', description:'Comediante profesional con set adaptado al perfil del evento y la audiencia. Material original, dinámico y elegante. Ideal para corporativos y celebraciones.', duration:'30-45 min', price:'$800 - $1,500', image:'', enabled:true },
+  { id:'ac4', category:'actores', name:'Personajes Recreativos', description:'Actores en roles recreativos para eventos temáticos: piratas, personajes de época, superhéroes, fantasía y más. Interacción con invitados de todas las edades.', duration:'2-4 hs', price:'$350 - $700', image:'', enabled:true },
+
+  // DJ & Música en Vivo
+  { id:'m1', category:'musica', name:'DJ Profesional', description:'DJ con equipo completo: cabina profesional, controladora, sistema de sonido e iluminación básica. Repertorio adaptable desde house y electrónica hasta reggaeton y hits latinos.', duration:'3-6 hs', price:'$800 - $2,000', image:'', enabled:true },
+  { id:'m2', category:'musica', name:'Saxofonista en Vivo', description:'Saxofonista profesional para ambientación durante cocktails, cenas o sesiones de DJ. Repertorio versátil que se adapta a la atmósfera del momento.', duration:'2-4 hs', price:'$500 - $1,000', image:'', enabled:true },
+  { id:'m3', category:'musica', name:'Percusionista', description:'Percusionista profesional con set completo de instrumentos. Perfecto como complemento de DJ sets o como acto solista para momentos de alta energía.', duration:'2-4 hs', price:'$400 - $800', image:'', enabled:true },
+  { id:'m4', category:'musica', name:'Banda Tropical en Vivo', description:'Banda completa con repertorio de merengue, bachata, salsa y ritmos caribeños. De 4 a 8 músicos según la escala del evento. Incluye sonido profesional.', duration:'2-4 hs', price:'$2,000 - $4,000', image:'', enabled:true },
+  { id:'m5', category:'musica', name:'Violinista Clásico/Electrónico', description:'Violinista para ambientación elegante o performance energética con violín eléctrico LED. Versátil entre clásico y contemporáneo.', duration:'1-3 hs', price:'$500 - $1,000', image:'', enabled:true },
+
+  // Animación
+  { id:'an1', category:'animacion', name:'Pool Party Premium', description:'Producción completa de pool party: DJ, performers en el agua, bailarines, animación y actividades. Ambiente Ibiza/Tulum adaptado al Caribe.', duration:'3-5 hs', price:'$1,500 - $3,000', image:'', enabled:true },
+  { id:'an2', category:'animacion', name:'Sunset Sessions', description:'Ambientación artística para atardeceres: DJ, saxofonista, performers itinerantes y elementos visuales. Experiencia sensorial completa al aire libre.', duration:'2-4 hs', price:'$1,200 - $2,500', image:'', enabled:true },
+  { id:'an3', category:'animacion', name:'Animación Infantil Premium', description:'Animadores profesionales con juegos, shows de magia, personajes, globoflexia, pintacaritas y mini disco. Producción adaptada a la edad y temática.', duration:'2-4 hs', price:'$500 - $1,200', image:'', enabled:true },
+  { id:'an4', category:'animacion', name:'Despedida de Soltero/a', description:'Producción completa para despedidas: animadores, juegos, shows, performers y coordinación de actividades. Paquetes personalizados según el grupo.', duration:'3-5 hs', price:'$1,000 - $2,500', image:'', enabled:true },
+
+  // Hora Loca & Carnaval
+  { id:'h1', category:'hora_loca', name:'Hora Loca Completa', description:'Producción de Hora Loca con performers, zanqueros, bailarines, accesorios luminosos para todos los invitados, confeti, cotillón y DJ dedicado. El momento más esperado de la fiesta.', duration:'30-60 min', price:'$2,000 - $4,000', image:'', enabled:true },
+  { id:'h2', category:'hora_loca', name:'Performers LED / Robot LED', description:'Artistas con trajes LED programables y robot LED de alto impacto. Show tecnológico futurista que destaca en cualquier evento nocturno.', duration:'20-40 min', price:'$800 - $1,500', image:'', enabled:true },
+  { id:'h3', category:'hora_loca', name:'Zanqueros Luminosos', description:'Performers sobre zancos con vestuario luminoso o temático. Presencia imponente para recepciones, desfiles y momentos especiales.', duration:'1-3 hs', price:'$600 - $1,200', image:'', enabled:true },
+  { id:'h4', category:'hora_loca', name:'Comparsa de Carnaval', description:'Grupo de bailarines y percusionistas con vestuario de carnaval caribeño. Colores vibrantes, plumas, lentejuelas y ritmo contagioso. De 6 a 15 artistas.', duration:'30-60 min', price:'$2,500 - $5,000', image:'', enabled:true },
+  { id:'h5', category:'hora_loca', name:'Batucada Percusión en Vivo', description:'Grupo de percusionistas con tambores brasileños que crean una energía arrolladora. Ideal para recepciones, fiestas y momentos de alta intensidad.', duration:'20-40 min', price:'$1,500 - $3,000', image:'', enabled:true },
+
+  // Artistas Especiales
+  { id:'e1', category:'especiales', name:'Globoflexia Premium', description:'Artista de globoflexia profesional creando esculturas elaboradas: personajes, animales, sombreros, decoraciones y piezas artísticas. Interacción directa con invitados.', duration:'2-4 hs', price:'$400 - $800', image:'', enabled:true },
+  { id:'e2', category:'especiales', name:'Body Painting Artístico', description:'Artista de body painting profesional para performances en vivo o como entretenimiento interactivo. Pinturas hipoalergénicas y diseños personalizados.', duration:'2-4 hs', price:'$600 - $1,200', image:'', enabled:true },
+  { id:'e3', category:'especiales', name:'Malabaristas', description:'Artistas de malabares con objetos clásicos, luminosos o temáticos. Performance dinámica que combina habilidad técnica con showmanship.', duration:'20-40 min', price:'$500 - $900', image:'', enabled:true },
+  { id:'e4', category:'especiales', name:'Mago / Mentalista', description:'Ilusionista profesional con show de close-up entre mesas o show de escenario. Mentalismo, ilusionismo clásico y efectos contemporáneos de alto impacto.', duration:'30-60 min', price:'$800 - $2,000', image:'', enabled:true },
+  { id:'e5', category:'especiales', name:'Caricaturista Express', description:'Artista que realiza caricaturas en vivo de los invitados en minutos. Souvenir personalizado que cada persona se lleva. Papel profesional y marcadores de arte.', duration:'2-4 hs', price:'$400 - $700', image:'', enabled:true }
+];
+
+/* ═══════════════════════════════════════════
+   STATE
+   ═══════════════════════════════════════════ */
+let talents = [...defaultTalents];
+let activeCategory = 'all';
+
+/* ═══════════════════════════════════════════
+   SUPABASE — try live, fallback to defaults
+   ═══════════════════════════════════════════ */
+(async () => {
+  try {
+    if (typeof supabase !== 'undefined' && supabase.createClient) {
+      const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      const { data, error } = await sb.from('talents').select('*').eq('enabled', true);
+      if (!error && data && data.length > 0) {
+        talents = data;
+      }
+    }
+  } catch (_) { /* use defaults */ }
+  renderGrid();
+})();
+
+/* ═══════════════════════════════════════════
+   RENDER
+   ═══════════════════════════════════════════ */
+const grid = document.getElementById('talentGrid');
+
+function renderGrid() {
+  const filtered = activeCategory === 'all'
+    ? talents.filter(t => t.enabled !== false)
+    : talents.filter(t => t.category === activeCategory && t.enabled !== false);
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="no-results">No se encontraron talentos en esta categoría.</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map((t, i) => {
+    const cat = CATEGORIES[t.category] || { label: t.category, color: '#FA257E' };
+    const icon = CATEGORY_ICONS[t.category] || '';
+    const delay = (i % 12) * 0.06;
+    const imgHTML = t.image
+      ? `<img class="card-img" src="${t.image}" alt="${t.name}" loading="lazy"/>`
+      : `<div class="card-placeholder" style="background:linear-gradient(135deg, ${cat.color}22 0%, #111116 100%)">${icon}</div>`;
+
+    return `
+      <article class="talent-card" style="animation-delay:${delay}s" data-id="${t.id}" onclick="openModal('${t.id}')">
+        <div class="card-visual">
+          ${imgHTML}
+          <div class="card-gradient"></div>
+          <span class="card-badge" style="background:${cat.color}cc">${cat.label}</span>
+          <div class="card-content">
+            <h3 class="card-name">${t.name}</h3>
+            <div class="card-meta">
+              <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${t.duration}</span>
+              <span>${t.price}</span>
+            </div>
+          </div>
+        </div>
+      </article>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════
+   FILTERS
+   ═══════════════════════════════════════════ */
+document.getElementById('filterScroll').addEventListener('click', e => {
+  const pill = e.target.closest('.pill');
+  if (!pill) return;
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  activeCategory = pill.dataset.cat;
+  renderGrid();
+});
+
+/* ═══════════════════════════════════════════
+   MODAL
+   ═══════════════════════════════════════════ */
+const modal = document.getElementById('modal');
+const modalCard = document.getElementById('modalCard');
+
+function openModal(id) {
+  const t = talents.find(x => x.id === id);
+  if (!t) return;
+  const cat = CATEGORIES[t.category] || { label: t.category, color: '#FA257E' };
+  const icon = CATEGORY_ICONS[t.category] || '';
+
+  document.getElementById('modalImageWrap').innerHTML = t.image
+    ? `<img class="modal-image" src="${t.image}" alt="${t.name}"/>`
+    : `<div class="modal-image-placeholder" style="background:linear-gradient(135deg, ${cat.color}22 0%, #111116 100%)">${icon}</div>`;
+
+  document.getElementById('modalBadge').textContent = cat.label;
+  document.getElementById('modalBadge').style.background = cat.color + 'cc';
+  document.getElementById('modalName').textContent = t.name;
+  document.getElementById('modalDuration').textContent = t.duration;
+  document.getElementById('modalPrice').textContent = t.price;
+  document.getElementById('modalDesc').textContent = t.description;
+  document.getElementById('modalPriceLarge').textContent = t.price;
+
+  const msg = encodeURIComponent(`Hola MAR Entertainment, me interesa el servicio: ${t.name}. Me gustaría recibir más información.`);
+  document.getElementById('modalCta').href = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ═══════════════════════════════════════════
+   STICKY FILTER SHADOW
+   ═══════════════════════════════════════════ */
+const filterBar = document.getElementById('filterBar');
+const observer = new IntersectionObserver(
+  ([entry]) => filterBar.classList.toggle('stuck', !entry.isIntersecting),
+  { rootMargin: '-73px 0px 0px 0px', threshold: 0 }
+);
+observer.observe(document.querySelector('.hero'));
+</script>
+</body>
+</html>

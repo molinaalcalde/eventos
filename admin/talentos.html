@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MAR Admin — Talentos</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="icon" type="image/jpeg" href="../favicon.jpeg"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../styles.css"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #050505; min-height: 100vh; font-family: 'Inter', sans-serif; color: #fff; display: flex; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 260px; min-height: 100vh; background: #111116;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    display: flex; flex-direction: column; position: fixed; left: 0; top: 0; z-index: 40;
+    transition: transform 0.3s ease;
+  }
+  .sidebar-header { padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .sidebar-nav { flex: 1; padding: 1rem 0.75rem; display: flex; flex-direction: column; }
+  .sidebar-link {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px;
+    color: #A1A1AA; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s;
+    margin-bottom: 2px;
+  }
+  .sidebar-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+  .sidebar-link.active { background: rgba(250,37,126,0.12); color: #FA257E; }
+  .sidebar-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .sidebar-footer { padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+
+  /* Main */
+  .main { margin-left: 260px; flex: 1; min-height: 100vh; }
+  .topbar {
+    position: sticky; top: 0; z-index: 30; padding: 1rem 1.5rem;
+    background: rgba(5,5,5,0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .content { padding: 1.5rem; max-width: 1280px; }
+
+  /* Stats */
+  .stat-card {
+    background: #111116; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 1.25rem; flex: 1; min-width: 140px;
+  }
+  .stat-value { font-size: 28px; font-weight: 700; font-family: 'Syne', sans-serif; }
+  .stat-label { font-size: 12px; color: #71717A; margin-top: 2px; }
+
+  /* Inputs */
+  .field-label {
+    display: block; font-size: 11px; color: #71717A; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;
+  }
+  .field-input {
+    width: 100%; padding: 10px 14px; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;
+    color: #fff; font-size: 13px; font-family: 'Inter', sans-serif; outline: none;
+    transition: border-color 0.2s;
+  }
+  .field-input:focus { border-color: #FA257E; }
+  .field-input::placeholder { color: #52525B; }
+  textarea.field-input { resize: vertical; min-height: 80px; }
+
+  /* Search */
+  .search-input {
+    padding: 8px 14px 8px 36px; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;
+    color: #fff; font-size: 13px; outline: none; width: 280px; transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: #FA257E; }
+  .search-input::placeholder { color: #71717A; }
+
+  /* Filter */
+  .filter-select {
+    padding: 8px 14px; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;
+    color: #fff; font-size: 13px; outline: none; cursor: pointer;
+  }
+  .filter-select:focus { border-color: #FA257E; }
+  .filter-select option { background: #111116; color: #fff; }
+
+  /* Toggle switch */
+  .toggle { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute; inset: 0; background: #27272A; border-radius: 22px;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .toggle-slider::before {
+    content: ''; position: absolute; left: 3px; top: 3px;
+    width: 16px; height: 16px; background: #fff; border-radius: 50%;
+    transition: transform 0.2s;
+  }
+  .toggle input:checked + .toggle-slider { background: #FA257E; }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
+
+  /* Action buttons */
+  .action-btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
+    border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.08); background: transparent;
+    color: #A1A1AA; transition: all 0.2s; text-decoration: none;
+  }
+  .action-btn:hover { border-color: rgba(255,255,255,0.2); color: #fff; }
+  .btn-primary {
+    background: #FA257E; border-color: #FA257E; color: #fff;
+  }
+  .btn-primary:hover { opacity: 0.85; border-color: #FA257E; color: #fff; }
+  .btn-danger { border-color: rgba(239,68,68,0.3); color: #EF4444; }
+  .btn-danger:hover { background: rgba(239,68,68,0.1); }
+
+  /* Talent cards grid */
+  .talent-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+  }
+  .talent-card {
+    background: #111116; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; overflow: hidden; transition: border-color 0.2s;
+  }
+  .talent-card:hover { border-color: rgba(255,255,255,0.15); }
+  .talent-card.disabled { opacity: 0.5; }
+  .talent-card-img {
+    width: 100%; height: 180px; object-fit: cover; display: block;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+  }
+  .talent-card-body { padding: 1rem; }
+  .talent-card-name {
+    font-weight: 600; font-size: 14px; color: #fff; margin-bottom: 6px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .talent-card-meta {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+    font-size: 12px; color: #71717A;
+  }
+  .talent-card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .talent-card-actions { display: flex; gap: 6px; }
+
+  /* Category badge */
+  .cat-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  }
+
+  /* Modal overlay */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+    z-index: 100; display: none; align-items: flex-start; justify-content: center;
+    overflow-y: auto; padding: 2rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-container {
+    background: #111116; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; max-width: 600px; width: 100%; position: relative;
+  }
+  .modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .modal-header h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; }
+  .modal-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; }
+  .modal-footer {
+    display: flex; justify-content: flex-end; gap: 8px;
+    padding: 1.25rem; border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Image upload area */
+  .img-upload {
+    width: 100%; height: 200px; border: 2px dashed rgba(255,255,255,0.12);
+    border-radius: 10px; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; cursor: pointer; transition: border-color 0.2s;
+    overflow: hidden; position: relative; background: rgba(255,255,255,0.02);
+  }
+  .img-upload:hover { border-color: #FA257E; }
+  .img-upload img {
+    width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0;
+  }
+  .img-upload-label {
+    font-size: 13px; color: #71717A; text-align: center; z-index: 1;
+  }
+
+  /* SQL banner */
+  .sql-banner {
+    background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;
+  }
+  .sql-banner pre {
+    background: rgba(0,0,0,0.3); border-radius: 8px; padding: 1rem;
+    font-size: 12px; color: #A1A1AA; overflow-x: auto; margin-top: 0.75rem;
+    line-height: 1.6; white-space: pre-wrap;
+  }
+
+  /* Empty state */
+  .empty-state { text-align: center; padding: 4rem 2rem; color: #71717A; }
+
+  /* Mobile hamburger */
+  .menu-btn { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 8px; }
+
+  @media (max-width: 1024px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .main { margin-left: 0; }
+    .menu-btn { display: flex; }
+    .talent-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .content { padding: 1rem; }
+    .topbar { padding: 0.75rem 1rem; }
+    .search-input { width: 100%; }
+    .talent-grid { grid-template-columns: 1fr; }
+    .stat-card { min-width: calc(50% - 8px); }
+    .stat-value { font-size: 22px; }
+  }
+  @media (max-width: 480px) {
+    .stat-card { min-width: calc(50% - 6px); }
+    .action-btn { padding: 6px 12px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <img src="../logo-mar.jpeg" alt="MAR" style="height: 28px; border-radius: 4px; margin-bottom: 8px;"/>
+    <div style="font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px;">MAR Entertainment</div>
+    <div style="font-size: 11px; color: #71717A;">Panel de Gestion</div>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="/admin/leads.html" class="sidebar-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Leads
+    </a>
+    <a href="/admin/catalogo.html" class="sidebar-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Catalogo
+    </a>
+    <a href="/admin/talentos.html" class="sidebar-link active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Talentos
+    </a>
+    <a href="/" class="sidebar-link" style="margin-top: auto;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Ver sitio
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div id="adminEmail" style="font-size: 11px; color: #71717A; margin-bottom: 8px; overflow: hidden; text-overflow: ellipsis;"></div>
+    <button onclick="logout()" class="action-btn" style="width: 100%; justify-content: center; font-size: 11px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Cerrar sesion
+    </button>
+  </div>
+</aside>
+
+<!-- Modal overlay -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h3 id="modalTitle">Agregar talento</h3>
+      <button onclick="closeModal()" style="background: none; border: none; color: #71717A; cursor: pointer; padding: 4px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <label class="field-label">Nombre</label>
+        <input type="text" class="field-input" id="formName" placeholder="Nombre del talento"/>
+      </div>
+      <div>
+        <label class="field-label">Categoria</label>
+        <select class="field-input" id="formCategory">
+          <option value="fuego">Shows de Fuego</option>
+          <option value="aereos">Acrobacias Aereas</option>
+          <option value="danza">Danza & Performance</option>
+          <option value="actores">Actores & Entretenimiento</option>
+          <option value="musica">DJ & Musica en Vivo</option>
+          <option value="animacion">Animacion</option>
+          <option value="hora_loca">Hora Loca & Carnaval</option>
+          <option value="especiales">Artistas Especiales</option>
+        </select>
+      </div>
+      <div>
+        <label class="field-label">Descripcion</label>
+        <textarea class="field-input" id="formDescription" placeholder="Describe el talento..."></textarea>
+      </div>
+      <div style="display: flex; gap: 1rem;">
+        <div style="flex: 1;">
+          <label class="field-label">Duracion</label>
+          <input type="text" class="field-input" id="formDuration" placeholder="Ej: 30-45 min"/>
+        </div>
+        <div style="flex: 1;">
+          <label class="field-label">Precio</label>
+          <input type="text" class="field-input" id="formPrice" placeholder="Ej: $800 - $1,500"/>
+        </div>
+      </div>
+      <div>
+        <label class="field-label">Imagen</label>
+        <div class="img-upload" id="imgUploadArea" onclick="document.getElementById('formImageFile').click()">
+          <img id="imgPreview" src="" alt="" style="display: none;"/>
+          <div class="img-upload-label" id="imgUploadLabel">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#71717A" stroke-width="1.5" style="margin-bottom: 6px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div>Clic para subir imagen</div>
+          </div>
+          <input type="file" id="formImageFile" accept="image/*" style="display: none;" onchange="handleFormImage(this)"/>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <label class="field-label" style="margin-bottom: 0;">Activo</label>
+        <label class="toggle">
+          <input type="checkbox" id="formEnabled" checked/>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="action-btn" onclick="closeModal()">Cancelar</button>
+      <button class="action-btn btn-primary" id="formSaveBtn" onclick="saveTalent()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Main content -->
+<div class="main">
+  <!-- Topbar -->
+  <div class="topbar">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <h2 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px;">Catalogo de Talentos</h2>
+    </div>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <a href="/#talentos" target="_blank" class="action-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Ver catalogo publico
+      </a>
+      <button class="action-btn btn-primary" onclick="openAddModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Agregar talento
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- SQL banner (hidden by default) -->
+    <div class="sql-banner" id="sqlBanner" style="display: none;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+        <div>
+          <div style="font-weight: 600; font-size: 14px; color: #EF4444; margin-bottom: 4px;">La tabla 'talents' no existe en Supabase</div>
+          <div style="font-size: 13px; color: #A1A1AA;">Ejecuta el SQL de configuracion para crear la tabla.</div>
+        </div>
+        <button onclick="document.getElementById('sqlBanner').style.display='none'" style="background: none; border: none; color: #71717A; cursor: pointer; padding: 4px; flex-shrink: 0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <pre>CREATE TABLE talents (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  category TEXT NOT NULL,
+  name TEXT NOT NULL,
+  description TEXT DEFAULT '',
+  duration TEXT DEFAULT '',
+  price TEXT DEFAULT '',
+  image_url TEXT DEFAULT '',
+  enabled BOOLEAN DEFAULT true,
+  sort_order INT DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+ALTER TABLE talents ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public can read enabled talents" ON talents FOR SELECT USING (enabled = true);
+CREATE POLICY "Admins full access talents" ON talents FOR ALL USING (has_role('admin'));
+
+CREATE INDEX idx_talents_category ON talents(category);
+CREATE INDEX idx_talents_enabled ON talents(enabled);
+CREATE INDEX idx_talents_sort ON talents(sort_order);</pre>
+    </div>
+
+    <!-- Stats -->
+    <div style="display: flex; gap: 12px; margin-bottom: 1.5rem; flex-wrap: wrap;" id="statsRow">
+      <div class="stat-card">
+        <div class="stat-value" id="statTotal">0</div>
+        <div class="stat-label">Total</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" style="color: #34D399;" id="statActive">0</div>
+        <div class="stat-label">Activos</div>
+      </div>
+      <div class="stat-card" id="statCategoriesCard">
+        <div class="stat-value" id="statCategories">0</div>
+        <div class="stat-label">Categorias</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 1.25rem;">
+      <div style="position: relative;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#71717A" stroke-width="2" style="position: absolute; left: 11px; top: 50%; transform: translateY(-50%);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="search-input" placeholder="Buscar por nombre..." id="searchInput" oninput="applyFilters()"/>
+      </div>
+      <select class="filter-select" id="categoryFilter" onchange="applyFilters()">
+        <option value="all">Todas las categorias</option>
+        <option value="fuego">Shows de Fuego</option>
+        <option value="aereos">Acrobacias Aereas</option>
+        <option value="danza">Danza & Performance</option>
+        <option value="actores">Actores & Entretenimiento</option>
+        <option value="musica">DJ & Musica en Vivo</option>
+        <option value="animacion">Animacion</option>
+        <option value="hora_loca">Hora Loca & Carnaval</option>
+        <option value="especiales">Artistas Especiales</option>
+      </select>
+    </div>
+
+    <!-- Talent grid -->
+    <div class="talent-grid" id="talentGrid"></div>
+
+    <!-- Empty state -->
+    <div id="emptyState" class="empty-state" style="display: none;">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#71717A" stroke-width="1.5" style="margin: 0 auto 12px; display: block;">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+      <p style="font-size: 14px; color: #A1A1AA;">No hay talentos registrados</p>
+      <p style="font-size: 12px; margin-top: 4px;">Agrega tu primer talento con el boton de arriba.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+// ===== CONFIG =====
+const SUPABASE_URL = 'https://ohacxlnmsjpwridmuwhw.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_1xZLQoSfX_-cY6bVPdxrPg_aVtWkbv7';
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const CATEGORIES = {
+  fuego: { label: 'Shows de Fuego', color: '#FF6B35' },
+  aereos: { label: 'Acrobacias Aereas', color: '#7B61FF' },
+  danza: { label: 'Danza & Performance', color: '#FA257E' },
+  actores: { label: 'Actores & Entretenimiento', color: '#34D399' },
+  musica: { label: 'DJ & Musica en Vivo', color: '#3B82F6' },
+  animacion: { label: 'Animacion', color: '#FBBF24' },
+  hora_loca: { label: 'Hora Loca & Carnaval', color: '#EC4899' },
+  especiales: { label: 'Artistas Especiales', color: '#06B6D4' }
+};
+
+let allTalents = [];
+let filteredTalents = [];
+let editingId = null;
+let formImageBase64 = '';
+let tableExists = true;
+
+// ===== AUTH CHECK =====
+async function checkAuth() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = '/admin/'; return null; }
+  const { data: role } = await sb.from('user_roles').select('role').eq('user_id', session.user.id).single();
+  if (!role || role.role !== 'admin') { window.location.href = '/admin/'; return null; }
+  document.getElementById('adminEmail').textContent = session.user.email;
+  return session;
+}
+
+async function logout() {
+  await sb.auth.signOut();
+  window.location.href = '/admin/';
+}
+
+// ===== LOAD TALENTS =====
+async function loadTalents() {
+  const { data, error } = await sb.from('talents').select('*').order('sort_order').order('created_at', { ascending: false });
+  if (error) {
+    console.error('Error loading talents:', error);
+    if (error.code === '42P01' || error.message.includes('does not exist') || error.message.includes('relation')) {
+      tableExists = false;
+      document.getElementById('sqlBanner').style.display = 'block';
+    }
+    allTalents = [];
+    applyFilters();
+    return;
+  }
+  tableExists = true;
+  allTalents = data || [];
+  applyFilters();
+}
+
+// ===== FILTERS =====
+function applyFilters() {
+  const search = document.getElementById('searchInput').value.toLowerCase().trim();
+  const catFilter = document.getElementById('categoryFilter').value;
+
+  filteredTalents = allTalents.filter(t => {
+    if (catFilter !== 'all' && t.category !== catFilter) return false;
+    if (search && !(t.name || '').toLowerCase().includes(search)) return false;
+    return true;
+  });
+  renderStats();
+  renderGrid();
+}
+
+// ===== RENDER =====
+function renderStats() {
+  document.getElementById('statTotal').textContent = allTalents.length;
+  document.getElementById('statActive').textContent = allTalents.filter(t => t.enabled).length;
+  const cats = new Set(allTalents.map(t => t.category));
+  document.getElementById('statCategories').textContent = cats.size;
+}
+
+function esc(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function catBadge(category) {
+  const cat = CATEGORIES[category];
+  if (!cat) return `<span class="cat-badge" style="background:rgba(255,255,255,0.08);color:#A1A1AA;">${esc(category)}</span>`;
+  return `<span class="cat-badge" style="background:${cat.color}18;color:${cat.color};">${esc(cat.label)}</span>`;
+}
+
+function renderGrid() {
+  const grid = document.getElementById('talentGrid');
+  const empty = document.getElementById('emptyState');
+
+  if (filteredTalents.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  grid.innerHTML = filteredTalents.map(t => `
+    <div class="talent-card ${t.enabled ? '' : 'disabled'}">
+      ${t.image_url
+        ? `<img class="talent-card-img" src="${esc(t.image_url)}" alt="${esc(t.name)}" onerror="this.style.display='none'"/>`
+        : `<div class="talent-card-img" style="display:flex;align-items:center;justify-content:center;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#27272A" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>`
+      }
+      <div class="talent-card-body">
+        <div class="talent-card-name">${esc(t.name)}</div>
+        <div class="talent-card-meta">
+          ${catBadge(t.category)}
+          ${t.duration ? `<span>${esc(t.duration)}</span>` : ''}
+        </div>
+        ${t.price ? `<div style="font-size:13px;font-weight:600;color:#FA257E;margin-bottom:8px;">${esc(t.price)}</div>` : ''}
+        <div class="talent-card-footer">
+          <label class="toggle" onclick="event.stopPropagation()">
+            <input type="checkbox" ${t.enabled ? 'checked' : ''} onchange="toggleEnabled('${t.id}', this.checked)"/>
+            <span class="toggle-slider"></span>
+          </label>
+          <div class="talent-card-actions">
+            <button class="action-btn" onclick="openEditModal('${t.id}')" style="padding:6px 10px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+            <button class="action-btn btn-danger" onclick="deleteTalent('${t.id}')" style="padding:6px 10px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== MODAL =====
+function resetForm() {
+  document.getElementById('formName').value = '';
+  document.getElementById('formCategory').value = 'fuego';
+  document.getElementById('formDescription').value = '';
+  document.getElementById('formDuration').value = '';
+  document.getElementById('formPrice').value = '';
+  document.getElementById('formEnabled').checked = true;
+  formImageBase64 = '';
+  document.getElementById('imgPreview').style.display = 'none';
+  document.getElementById('imgPreview').src = '';
+  document.getElementById('imgUploadLabel').style.display = '';
+  document.getElementById('formImageFile').value = '';
+}
+
+function openAddModal() {
+  if (!tableExists) {
+    alert('La tabla "talents" no existe. Ejecuta el SQL de configuracion primero.');
+    return;
+  }
+  editingId = null;
+  resetForm();
+  document.getElementById('modalTitle').textContent = 'Agregar talento';
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function openEditModal(id) {
+  const t = allTalents.find(x => x.id === id);
+  if (!t) return;
+  editingId = id;
+  document.getElementById('formName').value = t.name || '';
+  document.getElementById('formCategory').value = t.category || 'fuego';
+  document.getElementById('formDescription').value = t.description || '';
+  document.getElementById('formDuration').value = t.duration || '';
+  document.getElementById('formPrice').value = t.price || '';
+  document.getElementById('formEnabled').checked = t.enabled !== false;
+  formImageBase64 = t.image_url || '';
+  if (formImageBase64) {
+    document.getElementById('imgPreview').src = formImageBase64;
+    document.getElementById('imgPreview').style.display = 'block';
+    document.getElementById('imgUploadLabel').style.display = 'none';
+  } else {
+    document.getElementById('imgPreview').style.display = 'none';
+    document.getElementById('imgUploadLabel').style.display = '';
+  }
+  document.getElementById('modalTitle').textContent = 'Editar talento';
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  editingId = null;
+}
+
+function handleFormImage(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    formImageBase64 = e.target.result;
+    document.getElementById('imgPreview').src = formImageBase64;
+    document.getElementById('imgPreview').style.display = 'block';
+    document.getElementById('imgUploadLabel').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+// ===== SAVE =====
+async function saveTalent() {
+  const name = document.getElementById('formName').value.trim();
+  if (!name) { alert('El nombre es obligatorio.'); return; }
+
+  const btn = document.getElementById('formSaveBtn');
+  const original = btn.innerHTML;
+  btn.innerHTML = 'Guardando...';
+  btn.disabled = true;
+
+  const payload = {
+    name,
+    category: document.getElementById('formCategory').value,
+    description: document.getElementById('formDescription').value.trim(),
+    duration: document.getElementById('formDuration').value.trim(),
+    price: document.getElementById('formPrice').value.trim(),
+    image_url: formImageBase64,
+    enabled: document.getElementById('formEnabled').checked,
+    updated_at: new Date().toISOString()
+  };
+
+  let error;
+  if (editingId) {
+    ({ error } = await sb.from('talents').update(payload).eq('id', editingId));
+  } else {
+    ({ error } = await sb.from('talents').insert(payload));
+  }
+
+  btn.innerHTML = original;
+  btn.disabled = false;
+
+  if (error) {
+    console.error('Error saving talent:', error);
+    alert('Error al guardar: ' + error.message);
+    return;
+  }
+
+  closeModal();
+  await loadTalents();
+}
+
+// ===== TOGGLE ENABLED =====
+async function toggleEnabled(id, enabled) {
+  const { error } = await sb.from('talents').update({ enabled, updated_at: new Date().toISOString() }).eq('id', id);
+  if (error) {
+    console.error('Error toggling talent:', error);
+    alert('Error al actualizar: ' + error.message);
+    await loadTalents();
+    return;
+  }
+  const t = allTalents.find(x => x.id === id);
+  if (t) t.enabled = enabled;
+  renderGrid();
+  renderStats();
+}
+
+// ===== DELETE =====
+async function deleteTalent(id) {
+  if (!confirm('Estas seguro de eliminar este talento? Esta accion no se puede deshacer.')) return;
+  const { error } = await sb.from('talents').delete().eq('id', id);
+  if (error) {
+    console.error('Error deleting talent:', error);
+    alert('Error al eliminar: ' + error.message);
+    return;
+  }
+  allTalents = allTalents.filter(x => x.id !== id);
+  applyFilters();
+}
+
+// ===== KEYBOARD =====
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ===== INIT =====
+(async () => {
+  const session = await checkAuth();
+  if (!session) return;
+  await loadTalents();
+})();
+</script>
+
+</body>
+</html>
