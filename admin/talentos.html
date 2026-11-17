@@ -336,6 +336,10 @@
       <h2 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px;">Catalogo de Talentos</h2>
     </div>
     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <button class="action-btn" id="seedBtnTopbar" onclick="seedDefaultTalents()" style="display: none; border-color: rgba(250,37,126,0.3); color: #FA257E;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        Cargar talentos de ejemplo
+      </button>
       <a href="/#talentos" target="_blank" class="action-btn">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         Ver catalogo publico
@@ -428,6 +432,10 @@ CREATE INDEX idx_talents_sort ON talents(sort_order);</pre>
       </svg>
       <p style="font-size: 14px; color: #A1A1AA;">No hay talentos registrados</p>
       <p style="font-size: 12px; margin-top: 4px;">Agrega tu primer talento con el boton de arriba.</p>
+      <button class="action-btn btn-primary" id="seedBtnEmpty" onclick="seedDefaultTalents()" style="display: none; margin: 1.25rem auto 0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        Cargar 37 talentos de ejemplo
+      </button>
     </div>
   </div>
 </div>
@@ -502,6 +510,7 @@ function applyFilters() {
   });
   renderStats();
   renderGrid();
+  updateSeedButtons();
 }
 
 // ===== RENDER =====
@@ -707,6 +716,108 @@ async function deleteTalent(id) {
   }
   allTalents = allTalents.filter(x => x.id !== id);
   applyFilters();
+}
+
+// ===== DEFAULT TALENTS SEED =====
+const defaultTalents = [
+  // Shows de Fuego
+  { category:'fuego', name:'Fuegueros Profesionales', description:'Show de fuego con artistas especializados en manipulación de llamas, bastones de fuego, abanicos encendidos y efectos pirotécnicos corporales. Coreografías sincronizadas que transforman la noche en un espectáculo visual inolvidable. Incluye seguro de responsabilidad y medidas de seguridad.', duration:'20-35 min', price:'$800 - $1,500', image:'', enabled:true },
+  { category:'fuego', name:'Fire Poi & Abanicos de Fuego', description:'Performance hipnótica de poi y abanicos en llamas con coreografía fluida. Artistas con años de experiencia en eventos premium. Ideal como complemento de cenas al aire libre o ceremonias.', duration:'15-25 min', price:'$600 - $1,200', image:'', enabled:true },
+  { category:'fuego', name:'Traga Fuegos Premium', description:'Acto clásico de manipulación y deglución de fuego con giros contemporáneos. Show de alto impacto visual ideal para momentos de apertura o cierre de evento.', duration:'10-20 min', price:'$500 - $900', image:'', enabled:true },
+
+  // Acrobacias Aéreas
+  { category:'aereos', name:'Tela Aérea — Solo', description:'Artista aéreo ejecutando acrobacias y figuras en tela suspendida a gran altura. Combinación de fuerza, flexibilidad y gracia que cautiva al público. Incluye estructura, rigging profesional y seguro.', duration:'15-25 min', price:'$700 - $1,200', image:'', enabled:true },
+  { category:'aereos', name:'Aro Aéreo — Solo', description:'Performance elegante en aro (lyra) aéreo con figuras estáticas y dinámicas. Estética visual sofisticada ideal para galas y eventos corporativos premium.', duration:'15-25 min', price:'$700 - $1,200', image:'', enabled:true },
+  { category:'aereos', name:'Dúo Acrobático Aéreo', description:'Pareja de artistas ejecutando rutinas sincronizadas en tela, aro o trapecio. Mayor impacto escénico y posibilidades coreográficas. Incluye estructura y rigging profesional.', duration:'20-30 min', price:'$1,200 - $2,000', image:'', enabled:true },
+  { category:'aereos', name:'Show Aéreo Grupal', description:'Espectáculo con 3 a 5 artistas aéreos en diferentes aparatos (tela, aro, cintas). Producción escénica completa con iluminación, música original y vestuario temático.', duration:'25-40 min', price:'$2,500 - $4,500', image:'', enabled:true },
+
+  // Danza & Performance
+  { category:'danza', name:'Tango Show — Pareja', description:'Pareja de tango profesional con coreografía original que combina tango clásico y contemporáneo. Vestuario de alta costura y musicalización seleccionada.', duration:'15-25 min', price:'$800 - $1,500', image:'', enabled:true },
+  { category:'danza', name:'Belly Dance Internacional', description:'Artista de belly dance con fusión contemporánea, elementos LED opcionales y vestuario premium. Performance sensual y elegante para todo tipo de eventos.', duration:'15-25 min', price:'$600 - $1,200', image:'', enabled:true },
+  { category:'danza', name:'Danza Contemporánea', description:'Piezas de danza contemporánea con coreografía original creada específicamente para tu evento. Artistas formados en compañías internacionales.', duration:'15-30 min', price:'$700 - $1,300', image:'', enabled:true },
+  { category:'danza', name:'MALEVO — Malambo Argentino', description:'Show insignia de MAR Entertainment. Hasta 8 artistas ejecutando malambo, percusión en vivo, boleadoras luminosas y fuego. Espectáculo de alto impacto que transforma cualquier escenario.', duration:'25-40 min', price:'$2,500 - $5,000', image:'', enabled:true },
+
+  // Actores & Entretenimiento
+  { category:'actores', name:'Anfitriones Temáticos', description:'Actores profesionales caracterizados según la temática de tu evento. Reciben invitados, interactúan en personaje y crean una experiencia inmersiva desde la llegada.', duration:'2-4 hs', price:'$400 - $800', image:'', enabled:true },
+  { category:'actores', name:'Actores Interactivos', description:'Performers que se integran entre los invitados con sketch improvisado, comedia situacional o personajes sorpresa. Crean momentos memorables e inesperados.', duration:'1-3 hs', price:'$500 - $900', image:'', enabled:true },
+  { category:'actores', name:'Show de Comedia Stand Up', description:'Comediante profesional con set adaptado al perfil del evento y la audiencia. Material original, dinámico y elegante. Ideal para corporativos y celebraciones.', duration:'30-45 min', price:'$800 - $1,500', image:'', enabled:true },
+  { category:'actores', name:'Personajes Recreativos', description:'Actores en roles recreativos para eventos temáticos: piratas, personajes de época, superhéroes, fantasía y más. Interacción con invitados de todas las edades.', duration:'2-4 hs', price:'$350 - $700', image:'', enabled:true },
+
+  // DJ & Música en Vivo
+  { category:'musica', name:'DJ Profesional', description:'DJ con equipo completo: cabina profesional, controladora, sistema de sonido e iluminación básica. Repertorio adaptable desde house y electrónica hasta reggaeton y hits latinos.', duration:'3-6 hs', price:'$800 - $2,000', image:'', enabled:true },
+  { category:'musica', name:'Saxofonista en Vivo', description:'Saxofonista profesional para ambientación durante cocktails, cenas o sesiones de DJ. Repertorio versátil que se adapta a la atmósfera del momento.', duration:'2-4 hs', price:'$500 - $1,000', image:'', enabled:true },
+  { category:'musica', name:'Percusionista', description:'Percusionista profesional con set completo de instrumentos. Perfecto como complemento de DJ sets o como acto solista para momentos de alta energía.', duration:'2-4 hs', price:'$400 - $800', image:'', enabled:true },
+  { category:'musica', name:'Banda Tropical en Vivo', description:'Banda completa con repertorio de merengue, bachata, salsa y ritmos caribeños. De 4 a 8 músicos según la escala del evento. Incluye sonido profesional.', duration:'2-4 hs', price:'$2,000 - $4,000', image:'', enabled:true },
+  { category:'musica', name:'Violinista Clásico/Electrónico', description:'Violinista para ambientación elegante o performance energética con violín eléctrico LED. Versátil entre clásico y contemporáneo.', duration:'1-3 hs', price:'$500 - $1,000', image:'', enabled:true },
+
+  // Animación
+  { category:'animacion', name:'Pool Party Premium', description:'Producción completa de pool party: DJ, performers en el agua, bailarines, animación y actividades. Ambiente Ibiza/Tulum adaptado al Caribe.', duration:'3-5 hs', price:'$1,500 - $3,000', image:'', enabled:true },
+  { category:'animacion', name:'Sunset Sessions', description:'Ambientación artística para atardeceres: DJ, saxofonista, performers itinerantes y elementos visuales. Experiencia sensorial completa al aire libre.', duration:'2-4 hs', price:'$1,200 - $2,500', image:'', enabled:true },
+  { category:'animacion', name:'Animación Infantil Premium', description:'Animadores profesionales con juegos, shows de magia, personajes, globoflexia, pintacaritas y mini disco. Producción adaptada a la edad y temática.', duration:'2-4 hs', price:'$500 - $1,200', image:'', enabled:true },
+  { category:'animacion', name:'Despedida de Soltero/a', description:'Producción completa para despedidas: animadores, juegos, shows, performers y coordinación de actividades. Paquetes personalizados según el grupo.', duration:'3-5 hs', price:'$1,000 - $2,500', image:'', enabled:true },
+
+  // Hora Loca & Carnaval
+  { category:'hora_loca', name:'Hora Loca Completa', description:'Producción de Hora Loca con performers, zanqueros, bailarines, accesorios luminosos para todos los invitados, confeti, cotillón y DJ dedicado. El momento más esperado de la fiesta.', duration:'30-60 min', price:'$2,000 - $4,000', image:'', enabled:true },
+  { category:'hora_loca', name:'Performers LED / Robot LED', description:'Artistas con trajes LED programables y robot LED de alto impacto. Show tecnológico futurista que destaca en cualquier evento nocturno.', duration:'20-40 min', price:'$800 - $1,500', image:'', enabled:true },
+  { category:'hora_loca', name:'Zanqueros Luminosos', description:'Performers sobre zancos con vestuario luminoso o temático. Presencia imponente para recepciones, desfiles y momentos especiales.', duration:'1-3 hs', price:'$600 - $1,200', image:'', enabled:true },
+  { category:'hora_loca', name:'Comparsa de Carnaval', description:'Grupo de bailarines y percusionistas con vestuario de carnaval caribeño. Colores vibrantes, plumas, lentejuelas y ritmo contagioso. De 6 a 15 artistas.', duration:'30-60 min', price:'$2,500 - $5,000', image:'', enabled:true },
+  { category:'hora_loca', name:'Batucada Percusión en Vivo', description:'Grupo de percusionistas con tambores brasileños que crean una energía arrolladora. Ideal para recepciones, fiestas y momentos de alta intensidad.', duration:'20-40 min', price:'$1,500 - $3,000', image:'', enabled:true },
+
+  // Artistas Especiales
+  { category:'especiales', name:'Globoflexia Premium', description:'Artista de globoflexia profesional creando esculturas elaboradas: personajes, animales, sombreros, decoraciones y piezas artísticas. Interacción directa con invitados.', duration:'2-4 hs', price:'$400 - $800', image:'', enabled:true },
+  { category:'especiales', name:'Body Painting Artístico', description:'Artista de body painting profesional para performances en vivo o como entretenimiento interactivo. Pinturas hipoalergénicas y diseños personalizados.', duration:'2-4 hs', price:'$600 - $1,200', image:'', enabled:true },
+  { category:'especiales', name:'Malabaristas', description:'Artistas de malabares con objetos clásicos, luminosos o temáticos. Performance dinámica que combina habilidad técnica con showmanship.', duration:'20-40 min', price:'$500 - $900', image:'', enabled:true },
+  { category:'especiales', name:'Mago / Mentalista', description:'Ilusionista profesional con show de close-up entre mesas o show de escenario. Mentalismo, ilusionismo clásico y efectos contemporáneos de alto impacto.', duration:'30-60 min', price:'$800 - $2,000', image:'', enabled:true },
+  { category:'especiales', name:'Caricaturista Express', description:'Artista que realiza caricaturas en vivo de los invitados en minutos. Souvenir personalizado que cada persona se lleva. Papel profesional y marcadores de arte.', duration:'2-4 hs', price:'$400 - $700', image:'', enabled:true }
+];
+
+function updateSeedButtons() {
+  const show = tableExists && allTalents.length === 0;
+  const topBtn = document.getElementById('seedBtnTopbar');
+  const emptyBtn = document.getElementById('seedBtnEmpty');
+  if (topBtn) topBtn.style.display = show ? '' : 'none';
+  if (emptyBtn) emptyBtn.style.display = show ? '' : 'none';
+}
+
+async function seedDefaultTalents() {
+  if (!tableExists) {
+    alert('La tabla "talents" no existe. Ejecuta el SQL de configuracion primero.');
+    return;
+  }
+  if (!confirm('Esto insertara 37 talentos de ejemplo en la base de datos. Continuar?')) return;
+
+  const topBtn = document.getElementById('seedBtnTopbar');
+  const emptyBtn = document.getElementById('seedBtnEmpty');
+  const origTop = topBtn ? topBtn.innerHTML : '';
+  const origEmpty = emptyBtn ? emptyBtn.innerHTML : '';
+
+  if (topBtn) { topBtn.innerHTML = 'Cargando...'; topBtn.disabled = true; }
+  if (emptyBtn) { emptyBtn.innerHTML = 'Cargando...'; emptyBtn.disabled = true; }
+
+  const rows = defaultTalents.map((t, i) => ({
+    name: t.name,
+    category: t.category,
+    description: t.description,
+    duration: t.duration,
+    price: t.price,
+    image_url: t.image || '',
+    enabled: t.enabled,
+    sort_order: i
+  }));
+
+  const { error } = await sb.from('talents').insert(rows);
+
+  if (error) {
+    console.error('Error seeding talents:', error);
+    alert('Error al cargar talentos: ' + error.message);
+    if (topBtn) { topBtn.innerHTML = origTop; topBtn.disabled = false; }
+    if (emptyBtn) { emptyBtn.innerHTML = origEmpty; emptyBtn.disabled = false; }
+    return;
+  }
+
+  if (topBtn) topBtn.style.display = 'none';
+  if (emptyBtn) emptyBtn.style.display = 'none';
+  await loadTalents();
 }
 
 // ===== KEYBOARD =====

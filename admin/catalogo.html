@@ -219,6 +219,17 @@
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
+  /* Auto-save toast */
+  .save-toast {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200;
+    background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3);
+    color: #10B981; padding: 8px 16px; border-radius: 8px;
+    font-size: 12px; font-weight: 600; pointer-events: none;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.25s, transform 0.25s;
+  }
+  .save-toast.visible { opacity: 1; transform: translateY(0); }
+
   /* ===== PDF TEMPLATE STYLES ===== */
   .pdf-template { display: none; }
 
@@ -420,19 +431,19 @@
       <div class="client-grid">
         <div>
           <label class="field-label">Nombre del cliente</label>
-          <input type="text" class="field-input" id="clientName" placeholder="Nombre completo"/>
+          <input type="text" class="field-input" id="clientName" placeholder="Nombre completo" oninput="saveToLocal()"/>
         </div>
         <div>
           <label class="field-label">Empresa / Organizacion</label>
-          <input type="text" class="field-input" id="clientCompany" placeholder="Nombre de la empresa"/>
+          <input type="text" class="field-input" id="clientCompany" placeholder="Nombre de la empresa" oninput="saveToLocal()"/>
         </div>
         <div>
           <label class="field-label">Tipo de evento</label>
-          <input type="text" class="field-input" id="eventType" placeholder="Boda, corporativo, gala..."/>
+          <input type="text" class="field-input" id="eventType" placeholder="Boda, corporativo, gala..." oninput="saveToLocal()"/>
         </div>
         <div>
           <label class="field-label">Fecha del evento</label>
-          <input type="date" class="field-input" id="eventDate"/>
+          <input type="date" class="field-input" id="eventDate" onchange="saveToLocal()"/>
         </div>
       </div>
     </div>
@@ -442,10 +453,16 @@
     <div id="servicesList"></div>
 
     <!-- Add service button -->
-    <button class="action-btn btn-add" onclick="addService()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Agregar servicio
-    </button>
+    <div style="display: flex; gap: 8px; margin-bottom: 1.5rem;">
+      <button class="action-btn btn-add" onclick="addService()" style="margin-bottom: 0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Agregar servicio
+      </button>
+      <button class="action-btn btn-danger" onclick="resetProposal()" style="white-space: nowrap; flex-shrink: 0; border-radius: 12px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+        Resetear propuesta
+      </button>
+    </div>
 
     <!-- Totals -->
     <div class="totals-section">
@@ -461,7 +478,7 @@
             <button class="discount-type-btn active" id="discountPercent" onclick="setDiscountType('%')">%</button>
             <button class="discount-type-btn" id="discountFixed" onclick="setDiscountType('$')">$</button>
           </div>
-          <input type="number" class="discount-input" id="discountValue" placeholder="0" min="0" step="any" oninput="recalcTotals()"/>
+          <input type="number" class="discount-input" id="discountValue" placeholder="0" min="0" step="any" oninput="recalcTotals(); saveToLocal()"/>
         </div>
       </div>
       <div class="totals-row" style="color: #71717A; font-size: 13px;">
@@ -474,7 +491,7 @@
       </div>
       <div style="margin-top: 1rem;">
         <label class="field-label">Notas / Condiciones</label>
-        <textarea class="field-input" id="notesField" rows="3" placeholder="Condiciones de pago, observaciones, etc."></textarea>
+        <textarea class="field-input" id="notesField" rows="3" placeholder="Condiciones de pago, observaciones, etc." oninput="saveToLocal()"></textarea>
       </div>
     </div>
   </div>
@@ -482,6 +499,9 @@
 
 <!-- Hidden PDF template -->
 <div class="pdf-template" id="pdfTemplate"></div>
+
+<!-- Auto-save toast -->
+<div class="save-toast" id="saveToast">Guardado &#10003;</div>
 
 <!-- Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -577,6 +597,65 @@ function esc(str) {
   return div.innerHTML;
 }
 
+// ===== LOCAL STORAGE PERSISTENCE =====
+const LS_KEY = 'mar_catalogo_draft';
+let _saveToastTimer = null;
+
+function saveToLocal() {
+  try {
+    const data = {
+      services,
+      clientName: document.getElementById('clientName').value,
+      clientCompany: document.getElementById('clientCompany').value,
+      eventType: document.getElementById('eventType').value,
+      eventDate: document.getElementById('eventDate').value,
+      discountType,
+      discountValue: document.getElementById('discountValue').value,
+      notes: document.getElementById('notesField').value
+    };
+    localStorage.setItem(LS_KEY, JSON.stringify(data));
+    showSaveToast();
+  } catch (e) {
+    console.warn('Error saving to localStorage:', e);
+  }
+}
+
+function loadFromLocal() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    if (data.services && Array.isArray(data.services)) {
+      services = data.services;
+    }
+    if (data.clientName != null) document.getElementById('clientName').value = data.clientName;
+    if (data.clientCompany != null) document.getElementById('clientCompany').value = data.clientCompany;
+    if (data.eventType != null) document.getElementById('eventType').value = data.eventType;
+    if (data.eventDate != null) document.getElementById('eventDate').value = data.eventDate;
+    if (data.discountType) setDiscountType(data.discountType);
+    if (data.discountValue != null) document.getElementById('discountValue').value = data.discountValue;
+    if (data.notes != null) document.getElementById('notesField').value = data.notes;
+    return true;
+  } catch (e) {
+    console.warn('Error loading from localStorage:', e);
+    return false;
+  }
+}
+
+function showSaveToast() {
+  const toast = document.getElementById('saveToast');
+  if (!toast) return;
+  toast.classList.add('visible');
+  clearTimeout(_saveToastTimer);
+  _saveToastTimer = setTimeout(() => toast.classList.remove('visible'), 1200);
+}
+
+function resetProposal() {
+  if (!confirm('Esto eliminara todos los cambios y volvera a los servicios por defecto. Continuar?')) return;
+  localStorage.removeItem(LS_KEY);
+  location.reload();
+}
+
 // ===== RENDER SERVICES =====
 function renderServices() {
   const container = document.getElementById('servicesList');
@@ -642,7 +721,7 @@ function renderServices() {
 // ===== SERVICE ACTIONS =====
 function toggleService(id, checked) {
   const svc = services.find(s => s.id === id);
-  if (svc) { svc.enabled = checked; renderServices(); }
+  if (svc) { svc.enabled = checked; renderServices(); saveToLocal(); }
 }
 
 function updateService(id, field, value) {
@@ -658,6 +737,7 @@ function updateService(id, field, value) {
       }
     }
     recalcTotals();
+    saveToLocal();
   }
 }
 
@@ -667,12 +747,14 @@ function moveService(id, dir) {
   if (newIdx < 0 || newIdx >= services.length) return;
   [services[idx], services[newIdx]] = [services[newIdx], services[idx]];
   renderServices();
+  saveToLocal();
 }
 
 function removeService(id) {
   if (!confirm('Eliminar este servicio de la propuesta?')) return;
   services = services.filter(s => s.id !== id);
   renderServices();
+  saveToLocal();
 }
 
 function handleImageUpload(id, input) {
@@ -682,6 +764,7 @@ function handleImageUpload(id, input) {
   reader.onload = function(e) {
     updateService(id, 'image', e.target.result);
     renderServices();
+    saveToLocal();
   };
   reader.readAsDataURL(file);
 }
@@ -697,6 +780,7 @@ function addService() {
     enabled: true
   });
   renderServices();
+  saveToLocal();
   // Scroll to bottom
   const list = document.getElementById('servicesList');
   const lastCard = list.lastElementChild;
@@ -709,6 +793,7 @@ function setDiscountType(type) {
   document.getElementById('discountPercent').classList.toggle('active', type === '%');
   document.getElementById('discountFixed').classList.toggle('active', type === '$');
   recalcTotals();
+  saveToLocal();
 }
 
 function recalcTotals() {
@@ -1024,6 +1109,7 @@ document.addEventListener('keydown', (e) => {
 (async () => {
   const session = await checkAuth();
   if (!session) return;
+  loadFromLocal();
   renderServices();
 })();
 </script>

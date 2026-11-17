@@ -605,12 +605,83 @@ body::before {
    ══════════════════════════════════════════════════ */
 .footer {
   position: relative; z-index: 1;
+  background: #050505;
   border-top: 1px solid rgba(255,255,255,0.06);
-  padding: 32px clamp(1rem, 4vw, 3rem);
-  text-align: center;
-  font-size: 0.8125rem;
-  color: rgba(255,255,255,0.3);
 }
+.footer-inner {
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.footer-top {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+@media (min-width: 768px) {
+  .footer-top {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.footer-logo { height: 32px; width: auto; }
+.footer-tagline {
+  font-size: 13px;
+  color: #71717A;
+  margin-top: 4px;
+}
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  font-size: 13px;
+}
+.footer-nav a {
+  color: #71717A;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-nav a:hover { color: #fff; }
+.footer-bottom {
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: #71717A;
+  font-size: 12px;
+}
+@media (min-width: 640px) {
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 13px;
+  }
+}
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+@media (min-width: 640px) {
+  .footer-contact {
+    flex-direction: row;
+    gap: 24px;
+  }
+}
+.footer-contact a {
+  color: #71717A;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-contact a:hover { color: #FA257E; }
 
 /* ══════════════════════════════════════════════════
    UTILITIES
@@ -904,7 +975,27 @@ body.cart-open .floating-wa { bottom: 100px; transition: bottom 0.4s cubic-bezie
 
 <!-- Footer -->
 <footer class="footer">
-  &copy; 2026 MAR Entertainment Group — Punta Cana, República Dominicana. Todos los derechos reservados.
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <img src="logo-mar.jpeg" alt="MAR Entertainment Group" class="footer-logo"/>
+        <p class="footer-tagline">Punta Cana, Dominican Republic · Entertainment · Dirección Artística · Producción</p>
+      </div>
+      <div class="footer-nav">
+        <a href="/">Inicio</a>
+        <a href="/#experiencias">Shows</a>
+        <a href="/#formatos">Formatos</a>
+        <a href="/#contacto">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2027 MAR Entertainment Group. Todos los derechos reservados.</p>
+      <div class="footer-contact">
+        <a href="tel:+18295484316">+1 829 548 4316</a>
+        <a href="mailto:info@marentertainmentgroup.com">info@marentertainmentgroup.com</a>
+      </div>
+    </div>
+  </div>
 </footer>
 
 <script>
