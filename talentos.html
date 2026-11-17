@@ -1104,7 +1104,7 @@ const selectedTalents = new Set();
       const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
       const { data, error } = await sb.from('talents').select('*').eq('enabled', true);
       if (!error && data && data.length > 0) {
-        talents = data;
+        talents = data.map(t => ({ ...t, image: t.image_url || t.image || '' }));
       }
     }
   } catch (_) { /* use defaults */ }
