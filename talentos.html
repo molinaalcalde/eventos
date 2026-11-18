@@ -156,6 +156,22 @@ body::before {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(0.7); }
 }
+.hero-tip {
+  position: relative; z-index: 1;
+  margin-top: 1.25rem;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+  max-width: 540px;
+  line-height: 1.5;
+  text-align: left;
+}
+.hero-tip svg { flex-shrink: 0; }
+.hero-tip strong { color: #FA257E; font-weight: 700; }
 
 /* ══════════════════════════════════════════════════
    CATEGORY FILTER
@@ -889,7 +905,7 @@ body.cart-open .floating-wa { bottom: 100px; transition: bottom 0.4s cubic-bezie
 <!-- Navbar -->
 <nav class="nav" id="navbar">
   <a href="index.html" class="nav-logo">
-    <img src="logo-mar.jpeg" alt="MAR Entertainment Group" width="38" height="38"/>
+    <img src="logo-mar.jpeg" alt="MAR Entertainment Group" style="height:38px;width:auto;object-fit:contain;"/>
     <span>MAR Entertainment</span>
   </a>
   <a href="index.html" class="nav-back">
@@ -908,6 +924,10 @@ body.cart-open .floating-wa { bottom: 100px; transition: bottom 0.4s cubic-bezie
   <div class="hero-counter">
     <span class="counter-dot"></span>
     <span id="heroCount">37+ talentos y shows disponibles</span>
+  </div>
+  <div class="hero-tip">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FA257E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+    <span>Puedes seleccionar varios shows con el botón <strong>+</strong> de cada card y enviarnos tu solicitud completa por WhatsApp</span>
   </div>
 </section>
 
